@@ -224,7 +224,7 @@ Inserts vertical line.
 
 Example:
 ```YAML
-- type     : toc
+- type     : line
 ```
 
 Back to [top](#top)
