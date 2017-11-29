@@ -44,6 +44,8 @@ Build-in block types:
   * table
   * image
 
+[Documentation](/doc/block_types.md)
+
 ## Block type Plugins
 You can define your own block types using the plugin mecanism.
 
