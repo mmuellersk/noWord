@@ -1,9 +1,9 @@
-## Build-in block types
+## <a name="top"></a> Build-in block types
 
-* [Chapter block](###chapter_block)
-* [Text block](###text_block)
+* [Chapter block](#chapter)
+* [Text block](#text)
 
-### Chapter block
+### <a name="chapter"></a> Chapter block
 
 | Key       |      Description      |
 |:----------|:--------------------- |
@@ -21,9 +21,9 @@ Example:
     Some text...
 ```
 
-Back to [top](##build-in_block_types)
+Back to [top](#top)
 
-## Text block
+## <a name="text"></a> Text block
 
 | Key       |      Description      |
 |:----------|:--------------------- |
@@ -37,4 +37,4 @@ Example:
     Some text...
 ```
 
-Back to [top](##build-in_block_types)
+Back to [top](#top)
