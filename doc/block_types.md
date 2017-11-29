@@ -1,3 +1,4 @@
-## Build-in Block types
+## Build-in block type list
 
-* [chaper](/bt/chapter.md)
+* [chapter](/bt/chapter.md)
+* [text](/bt/text.md)
