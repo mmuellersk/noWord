@@ -9,6 +9,12 @@ framework for software developers or other IT professionals offering the followi
   * foundation for complexe document generation task (not included in this project)
   * easy indexing of documents in noSql databases
 
+The first two points make it very easy to integrate the noWord processor in any
+software development environment (IDE, source code, build chain) which
+makes it very convinent for software developers.
+
+The following illustration outlines the main components of the noWord system.
+
 <img src="/images/overview.png" width="600" />
 
 ## Content files
@@ -30,7 +36,7 @@ at least one entry: type. All other entries are block type specific.
     - Item 1
     - Item 2
 ```
-Build in block types:
+Build-in block types:
   * chapter
   * text
   * newpage
@@ -61,13 +67,13 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 
 ## Authors
 
-* **Matthias Müller** - *Project Manager* - [mmuellersk](https://github.com/mmuellersk)
+* **Matthias Müller** - [mmuellersk](https://github.com/mmuellersk)
 
 ## Contributers
 
-* **Benoist Wolleb** - *Developer*
-* **Sebastien Pasche** - *Architect / reviewer*
-* **Cyril Sester** - *Architect / reviewer*
+* **Benoist Wolleb**
+* **Sebastien Pasche**
+* **Cyril Sester**
 
 ## License
 
