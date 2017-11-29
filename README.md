@@ -1,5 +1,14 @@
 # noWord
-non-WYSIWYG document generator
+non-WYSIWYG document generator.
+
+The idea behind the project is to provide a very efficient text processing
+framework for software developers or other IT professionals offering the following features:
+  * command line user interface (no GUI) for extrem productivity
+  * source files are exclusivly plain text files (git-able, pull-request, etc)
+  * strict seperation between content and layout
+  * foundation for complexe document generation task (not included in this project)
+  * easy indexing of documents in noSql databases
+
 
 ## Getting Started
 
