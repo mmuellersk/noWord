@@ -43,6 +43,7 @@ Build-in block types:
   * list
   * table
   * image
+  * ...
 
 [Documentation](/doc/block_types.md)
 

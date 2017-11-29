@@ -3,18 +3,24 @@
 * [Chapter block](#chapter)
 * [Text block](#text)
 * [Newpage block](#newpage)
+* [vSpace block](#vspace)
 * [List block](#list)
 * [Table block](#table)
 * [Image block](#image)
+* [PDF block](#pdf)
+* [Tabel of Content block](#toc)
+* [Line block](#line)
 
 ### <a name="chapter"></a> Chapter block
+
+Inserts headings.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
 | type      |  chapter              |
-| title     |  Title of the chapter |
-| level     |  chapter hierarchy level (0,1,2,3,...) |
-| content   |  First paragraph      |
+| title     |  title of the chapter |
+| level     |  (optional) chapter hierarchy level (0,1,2,3,...) |
+| content   |  (optional) First paragraph      |
 
 Example:
 ```YAML
@@ -27,11 +33,14 @@ Example:
 
 Back to [top](#top)
 
-## <a name="text"></a> Text block
+### <a name="text"></a> Text block
+
+Insert standard paragraph.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
 | type      |  text                 |
+| font      |  (optional) font name defined in template                 |
 | content   |  Paragraph            |
 
 Example:
@@ -43,11 +52,14 @@ Example:
 
 Back to [top](#top)
 
-## <a name="newpage"></a> Newpage block
+### <a name="newpage"></a> Newpage block
+
+Add newpage to document flow.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
 | type      |  newpage              |
+| orientation      |  (optional) orientation of new page              |
 
 Example:
 ```YAML
@@ -56,11 +68,31 @@ Example:
 
 Back to [top](#top)
 
-## <a name="list"></a> List block
+### <a name="vspace"></a> vSpace block
+
+Inserts a vertical space in the document flow.
+
+| Key       |      Description      |
+|:----------|:--------------------- |
+| type      |  vspace                 |  
+| height  |  (optional) height of the space in cm        |
+
+Example:
+```YAML
+- type     : vspace
+  height   : 5.6
+```
+
+Back to [top](#top)
+
+### <a name="list"></a> List block
+
+Inserts ordered or unordered list.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
 | type      |  list                 |  
+| numbered  | (optional) (true) / false          |
 | content   |  list of items, can be other dictionaries        |
 
 Example:
@@ -75,7 +107,9 @@ Example:
 
 Back to [top](#top)
 
-## <a name="table"></a> Table block
+### <a name="table"></a> Table block
+
+Inserts a table.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
@@ -103,12 +137,15 @@ Example:
 
 Back to [top](#top)
 
-## <a name="image"></a> Image block
+### <a name="image"></a> Image block
+
+Inserts an image.
 
 | Key       |      Description      |
 |:----------|:--------------------- |
 | type      |  image                 |  
 | filename  |  relative filepath to image file        |
+| caption      |  caption under the image                 |  
 | width  |  width of image in cm        |
 
 Example:
@@ -116,6 +153,78 @@ Example:
 - type     : image
   width    : 5.6
   filename : /img/test.png
+```
+
+Back to [top](#top)
+
+### <a name="pdf"></a> PDF block
+
+Inserts content of pdf document.
+
+| Key       |      Description      |
+|:----------|:--------------------- |
+| type      |  pdf                 |  
+| filename  |  relative filepath to pdf file        |
+| width  |  width of image in cm        |
+
+Example:
+```YAML
+- type     : pdf
+  width    : 5.6
+  filename : /docs/test.pdf
+```
+
+Back to [top](#top)
+
+### <a name="vspace"></a> vSpace block
+
+Inserts a vertical space in the document flow.
+
+| Key       |      Description      |
+|:----------|:--------------------- |
+| type      |  vspace                 |  
+| height  |  (optional) height of the space in cm        |
+
+Example:
+```YAML
+- type     : vspace
+  height   : 5.6
+```
+
+Back to [top](#top)
+
+### <a name="toc"></a> Table of content block
+
+Inserts table of content calculated from chapter blocks.
+
+| Key       |      Description      |
+|:----------|:--------------------- |
+| type      |  toc                 |  
+
+Example:
+```YAML
+- type     : toc
+```
+
+Back to [top](#top)
+
+### <a name="line"></a> Line block
+
+Inserts vertical line.
+
+| Key       |      Description      |
+|:----------|:--------------------- |
+| type      |  line                 |  
+| dashes      |  (optional) (true) / false     |  
+| dashes      |  (optional) (true) / false OR list of two integers for custom dash (space, section)   |  
+| width      |  (optional) width in cm     |  
+| color      |  (optional) color of the line     |  
+| thickness      |  (optional) thickness of the line in cm   |  
+| rounded      |  (optional) (true) / false     |  
+
+Example:
+```YAML
+- type     : toc
 ```
 
 Back to [top](#top)
