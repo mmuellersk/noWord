@@ -12,4 +12,4 @@ Example:
     Some text...
 ```
 
-Back to [Block type list](/../block_types.md)
+Back to [Block type list](/doc/block_types.md)

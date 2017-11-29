@@ -1,4 +1,6 @@
 ## Build-in block type list
 
-* [chapter](/bt/chapter.md)
-* [text](/bt/text.md)
+* [chapter](/doc/bt/chapter.md)
+* [text](/doc/bt/text.md)
+
+Back to [Summary](README.md)
