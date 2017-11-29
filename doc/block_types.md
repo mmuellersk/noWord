@@ -1,7 +1,7 @@
 ## Build-in block types
 
-* [Chapter block](#chapter_block)
-* [Text block](#text_block)
+* [Chapter block](###chapter_block)
+* [Text block](###text_block)
 
 ### Chapter block
 
@@ -21,7 +21,7 @@ Example:
     Some text...
 ```
 
-Back to [top](build-in_block_types)
+Back to [top](##build-in_block_types)
 
 ## Text block
 
@@ -37,4 +37,4 @@ Example:
     Some text...
 ```
 
-Back to [top](build-in_block_types)
+Back to [top](##build-in_block_types)
