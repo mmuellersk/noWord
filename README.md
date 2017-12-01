@@ -17,10 +17,15 @@ The following illustration outlines the main components of the noWord system.
 
 <img src="./images/overview.png" width="600" />
 
-## doc_info.yaml
+## Input files
 
+### doc_info.yaml
+This files contains global settings of the document like:
+* doc id, version, author, etc
+* templates
+* processing instructions 
 
-## Content files
+### Content files
 As content file format we chose YAML over json for it's multiline support.
 The content file is organized in blocks. Each block is a dictionary which should have
 at least one entry: type. All other entries are block type specific.
@@ -50,10 +55,12 @@ Build-in block types:
 
 [Documentation](/doc/block_types.md)
 
-## Block type Plugins
+## Application modules
+
+### Block type Plugins
 You can define your own block types using the plugin mecanism.
 
-## Templates
+### Templates
 For maximum flexibility, you can write you own templates using python.
 
 ## Built With
