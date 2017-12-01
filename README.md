@@ -15,7 +15,10 @@ makes it very convinent for software developers.
 
 The following illustration outlines the main components of the noWord system.
 
-<img src="/images/overview.png" width="600" />
+<img src="./images/overview.png" width="600" />
+
+## doc_info.yaml
+
 
 ## Content files
 As content file format we chose YAML over json for it's multiline support.
