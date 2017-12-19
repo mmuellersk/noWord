@@ -1,12 +1,14 @@
-
-
+#!/usr/bin/env python
+import os
 import argparse
+import json
+import yaml
 
 
 
 
-def generatorParser(additionalArgs=[]):
-  parser = argparse.ArgumentParser("Generate a PDF document")
+def parserCommandLine(additionalArgs=[]):
+  parser = argparse.ArgumentParser("noWord pdf generator")
   parser.add_argument(dest="source", help="Source folder")
   parser.add_argument(dest="dest", help="Destination folder")
 
@@ -14,6 +16,26 @@ def generatorParser(additionalArgs=[]):
     parser.add_argument(**arg)
 
   return parser.parse_args()
+
+def loadJson(filename):
+  filename = os.path.normpath(filename)
+  try:
+    with open(filename) as data_file:
+      data = json.load(data_file)
+      return data
+  except Exception as e:
+    print("Could not read json file: " + str(e))
+    exit(1)
+
+def loadYAML(filename):
+  filename = os.path.normpath(filename)
+  try:
+    with open(filename) as data_file:
+      data = yaml.load(data_file)
+      return data
+  except Exception as e:
+    print("Could not read yaml file: " + str(e))
+    exit(1)
 
 def deserialize(path):
   try:
