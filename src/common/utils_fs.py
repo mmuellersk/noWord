@@ -17,6 +17,12 @@ def parserCommandLine(additionalArgs=[]):
 
   return parser.parse_args()
 
+def isContentDir(path) :
+    basename = os.path.basename(path)
+    return os.path.isdir(path) \
+        and not basename.startswith("__") \
+        and not basename.startswith(".")
+
 def loadJson(filename):
   filename = os.path.normpath(filename)
   try:

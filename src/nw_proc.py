@@ -8,7 +8,7 @@ from timeit import default_timer as timer
 
 import common.utils_fs as cmn_utils_fs
 
-from common.generator import NWGenerator
+from common.NWGenerator import NWGenerator
 
 
 def main():
