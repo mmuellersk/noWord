@@ -9,17 +9,25 @@ import sys
 sys.path.insert(0,'..')
 
 from common.PluginManager import PluginManager
+from common.DefaultStyles import styles
+from common.NWDocument import NWDocument
 
 import common.utils_fs as cmn_utils_fs
 import common.utils_di as cmn_utils_di
 
 
-
-class NWGenerator :
+class ProcessingContext :
     def __init__(self, aDocInfo, aSourcePath, aOutputPath) :
         self.docInfo = cmn_utils_di.splitDate(aDocInfo)
         self.sourcePath = aSourcePath
         self.outputPath = aOutputPath
+
+        self.content = []
+        self.styleSheet = styles
+
+class NWGenerator :
+    def __init__(self, aDocInfo, aSourcePath, aOutputPath) :
+        self.context = ProcessingContext(aDocInfo, aSourcePath, aOutputPath)
         self.pluginMng = PluginManager()
 
         self.pluginMng.addPluginFolder(
@@ -29,12 +37,17 @@ class NWGenerator :
         self.pluginMng.loadPlugins()
 
     def process(self) :
-        for block in self.processFolder(self.sourcePath) :
+        for block in self.processFolder(self.context.sourcePath) :
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None :
-                plugin.process(block)
+                plugin.process(block, self.context)
             else :
                 print('Plugin not found: %s' % block['type'])
+
+        outputfile = os.path.join(self.context.outputPath, 'test.pdf')
+        doc = NWDocument(outputfile)
+        doc.build(self.context.content)
+
 
     def processFolder(self,path) :
         for item in sorted(os.listdir(path)) :

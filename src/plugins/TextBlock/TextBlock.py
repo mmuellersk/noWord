@@ -3,6 +3,8 @@
 import sys
 sys.path.insert(0,'...')
 
+from reportlab.platypus import Paragraph
+
 from common.PluginInterface import PluginInterface
 
 
@@ -13,5 +15,6 @@ class TextBlock(PluginInterface) :
     def Name(self) :
         return 'text'
 
-    def process(self, block) :
-        print ('Render text: %s' % block['content'])
+    def process(self, block, context) :
+        context.content.append(Paragraph(block['content'],
+            context.styleSheet['BodyText']))

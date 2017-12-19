@@ -12,5 +12,5 @@ class PluginInterface :
     def Category(self) :
         return 'default'
 
-    def process(self, block) :
-        raise NotImplementedError( "Plugin should implement prcess method" )
+    def process(self, block, context) :
+        raise NotImplementedError( "Plugin should implement process method" )
