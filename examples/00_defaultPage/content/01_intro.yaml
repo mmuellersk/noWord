@@ -1,3 +1,6 @@
+- type  : chapter
+  title : Heading
+
 - type    : text
   content : >
     Some text here.
