@@ -19,6 +19,17 @@ styles["marginB"] = 78
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
 
+# Naming templates
+styles["templates"] = {}
+styles["templates"]["documentTitleTemplate"] = "{mainSubject}"
+styles["templates"]["documentMetaTitleTemplate"] = "{shortDocumentType} {mainSubject} Rev. {revision}"
+styles["templates"]["documentMetaAuthorTemplate"] = "noWord"
+styles["templates"]["documentMetaSubjectTemplate"] = "{documentType}"
+styles["templates"]["documentMetaKeywordsTemplate"] = "{shortDocumentType} {mainSubject}"
+styles["templates"]["documentIdentifierTemplate"] = "{shortDocumentType}_{mainSubject}_{revision}.pdf"
+styles["templates"]["outputFileTemplate"] = "{shortDocumentType}_{mainSubject}_{revision}.pdf"
+styles["templates"]["revisionTemplate"] = "{shortDocumentType}_r.{revision}"
+
 # paragraph styles
 styles['default'] = ParagraphStyle(name="BodyText",
             fontName='Times-Roman',

@@ -50,9 +50,10 @@ class NWDocument :
     def addDecoration(self,funcObj):
         self.decorationItems.append(funcObj)
 
-    def build(self,aFileName,content) :
+    def build(self,aFileName,context) :
+        self.context = context
         self.doc.filename = aFileName
-        self.doc.build(content)
+        self.doc.multiBuild(self.context.content)
 
     def setDefaultTemplate(self, name) :
         for idx, template in enumerate(self.doc.pageTemplates) :
@@ -60,24 +61,12 @@ class NWDocument :
                 self.doc._firstPageTemplateIndex = idx
                 return
 
-
-    # Called at the beginning of each page, only used to show progression
-    def pageBegins(self, canvas):
-        # Printing progression
-        # Go to beginning of the line and erase it (does not work on sublime)
-        #sys.stdout.write("\r\033[K")
-
-        #sys.stdout.write("%s build, " % ("Temporary" if self.pageCounter.firstRun else "Final"))
-        #sys.stdout.write("rendering page " + str(canvas.getPageNumber()) + " of " + (str(self.pageCounter.pageCount) if self.pageCounter.pageCount > 0 else "unknown") + "\n")
-        #sys.stdout.flush()
-        pass
-
     def drawDecoration(self, canvas, doc) :
         canvas.saveState()
-        self.pageBegins(canvas)
+        self.context.pageBegins(canvas)
 
         # Inject page count in documentData as it is needed to render the footer
-        #self.documentData["pageCount"] = self.pageCounter.pageCount
+        self.docInfo["pageCount"] = self.context.pageCounter.pageCount
 
         # Call all page drawers
         [drawer(canvas, doc, self.docInfo, self.style) for drawer in self.decorationItems]

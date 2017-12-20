@@ -2,7 +2,6 @@
 import os
 import sys
 import platform
-import re
 import reportlab.lib.enums
 import copy
 import sys
@@ -53,8 +52,13 @@ class NWGenerator :
 
         self.context.process()
 
-        outputfile = os.path.join(self.context.outputPath, 'test.pdf')
-        self.doc.build(outputfile,self.context.content)
+        if not os.path.isdir(self.context.outputPath):
+            os.makedirs(self.context.outputPath)
+
+        outputfile = os.path.join(
+            self.context.outputPath,
+            self.context.docInfo["outputFileTemplate"])
+        self.doc.build(outputfile,self.context)
 
 
     def processFolder(self,path) :
