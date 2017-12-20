@@ -26,8 +26,7 @@ class ProcessingContext :
         self.styleSheet = styles
 
 class NWGenerator :
-    def __init__(self, aDocInfo, aSourcePath, aOutputPath) :
-        self.context = ProcessingContext(aDocInfo, aSourcePath, aOutputPath)
+    def __init__(self, aSourcePath, aOutputPath) :
         self.pluginMng = PluginManager()
 
         self.pluginMng.addPluginFolder(
@@ -35,6 +34,13 @@ class NWGenerator :
             '../plugins/') )
 
         self.pluginMng.loadPlugins()
+
+        # Load general prefs
+        docInfos = cmn_utils_fs.deserialize(
+            os.path.join(aSourcePath,
+            "doc_info.yaml"))
+
+        self.context = ProcessingContext(docInfos, aSourcePath, aOutputPath)
 
     def process(self) :
         for block in self.processFolder(self.context.sourcePath) :

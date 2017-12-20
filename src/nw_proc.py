@@ -17,13 +17,7 @@ def main():
 
     args = cmn_utils_fs.parserCommandLine()
 
-    # Load general prefs
-    docInfos = cmn_utils_fs.deserialize(
-        os.path.join(args.source,
-        "doc_info.yaml"))
-
     generator = NWGenerator(
-                docInfos,
                 aSourcePath=args.source,
                 aOutputPath=args.dest)
 
