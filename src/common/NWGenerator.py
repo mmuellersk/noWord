@@ -60,6 +60,8 @@ class NWGenerator :
             self.context.docInfo["outputFileTemplate"])
         self.doc.build(outputfile,self.context)
 
+        return self.context.pageCounter.pageCount
+
 
     def processFolder(self,path) :
         for item in sorted(os.listdir(path)) :

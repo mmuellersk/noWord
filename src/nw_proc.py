@@ -21,8 +21,9 @@ def main():
                 aSourcePath=args.source,
                 aOutputPath=args.dest)
 
-    generator.process()
+    nbPages = generator.process()
 
-    print ('noWord processing finished: %.5f seconds' % (timer() - start))
+    print ('noWord processing finished (%d page(s) rendered): %.5f seconds' %
+        (nbPages, (timer() - start)))
 
 if __name__ == "__main__": main()
