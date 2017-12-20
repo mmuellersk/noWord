@@ -52,7 +52,7 @@ class TableBlock(PluginInterface) :
         if border > 0: style.append(('GRID',(0,0),(-1,-1),border, colors.black))
 
         for col in headers:
-          headersLine.append(Paragraph("<b>" + col + "</b>", styleSheet["SymbiosText"]))
+          headersLine.append(Paragraph("<b>" + col + "</b>", styleSheet["BodyText"]))
         if len(headers) > 0:
           tableData.append(headersLine)
           style.append(("BACKGROUND", (0,0), (-1, 0), colors.lightgrey))
