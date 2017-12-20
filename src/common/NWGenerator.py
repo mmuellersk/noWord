@@ -41,6 +41,14 @@ class NWGenerator :
             "doc_info.yaml"))
 
         self.context = ProcessingContext(docInfos, aSourcePath, aOutputPath)
+        self.doc = NWDocument(self.context.docInfo, self.context.styleSheet)
+
+    def setStyleSheet(self,obj) :
+        self.context.styleSheet = obj
+        self.doc.setStyleSheet(obj)
+
+    def addDecoration(self,funcObj) :
+        self.doc.addDecoration(funcObj)
 
     def process(self) :
         for block in self.processFolder(self.context.sourcePath) :
@@ -51,8 +59,7 @@ class NWGenerator :
                 print('Plugin not found: %s' % block['type'])
 
         outputfile = os.path.join(self.context.outputPath, 'test.pdf')
-        doc = NWDocument(outputfile)
-        doc.build(self.context.content)
+        self.doc.build(outputfile,self.context.content)
 
 
     def processFolder(self,path) :

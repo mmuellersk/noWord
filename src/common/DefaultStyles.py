@@ -10,8 +10,14 @@ from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 styles = {}
 
+# margins
+styles["marginL"] = 78
+styles["marginR"] = 78
+styles["marginT"] = 106
+styles["marginB"] = 78
+
 # colors
-styles["darkgray"] = colors.HexColor("#222222")
+styles['darkgray'] = colors.HexColor("#222222")
 
 # paragraph styles
 styles['default'] = ParagraphStyle(name="BodyText",
