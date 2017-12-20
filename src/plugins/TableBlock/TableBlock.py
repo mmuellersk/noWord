@@ -3,7 +3,7 @@
 import sys
 sys.path.insert(0,'...')
 
-from reportlab.platypus import Paragraph, Table, TableStyle
+from reportlab.platypus import Table, TableStyle
 from reportlab.lib import colors
 from reportlab.lib.units import cm, mm
 
@@ -24,7 +24,7 @@ class TableBlock(PluginInterface) :
         keys = block["keys"] if "keys" in block else block["header"]
 
         context.content.append(
-            self.buildTable(context.styleSheet,
+            self.buildTable(context,
                 headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else [],
                 lines=self.flattenDicts(block["rows"], keys),
                 widths=widths,
@@ -38,7 +38,7 @@ class TableBlock(PluginInterface) :
             keys = dictList[0].keys()
         return [[d[k] for k in keys] for d in dictList]
 
-    def buildTable(self, styleSheet, headers, lines, widths=[],
+    def buildTable(self, context, headers, lines, widths=[],
         heights=None, halign="CENTER", highlights=[],
         repeatRows=0, border=0.5) :
         # It is possible to render a table without headers
@@ -52,19 +52,22 @@ class TableBlock(PluginInterface) :
         if border > 0: style.append(('GRID',(0,0),(-1,-1),border, colors.black))
 
         for col in headers:
-          headersLine.append(Paragraph("<b>" + col + "</b>", styleSheet["BodyText"]))
+          headersLine.append(
+            context.paragraph("<b>" + col + "</b>", context.styleSheet["BodyText"]))
         if len(headers) > 0:
           tableData.append(headersLine)
           style.append(("BACKGROUND", (0,0), (-1, 0), colors.lightgrey))
 
         for lineNumber in highlights:
           lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
-          style.append(("BACKGROUND", (0,lineNumber), (-1, lineNumber), styleSheet["highlight"]))
+          style.append(("BACKGROUND", (0,lineNumber), (-1, lineNumber),
+            context.styleSheet["highlight"]))
 
         for line in lines:
           lineData = []
           for col in line:
-            if isinstance(col, str): lineData.append(Paragraph(col, styleSheet["BodyText"]))
+            if isinstance(col, str): lineData.append(
+                context.paragraph(col, context.styleSheet["BodyText"]))
             #elif isinstance(col, list): lineData.append([self.buildPart(part, self.curpath) for part in col])
 
           tableData.append(lineData)
