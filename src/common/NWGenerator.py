@@ -34,6 +34,7 @@ class NWGenerator :
 
         self.context = NWProcContext(docInfos, aSourcePath, aOutputPath)
         self.doc = NWDocument(self.context.docInfo, self.context.styleSheet)
+        self.context.doc = self.doc
 
     def setStyleSheet(self,obj) :
         self.context.styleSheet = obj

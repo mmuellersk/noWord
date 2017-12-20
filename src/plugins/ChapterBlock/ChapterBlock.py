@@ -3,7 +3,6 @@
 import sys
 sys.path.insert(0,'...')
 
-from reportlab.platypus import Paragraph
 
 from common.PluginInterface import PluginInterface
 
@@ -19,9 +18,10 @@ class ChapterBlock(PluginInterface) :
         level = 1
         if 'level' in block :
             level = block['level']
-        context.content.append(Paragraph(block['title'],
+        context.content.append(
+            context.paragraph('<b>%s</b>' % block['title'],
             context.styleSheet['Heading%d' % level]))
 
         if 'content' in block :
-            context.content.append(Paragraph(block['content'],
+            context.content.append(context.paragraph(block['content'],
                 context.styleSheet['BodyText']))

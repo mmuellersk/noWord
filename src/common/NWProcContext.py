@@ -27,6 +27,7 @@ class NWProcContext :
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
+        self.doc = {}
 
     def buildBegins(self) :
         if not self.pageCounter.firstRun:

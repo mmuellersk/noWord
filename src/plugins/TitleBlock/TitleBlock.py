@@ -19,5 +19,6 @@ class TitleBlock(PluginInterface) :
         level = 1
         if 'level' in block :
             level = block['level']
-        context.content.append(context.paragraph(block['title'],
+        context.content.append(
+            context.paragraph('<b>%s</b>' % block['title'],
             context.styleSheet['Title%d' % level]))

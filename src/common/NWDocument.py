@@ -50,6 +50,9 @@ class NWDocument :
     def addDecoration(self,funcObj):
         self.decorationItems.append(funcObj)
 
+    def currentHeight(self):
+        return self.pagesize[1] - self.style["marginT"] - self.style["marginB"]
+        
     def build(self,aFileName,context) :
         self.context = context
         self.doc.filename = aFileName
