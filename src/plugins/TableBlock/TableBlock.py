@@ -38,7 +38,9 @@ class TableBlock(PluginInterface) :
             keys = dictList[0].keys()
         return [[d[k] for k in keys] for d in dictList]
 
-    def buildTable(self, styleSheet, headers, lines, widths=[], heights=None, halign="CENTER", highlights=[], repeatRows=0, border=0.5):
+    def buildTable(self, styleSheet, headers, lines, widths=[],
+        heights=None, halign="CENTER", highlights=[],
+        repeatRows=0, border=0.5) :
         # It is possible to render a table without headers
         nbCols = max(len(headers), len(lines[0]))
         nbLines = len(lines) + 1 if len(headers) > 0 else 0
