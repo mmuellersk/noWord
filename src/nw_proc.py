@@ -1,31 +1,29 @@
+#!/usr/bin/env python
 import sys
 import os
 import datetime
 import re
 
+from timeit import default_timer as timer
 
-import common.utils as NWUtils
+import common.utils_fs as cmn_utils_fs
 
-
-from common.generator import NWGenerator
+from common.NWGenerator import NWGenerator
 
 
 def main():
-  args = NWUtils.generatorParser()
 
-  # Load general prefs
-  docInfos = NWUtils.deserialize(os.path.join(args.source, "doc_info.yaml"))
-  # Process date, save each field as string
-  if "date" in docInfos:
-    dt = datetime.datetime.strptime(docInfos["date"], "%d.%m.%Y")
-    docInfos.update({"year": dt.year, "month": "{0:02d}".format(dt.month), "day": "{0:02d}".format(dt.day)})
+    start = timer()
 
-  generator = NWGenerator()
+    args = cmn_utils_fs.parserCommandLine()
 
-  generator.build()
+    generator = NWGenerator(
+                aSourcePath=args.source,
+                aOutputPath=args.dest)
 
-  nbPages = generator.render()
-  print(str(nbPages) + " pages rendered")
+    nbPages = generator.process()
 
+    print ('noWord processing finished (%d page(s) rendered): %.5f seconds' %
+        (nbPages, (timer() - start)))
 
 if __name__ == "__main__": main()

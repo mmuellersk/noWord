@@ -1,0 +1,14 @@
+- type    : chapter
+  title   : Some First Heading
+  content : >
+    Some chapter text.
+
+- type    : chapter
+  level   : 2
+  title   : Some Heading
+  content : >
+    Some chapter text.
+
+- type    : text
+  content : >
+    Some text here.

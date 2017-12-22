@@ -20,7 +20,6 @@ Inserts headings.
 | type      |  chapter              |
 | title     |  title of the chapter |
 | level     |  (optional) chapter hierarchy level (0,1,2,3,...) |
-| content   |  (optional) First paragraph      |
 
 Example:
 ```YAML
