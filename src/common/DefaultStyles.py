@@ -78,7 +78,7 @@ styles['Heading2'] = ParagraphStyle(name="Heading2",
     spaceBefore=9,
     spaceAfter=9)
 
-styles['Heading3'] = ParagraphStyle(name="Heading2",
+styles['Heading3'] = ParagraphStyle(name="Heading3",
     parent=styles['default'],
     alignment=TA_LEFT,
     fontSize=16,

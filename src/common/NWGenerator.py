@@ -33,14 +33,22 @@ class NWGenerator :
             "doc_info.yaml"))
 
         self.context = NWProcContext(docInfos, aSourcePath, aOutputPath)
+
+        self.overrideValues('styles', self.context.styleSheet, self.context.docInfo)
+
         self.doc = NWDocument(self.context.docInfo, self.context.styleSheet)
         self.context.doc = self.doc
 
-    def setStyleSheet(self,obj) :
+    def overrideValues(self, strkey, dicTraget, dicSource) :
+        if strkey in dicSource :
+            dicTraget.update(dicSource[strkey])
+
+    def setStyleSheet(self, obj) :
         self.context.styleSheet = obj
+        self.overrideValues('styles', self.context.styleSheet, self.context.docInfo)
         self.doc.setStyleSheet(obj)
 
-    def addDecoration(self,funcObj) :
+    def addDecoration(self, funcObj) :
         self.doc.addDecoration(funcObj)
 
     def process(self) :
@@ -64,7 +72,7 @@ class NWGenerator :
         return self.context.pageCounter.pageCount
 
 
-    def processFolder(self,path) :
+    def processFolder(self, path) :
         for item in sorted(os.listdir(path)) :
             itemPath = os.path.join(path, item)
 

@@ -19,7 +19,8 @@ class TableBlock(PluginInterface) :
 
     def process(self, block, context) :
         widths = [w*cm for w in block["widths"]] if "widths" in block else []
-        #if isinstance(block["rows"], str): block["rows"] = self.getResource(block["rows"])
+        if isinstance(block["rows"], str) :
+            block["rows"] = context.getResource(block["rows"])
 
         keys = block["keys"] if "keys" in block else block["header"]
 

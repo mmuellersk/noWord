@@ -13,6 +13,7 @@ class NWDocument :
     def __init__(self, aDocInfo, aStyleSheet, pagesize=A4, orientation="portrait") :
         self.docInfo = aDocInfo
         self.style = aStyleSheet
+        self.orientation = orientation
         self.pagesize = landscape(pagesize) if orientation == "landscape" else portrait(pagesize)
 
         self.doc = BaseDocTemplate('',
@@ -21,7 +22,7 @@ class NWDocument :
             topMargin = self.style["marginT"], bottomMargin = self.style["marginB"])
 
         portraitTempl = PageTemplate(id="portrait",
-            frames=Frame(0, 0, pagesize[0], pagesize[1],
+            frames=Frame(0, 0, self.pagesize[0], self.pagesize[1],
             leftPadding=self.style["marginL"],
             bottomPadding=self.style["marginB"],
             rightPadding=self.style["marginR"],
@@ -31,7 +32,7 @@ class NWDocument :
         self.doc.addPageTemplates(portraitTempl)
 
         landscapeTempl = PageTemplate(id="landscape",
-            frames=Frame(0, 0, pagesize[1], pagesize[0],
+            frames=Frame(0, 0, self.pagesize[1], self.pagesize[0],
             leftPadding=self.style["marginL"],
             bottomPadding=self.style["marginB"],
             rightPadding=self.style["marginR"],
@@ -40,20 +41,47 @@ class NWDocument :
             pagesize=landscape(pagesize))
         self.doc.addPageTemplates(landscapeTempl)
 
-        self.setDefaultTemplate(orientation)
+        self.setDefaultTemplate(self.orientation)
 
         self.decorationItems = []
 
     def setStyleSheet(self, aStyleSheet) :
         self.style = aStyleSheet
 
-    def addDecoration(self,funcObj):
+        self.doc = BaseDocTemplate('',
+            outputfilepagesize = self.pagesize,
+            leftMargin = self.style["marginL"], rightMargin = self.style["marginR"],
+            topMargin = self.style["marginT"], bottomMargin = self.style["marginB"])
+
+        portraitTempl = PageTemplate(id="portrait",
+            frames=Frame(0, 0, self.pagesize[0], self.pagesize[1],
+            leftPadding=self.style["marginL"],
+            bottomPadding=self.style["marginB"],
+            rightPadding=self.style["marginR"],
+            topPadding=self.style["marginT"]),
+            onPageEnd=self.drawDecoration,
+            pagesize=portrait(self.pagesize))
+        self.doc.addPageTemplates(portraitTempl)
+
+        landscapeTempl = PageTemplate(id="landscape",
+            frames=Frame(0, 0, self.pagesize[1], self.pagesize[0],
+            leftPadding=self.style["marginL"],
+            bottomPadding=self.style["marginB"],
+            rightPadding=self.style["marginR"],
+            topPadding=self.style["marginT"]),
+            onPageEnd=self.drawDecoration,
+            pagesize=landscape(self.pagesize))
+        self.doc.addPageTemplates(landscapeTempl)
+
+        self.setDefaultTemplate(self.orientation)
+
+    def addDecoration(self, funcObj):
         self.decorationItems.append(funcObj)
 
     def currentHeight(self):
         return self.pagesize[1] - self.style["marginT"] - self.style["marginB"]
-        
-    def build(self,aFileName,context) :
+
+    def build(self, aFileName, context) :
         self.context = context
         self.doc.filename = aFileName
         self.doc.multiBuild(self.context.content)

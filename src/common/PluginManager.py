@@ -14,24 +14,24 @@ class PluginManager :
         self.pluginFolders = []
         self.pluginCategories = {}
 
-    def addPluginFolder( self, folder) :
+    def addPluginFolder(self, folder) :
         self.pluginFolders.append(folder)
 
     def loadPlugins( self ) :
         for plugin in self.searchPlugins() :
             self.insertPlugin(plugin.Module())
 
-    def insertPlugin( self, object) :
-        cat = object.Category()
-        name = object.Name()
+    def insertPlugin(self, aPlugin) :
+        cat = aPlugin.Category()
+        name = aPlugin.Name()
         if cat in self.pluginCategories :
-            self.pluginCategories[cat][name] = object
+            self.pluginCategories[cat][name] = aPlugin
         else :
             plugins = {}
-            plugins[name] = object
+            plugins[name] = aPlugin
             self.pluginCategories[cat] = plugins
 
-    def searchPlugins( self ) :
+    def searchPlugins(self) :
         for folder in self.pluginFolders :
             for item in sorted(os.listdir(folder)) :
                 itemPath = os.path.join(folder, item)
@@ -40,14 +40,14 @@ class PluginManager :
                     yield self.load_module(itemPath)
 
 
-    def findPlugin( self, name, category='default') :
+    def findPlugin(self, name, category='default') :
         if category in self.pluginCategories :
             if name in self.pluginCategories[category] :
                 return self.pluginCategories[category][name]
 
         return None
 
-    def load_module(self,path, name=""):
+    def load_module(self, path, name=""):
         try :
             # take the module name by default
             name = name if name != "" else path.split(os.sep)[-1]

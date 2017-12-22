@@ -16,5 +16,5 @@ class TextBlock(PluginInterface) :
         return 'text'
 
     def process(self, block, context) :
-        context.content.append(Paragraph(block['content'],
+        context.content.append(context.paragraph(block['content'],
             context.styleSheet['BodyText']))

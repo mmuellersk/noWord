@@ -3,6 +3,7 @@ import os
 import argparse
 import json
 import yaml
+import plistlib
 
 
 
@@ -31,7 +32,7 @@ def loadJson(filename):
       return data
   except Exception as e:
     print("Could not read json file: " + str(e))
-    exit(1)
+    raise
 
 def loadYAML(filename):
   filename = os.path.normpath(filename)
@@ -41,7 +42,17 @@ def loadYAML(filename):
       return data
   except Exception as e:
     print("Could not read yaml file: " + str(e))
-    exit(1)
+    raise
+
+def loadPList(filename):
+  filename = os.path.normpath(filename)
+  try:
+    with open(filename) as data_file:
+      data = plistlib.load(data_file)
+      return data
+  except Exception as e:
+    print("Could not read plist file: " + str(e))
+    raise
 
 def deserialize(path):
   try:
@@ -51,26 +62,14 @@ def deserialize(path):
 
   data = {}
 
-  opened = False
   if os.path.isfile(path):
-    opened = True
     if ext == "json":
-      import json
-      f = open(path, "rt")
-      data = json.load(f)
+        data = loadJson(path)
     elif ext == "yaml":
-      import yaml
-      f = open(path, "rt")
-      data = yaml.load(f)
+        data = loadYAML(path)
     elif ext == "plist":
-      import plistlib
-      f = open(path, "rb")
-      data = plistlib.load(f)
+        data = loadPList(path)
     else:
-      opened = False
-    if opened:
-      f.close()
-  if not opened:
-    print("Could not deserialize file " + path)
+        print("Could not deserialize file " + path)
 
   return data
