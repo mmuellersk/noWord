@@ -19,6 +19,12 @@ styles["marginB"] = 78
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
 
+# Some characters usable as list bullets
+longdash = u"\u2014"
+bullet = "circle"
+emptyBullet = u"\u25CB"
+arrow = u"\u2192"
+
 # Naming templates
 styles["templates"] = {}
 styles["templates"]["documentTitleTemplate"] = "{mainSubject}"
@@ -29,6 +35,11 @@ styles["templates"]["documentMetaKeywordsTemplate"] = "{shortDocumentType} {main
 styles["templates"]["documentIdentifierTemplate"] = "{shortDocumentType}_{mainSubject}_{revision}.pdf"
 styles["templates"]["outputFileTemplate"] = "{shortDocumentType}_{mainSubject}_{revision}.pdf"
 styles["templates"]["revisionTemplate"] = "{shortDocumentType}_r.{revision}"
+
+# list styles
+styles["itemsInterSpace"] = 6
+styles["listBullet"] = bullet
+styles["listNumberFormat"] = "%s. "
 
 # paragraph styles
 styles['default'] = ParagraphStyle(name="BodyText",

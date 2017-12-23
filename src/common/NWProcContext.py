@@ -31,6 +31,8 @@ class NWProcContext:
         self.doc = {}
         self.processFuncObj = aProcessFuncObj
 
+        self.lastListCounter = 1
+
     def clone(self):
         cloneContext = NWProcContext(
             self.docInfo,
@@ -61,7 +63,7 @@ class NWProcContext:
 
     def paragraph(self, text, style=None):
         if style is None:
-            style = self.style["BodyText"]
+            style = self.styleSheet["BodyText"]
         p = Paragraph(text, style)
         self.paragraphs.append(p)
         return p
