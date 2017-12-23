@@ -31,7 +31,10 @@ class NWGenerator:
             os.path.join(aSourcePath,
                          "doc_info.yaml"))
 
-        self.context = NWProcContext(docInfos, aSourcePath, aOutputPath)
+        self.context = NWProcContext(docInfos,
+            aSourcePath,
+            aOutputPath,
+            self.processBlocks)
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
@@ -51,6 +54,14 @@ class NWGenerator:
 
     def addDecoration(self, funcObj):
         self.doc.addDecoration(funcObj)
+
+    def processBlocks(self, blocks, context):
+        for block in blocks:
+            plugin = self.pluginMng.findPlugin(block['type'])
+            if plugin is not None:
+                plugin.process(block, context)
+            else:
+                print('Plugin not found: %s' % block['type'])
 
     def process(self):
         for block in self.processFolder(self.context.sourcePath):

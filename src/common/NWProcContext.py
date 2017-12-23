@@ -12,7 +12,7 @@ import common.utils_rp as cmn_utils_rp
 
 
 class NWProcContext:
-    def __init__(self, aDocInfo, aSourcePath, aOutputPath):
+    def __init__(self, aDocInfo, aSourcePath, aOutputPath, aProcessFuncObj):
         self.docInfo = cmn_utils_di.splitDate(aDocInfo)
         self.sourcePath = aSourcePath
         self.outputPath = aOutputPath
@@ -29,6 +29,19 @@ class NWProcContext:
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
         self.doc = {}
+        self.processFuncObj = aProcessFuncObj
+
+    def clone(self):
+        cloneContext = NWProcContext(
+            self.docInfo,
+            self.sourcePath,
+            self.outputPath,
+            self.processFuncObj)
+
+        # pass stylesheet in case if it was overriden
+        cloneContext.styleSheet = self.styleSheet
+
+        return cloneContext
 
     def buildBegins(self):
         if not self.pageCounter.firstRun:

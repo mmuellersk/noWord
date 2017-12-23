@@ -72,7 +72,10 @@ class TableBlock(PluginInterface):
                 if isinstance(col, str):
                     lineData.append(
                         context.paragraph(col, context.styleSheet["BodyText"]))
-                # elif isinstance(col, list): lineData.append([self.buildPart(part, self.curpath) for part in col])
+                elif isinstance(col, list):
+                    shadowContext = context.clone()
+                    context.processFuncObj(col, shadowContext)
+                    lineData.append(shadowContext.paragraphs)
 
             tableData.append(lineData)
 
