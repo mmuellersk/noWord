@@ -1,5 +1,5 @@
 
-from reportlab.platypus import Flowable
+from reportlab.platypus import Flowable, BaseDocTemplate
 
 from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
@@ -36,6 +36,34 @@ class TriggerFlowable(Flowable):
   def draw(self):
     self.callback()
 
+# This flowable creates a table of content entry where it is placed.
+class TocEntry(Flowable):
+  def __init__(self, level, text, link):
+    self._level = level
+    self._text = text
+    self._link = link
+    self.width = 0
+    self.height = 0
+
+  def draw(unused):
+    return
+
+# Doc Template with table of contents
+class DocTemplateWithToc(BaseDocTemplate):
+  def afterFlowable(self, flowable):
+    if flowable.__class__.__name__ == 'TocEntry':
+      level = flowable._level
+      text = flowable._text
+      link = flowable._link
+      self.notify('TOCEntry', (level, text, self.page, link))
+      self.canv.bookmarkPage(link)
+      self.canv.addOutlineEntry(re.sub("<[^>]*>", "", text), link, level)
+
+  def setDefaultTemplate(self, name):
+    for idx, template in enumerate(self.pageTemplates):
+      if template.id == name:
+        self._firstPageTemplateIndex = idx
+        return
 
 # This class is a trick to define ALL pdf metadata. Some are settable from the docTemplate
 # like author, subject etc, but creator and producer would always be set to the default

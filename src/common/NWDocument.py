@@ -1,12 +1,14 @@
 #!/usr/bin/env python
 import sys
 
-from reportlab.platypus import BaseDocTemplate, PageTemplate
+from reportlab.platypus import PageTemplate
 from reportlab.platypus import Flowable, Table, TableStyle, Spacer, Frame
 from reportlab.lib import utils
 from reportlab.lib.units import cm, mm
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, portrait, landscape
+
+from common.utils_rp import DocTemplateWithToc
 
 
 class NWDocument :
@@ -16,7 +18,7 @@ class NWDocument :
         self.orientation = orientation
         self.pagesize = landscape(pagesize) if orientation == "landscape" else portrait(pagesize)
 
-        self.doc = BaseDocTemplate('',
+        self.doc = DocTemplateWithToc('',
             outputfilepagesize = self.pagesize,
             leftMargin = self.style["marginL"], rightMargin = self.style["marginR"],
             topMargin = self.style["marginT"], bottomMargin = self.style["marginB"])
@@ -41,14 +43,14 @@ class NWDocument :
             pagesize=landscape(pagesize))
         self.doc.addPageTemplates(landscapeTempl)
 
-        self.setDefaultTemplate(self.orientation)
+        self.doc.setDefaultTemplate(self.orientation)
 
         self.decorationItems = []
 
     def setStyleSheet(self, aStyleSheet) :
         self.style = aStyleSheet
 
-        self.doc = BaseDocTemplate('',
+        self.doc = DocTemplateWithToc('',
             outputfilepagesize = self.pagesize,
             leftMargin = self.style["marginL"], rightMargin = self.style["marginR"],
             topMargin = self.style["marginT"], bottomMargin = self.style["marginB"])
@@ -73,7 +75,7 @@ class NWDocument :
             pagesize=landscape(self.pagesize))
         self.doc.addPageTemplates(landscapeTempl)
 
-        self.setDefaultTemplate(self.orientation)
+        self.doc.setDefaultTemplate(self.orientation)
 
     def addDecoration(self, funcObj):
         self.decorationItems.append(funcObj)
@@ -85,12 +87,6 @@ class NWDocument :
         self.context = context
         self.doc.filename = aFileName
         self.doc.multiBuild(self.context.content)
-
-    def setDefaultTemplate(self, name) :
-        for idx, template in enumerate(self.doc.pageTemplates) :
-            if template.id == name :
-                self.doc._firstPageTemplateIndex = idx
-                return
 
     def drawDecoration(self, canvas, doc) :
         canvas.saveState()
