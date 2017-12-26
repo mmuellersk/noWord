@@ -114,8 +114,8 @@ class NWProcContext:
         for p in self.paragraphs:
             if isinstance(p, Paragraph):
                 txt = p.text
-            elif isinstance(p, reportUtils.TocEntry):
-                txt = p._text
+            #elif isinstance(p, reportUtils.TocEntry):
+            #    txt = p._text
             cmds = regex.findall(txt)
             if len(cmds) > 0:
                 for cmd in cmds:

@@ -75,6 +75,7 @@ class TableBlock(PluginInterface):
                 elif isinstance(col, list):
                     shadowContext = context.clone()
                     context.processFuncObj(col, shadowContext)
+                    shadowContext.process()
                     lineData.append(shadowContext.paragraphs)
 
             tableData.append(lineData)

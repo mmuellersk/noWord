@@ -24,6 +24,7 @@ class ListBlock(PluginInterface):
             if isinstance(item, list):
                 shadowContext = context.clone()
                 context.processFuncObj(item, shadowContext)
+                shadowContext.process()
                 items.append(KeepTogether(
                     shadowContext.paragraphs))
             else:
@@ -46,7 +47,7 @@ class ListBlock(PluginInterface):
         kwargs = {"bulletDedent": 15,
             "leftIndent": 30,
             "spaceAfter": 12,
-            "bulletFontName": "Symbios",
+            "bulletFontName": context.styleSheet["listBulletFontName"],
             "start": start}
 
         if numbered:

@@ -40,6 +40,7 @@ styles["templates"]["revisionTemplate"] = "{shortDocumentType}_r.{revision}"
 styles["itemsInterSpace"] = 6
 styles["listBullet"] = bullet
 styles["listNumberFormat"] = "%s. "
+styles["listBulletFontName"] = "Times-Roman"
 
 # paragraph styles
 styles['default'] = ParagraphStyle(name="BodyText",
