@@ -31,7 +31,7 @@ class ListBlock(PluginInterface):
                 items.append(KeepTogether(
                     context.paragraph(item)))
 
-        context.content.append( self.buildListItems(
+        context.content.append(self.buildListItems(
             context,
             items,
             "numbered" in block and block["numbered"],
@@ -45,21 +45,23 @@ class ListBlock(PluginInterface):
             start = 1
 
         kwargs = {"bulletDedent": 15,
-            "leftIndent": 30,
-            "spaceAfter": 12,
-            "bulletFontName": context.styleSheet["listBulletFontName"],
-            "start": start}
+                  "leftIndent": 30,
+                  "spaceAfter": 12,
+                  "bulletFontName": context.styleSheet["listBulletFontName"],
+                  "start": start}
 
         if numbered:
-            kwargs.update({"bulletFormat": context.styleSheet["listNumberFormat"]})
+            kwargs.update(
+                {"bulletFormat": context.styleSheet["listNumberFormat"]})
 
-        else: kwargs.update({"value":"bullet",
-                "bulletType":  "bullet",
-                "start": context.styleSheet["listBullet"],
-                "bulletFontSize": 10,
-                "bulletOffsetY": -1})
+        else:
+            kwargs.update({"value": "bullet",
+                           "bulletType":  "bullet",
+                           "start": context.styleSheet["listBullet"],
+                           "bulletFontSize": 10,
+                           "bulletOffsetY": -1})
 
         context.lastListCounter = start + len(items)
 
         return ListFlowable([[item, Spacer(1, context.styleSheet["itemsInterSpace"])]
-            for item in items[:-1]] + [items[-1]], **kwargs)
+                             for item in items[:-1]] + [items[-1]], **kwargs)

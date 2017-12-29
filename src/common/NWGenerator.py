@@ -32,9 +32,9 @@ class NWGenerator:
                          "doc_info.yaml"))
 
         self.context = NWProcContext(docInfos,
-            aSourcePath,
-            aOutputPath,
-            self.processBlocks)
+                                     aSourcePath,
+                                     aOutputPath,
+                                     self.processBlocks)
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
