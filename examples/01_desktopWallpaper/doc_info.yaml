@@ -1,0 +1,16 @@
+
+author      : MMU
+revision    : 1
+date        : 18.12.2017
+
+pageSize    : [2880,1800]
+pageOrientation: landscape
+
+shortDocumentType: DW
+documentType     : Desktop Wallpaper
+mainSubject      : Professional
+
+docStyle:
+  documentMetaTitleTemplate: "{shortDocumentType} {mainSubject}"
+  documentIdentifierTemplate: "{shortDocumentType}_{mainSubject}.pdf"
+  outputFileTemplate: "{shortDocumentType}_{mainSubject}.pdf"
