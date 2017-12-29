@@ -17,6 +17,9 @@ class TableBlock(PluginInterface):
     def Name(self):
         return 'table'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
         widths = [w * cm for w in block["widths"]] if "widths" in block else []
         if isinstance(block["rows"], str):

@@ -14,6 +14,9 @@ class ChapterBlock(PluginInterface):
     def Name(self):
         return 'chapter'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
         level = 1
         if 'level' in block:

@@ -64,6 +64,15 @@ class NWGenerator:
                 print('Plugin not found: %s' % block['type'])
 
     def process(self):
+        # prepare blocks
+        for block in self.processFolder(self.context.sourcePath):
+            plugin = self.pluginMng.findPlugin(block['type'])
+            if plugin is not None:
+                plugin.prepare(block, self.context)
+            else:
+                print('Plugin not found: %s' % block['type'])
+
+        # process blocks
         for block in self.processFolder(self.context.sourcePath):
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
