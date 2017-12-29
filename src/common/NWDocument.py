@@ -29,10 +29,11 @@ class NWDocument:
         if isinstance(self.pageSize, list):
             if len(self.pageSize) > 1:
                 self.pageRect = [self.pageSize[0], self.pageSize[1]]
-
-        self.pageRect = \
-            landscape(self.pageSize) if self.orientation == "landscape" \
-            else portrait(self.pageSize)
+        else:
+            self.pageRect = \
+                landscape(self.pageSize) \
+                if self.orientation == "landscape" \
+                else portrait(self.pageSize)
 
         self.doc = DocTemplateWithToc('',
                                       outputfilepagesize=self.pageRect,
