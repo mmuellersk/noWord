@@ -23,10 +23,11 @@ class ListBlock(PluginInterface):
         for item in block["content"]:
             if isinstance(item, list):
                 shadowContext = context.clone()
-                context.processFuncObj(item, shadowContext)
+                context.processFuncObj(item, shadowContext, block['_path'])
                 shadowContext.process()
+                context.collect(shadowContext)
                 items.append(KeepTogether(
-                    shadowContext.paragraphs))
+                    shadowContext.content))
             else:
                 items.append(KeepTogether(
                     context.paragraph(item)))

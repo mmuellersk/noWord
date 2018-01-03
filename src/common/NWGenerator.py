@@ -55,8 +55,9 @@ class NWGenerator:
     def addDecoration(self, funcObj):
         self.doc.addDecoration(funcObj)
 
-    def processBlocks(self, blocks, context):
+    def processBlocks(self, blocks, context, path):
         for block in blocks:
+            block['_path'] = path
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
                 plugin.process(block, context)
@@ -99,5 +100,8 @@ class NWGenerator:
                 for part in parts:
                     if "type" not in part:
                         continue
+
+                    # add file path for assets loading
+                    part['_path'] = path
 
                     yield part

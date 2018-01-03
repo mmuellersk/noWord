@@ -96,3 +96,10 @@ styles['Heading3'] = ParagraphStyle(name="Heading3",
                                     fontSize=16,
                                     spaceBefore=8,
                                     spaceAfter=8)
+
+styles['ImageCaption'] = ParagraphStyle(name="ImageCaption",
+                                    parent=styles['default'],
+                                    alignment=TA_CENTER,
+                                    fontSize=12,
+                                    spaceBefore=4,
+                                    spaceAfter=8)
