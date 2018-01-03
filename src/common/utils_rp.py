@@ -1,13 +1,75 @@
+import os
+import mimetypes as mime
 
-from reportlab.platypus import Flowable, BaseDocTemplate
+from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
+from reportlab.lib import utils
 
 from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
+
+allowedImages = [
+    "image/jpeg",
+    "image/png",
+    "image/x-ms-bmp",
+    "image/tiff",
+    "image/gif"]
+
+
+def getImage(filename, width, dummy=False):
+    filename = os.path.normpath(filename)
+
+    # The module only uses the file extension, it would be better to use python-magic but
+    # this requires to install yet another module with pip. So this is sufficient for now.
+    imageType = mime.guess_type(filename)[0]
+
+    if imageType in allowedImages:
+        orig = utils.ImageReader(filename)
+        iw, ih = orig.getSize()
+        aspect = ih / float(iw)
+        height = width * aspect
+        img = Image(filename, width=width, height=height)
+
+    # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
+    # vector graphics.
+    elif imageType == "application/pdf":
+        pages = PDFPage(filename, width=width, index=0)
+        height = img.height
+
+    else:
+        print("Unsupported image type " + imageType + " for " + filename)
+        img = Spacer(width, width / 2)
+        height = img.width / 2
+
+    return DummyFlowable(Spacer(width, height), img, dummy)
+
+# This class provides a proxy that forwards all reportlab calls to a temporary or a final
+# embedded flowable, depending on its state. This allows to insert a temporary object and
+# define it later. It is mainly used to speed the generation process by not inserting the
+# real images in intermediary builds.
+class DummyFlowable(Flowable):
+  def __init__(self, temp=Spacer(1, 1), final=Spacer(1, 1), enabled=True):
+    Flowable.__init__(self)
+    self.temp = temp
+    self.final = final
+    self.enable(enabled)
+
+  def enable(self, enabled): self.current = self.temp if enabled else self.final
+  def wrap(self, *args, **kwargs): return self.current.wrap(*args, **kwargs)
+  def self(self): return self.current.wrap()
+  def identify(self, *args, **kwargs): return self.current.identify(*args, **kwargs)
+  def drawOn(self, *args, **kwargs): return self.current.drawOn(*args, **kwargs)
+  def wrapOn(self, *args, **kwargs): return self.current.wrapOn(*args, **kwargs)
+  def splitOn(self, *args, **kwargs): return self.current.splitOn(*args, **kwargs)
+  def split(self, *args, **kwargs): return self.current.split(*args, **kwargs)
+  def minWidth(self): return self.current.minWidth()
+  def getKeepWithNext(self): return self.current.getKeepWithNext()
+  def getSpaceAfter(self): return self.current.getSpaceAfter()
+  def getSpaceBefore(self): return self.current.getSpaceBefore()
+  def isIndexing(self): return self.current.isIndexing()
+
 # Wrap a PDF page (xobject) as a reportlab flowable
-
-
 class PDFPage(Flowable):
     def __init__(self, filename, width, index):
         pages = PdfReader(filename).pages

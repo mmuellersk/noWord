@@ -3,7 +3,8 @@ import re
 import copy
 import sys
 
-from reportlab.platypus import Paragraph
+from reportlab.platypus import Paragraph, Table, TableStyle
+from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
 
@@ -28,6 +29,7 @@ class NWProcContext:
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
+        self.currentImage = 1
         self.doc = {}
         self.processFuncObj = aProcessFuncObj
 
@@ -45,10 +47,31 @@ class NWProcContext:
 
         return cloneContext
 
+    def collect(self, otherContext):
+        self.dummies.extend(otherContext.dummies)
+
     def buildBegins(self):
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
                 dummy.enable(False)
+
+    def appendImage(self, path, caption='', width=None, align='CENTER'):
+        if width is None:
+            width = 16*cm
+
+        if len(caption) > 0:
+            caption = str(self.currentImage) + ". " + caption
+            self.currentImage = self.currentImage + 1
+
+        image = cmn_utils_rp.getImage(path, width, dummy=True)
+        self.dummies.append(image)
+        imgData = [[image], [self.paragraph(
+            caption, self.styleSheet["ImageCaption"])]]
+        imgTable = Table(imgData)
+        imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
+                                      ('VALIGN', (0, 0), (-1, -1), align)]))
+        imgTable.hAlign = align
+        self.content.append(imgTable)
 
     # Called at the beginning of each page, only used to show progression
     def pageBegins(self, canvas):
