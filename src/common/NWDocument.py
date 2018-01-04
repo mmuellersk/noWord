@@ -100,6 +100,9 @@ class NWDocument:
     def currentHeight(self):
         return self.pageRect[1] - self.style["marginT"] - self.style["marginB"]
 
+    def currentWidth(self):
+        return self.pageRect[0] - self.style["marginL"] - self.style["marginR"]
+
     def build(self, aFileName, context):
         self.context = context
         self.doc.filename = aFileName

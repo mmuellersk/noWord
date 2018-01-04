@@ -16,5 +16,7 @@ class TextBlock(PluginInterface):
         return 'text'
 
     def process(self, block, context):
+        styleName = block['style'] if 'style' in block else 'BodyText'
+
         context.content.append(context.paragraph(block['content'],
-                                                 context.styleSheet['BodyText']))
+                                                 context.styleSheet[styleName]))

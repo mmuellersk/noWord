@@ -19,8 +19,8 @@ class ImageBlock(PluginInterface):
     def process(self, block, context):
         imageFilename = os.path.join(block['_path'], block['filename'])
         context.appendImage(
-            path = imageFilename,
-            caption = block['caption'] if 'caption' in block else '',
-            width = block['width']*cm,
-            align = block['align'].upper() if 'align' in block else 'CENTER',
+            path=imageFilename,
+            caption=block['caption'] if 'caption' in block else '',
+            width=block['width'] * cm,
+            align=block['align'].upper() if 'align' in block else 'CENTER',
         )

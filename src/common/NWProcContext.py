@@ -30,7 +30,6 @@ class NWProcContext:
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
         self.currentImage = 1
-        self.doc = {}
         self.processFuncObj = aProcessFuncObj
 
         self.lastListCounter = 1
@@ -41,6 +40,8 @@ class NWProcContext:
             self.sourcePath,
             self.outputPath,
             self.processFuncObj)
+
+        cloneContext.doc = self.doc
 
         # pass stylesheet in case if it was overriden
         cloneContext.styleSheet = self.styleSheet
@@ -57,7 +58,7 @@ class NWProcContext:
 
     def appendImage(self, path, caption='', width=None, align='CENTER'):
         if width is None:
-            width = 16*cm
+            width = 16 * cm
 
         if len(caption) > 0:
             caption = str(self.currentImage) + ". " + caption
@@ -69,7 +70,9 @@ class NWProcContext:
             caption, self.styleSheet["ImageCaption"])]]
         imgTable = Table(imgData)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
-                                      ('VALIGN', (0, 0), (-1, -1), align)]))
+                                      ('VALIGN', (0, 0), (-1, -1), align),
+                                      ('LEFTPADDING', (0,0), (-1,-1), 0),
+                                      ('RIGHTPADDING', (0,0), (-1,-1), 0)]))
         imgTable.hAlign = align
         self.content.append(imgTable)
 

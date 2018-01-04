@@ -27,11 +27,11 @@ class TableBlock(PluginInterface):
         context.content.append(
             self.buildTable(context, block['_path'],
                             headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else [
-                            ],
-                            lines=self.flattenDicts(block["rows"], keys),
-                            widths=widths,
-                            repeatRows=block["repeatRows"] if "repeatRows" in block else 0,
-                            border=block["border"] if "border" in block else 0.5))
+            ],
+                lines=self.flattenDicts(block["rows"], keys),
+                widths=widths,
+                repeatRows=block["repeatRows"] if "repeatRows" in block else 0,
+                border=block["border"] if "border" in block else 0.5))
 
     def flattenDicts(self, dictList, keys=[]):
         if len(dictList) == 0:
