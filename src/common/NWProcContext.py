@@ -161,8 +161,8 @@ class NWProcContext:
                  "documentMetaAuthorTemplate",
                  "documentMetaSubjectTemplate",
                  "documentMetaKeywordsTemplate"]],
-            creator="noWord",
-            producer="noWord")
+            creator="noWord - non-WYSIWYG document generator",
+            producer="ReportLab PDF Library - www.reportlab.com")
 
         self.content.append(metadata)
         self.content.append(self.pageCounter)
