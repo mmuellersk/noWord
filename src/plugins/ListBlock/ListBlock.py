@@ -29,8 +29,8 @@ class ListBlock(PluginInterface):
                 items.append(KeepTogether(
                     shadowContext.content))
             else:
-                items.append(KeepTogether(
-                    context.paragraph(item)))
+                items.append(
+                    context.paragraph(item))
 
         context.content.append(self.buildListItems(
             context,
@@ -47,7 +47,7 @@ class ListBlock(PluginInterface):
 
         kwargs = {"bulletDedent": 15,
                   "leftIndent": 30,
-                  "spaceAfter": 12,
+                  "spaceAfter": 0,
                   "bulletFontName": context.styleSheet["listBulletFontName"],
                   "start": start}
 
@@ -59,7 +59,7 @@ class ListBlock(PluginInterface):
             kwargs.update({"value": "bullet",
                            "bulletType":  "bullet",
                            "start": context.styleSheet["listBullet"],
-                           "bulletFontSize": 10,
+                           "bulletFontSize": 8,
                            "bulletOffsetY": -1})
 
         context.lastListCounter = start + len(items)

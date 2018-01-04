@@ -71,8 +71,10 @@ class NWProcContext:
         imgTable = Table(imgData)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
                                       ('VALIGN', (0, 0), (-1, -1), align),
-                                      ('LEFTPADDING', (0,0), (-1,-1), 0),
-                                      ('RIGHTPADDING', (0,0), (-1,-1), 0)]))
+                                      ('LEFTPADDING', (0, 0), (-1, -1), 0),
+                                      ('RIGHTPADDING', (0, 0), (-1, -1), 0),
+                                      ('TOPPADDING', (0, 0), (-1, -1), 0),
+                                      ('BOTTOMPADDING', (0, 0), (-1, -1), 0)]))
         imgTable.hAlign = align
         self.content.append(imgTable)
 
