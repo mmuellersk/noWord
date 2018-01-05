@@ -15,9 +15,13 @@ class ChapterBlock(PluginInterface):
         return 'chapter'
 
     def process(self, block, context):
-        level = 1
-        if 'level' in block:
-            level = block['level']
+
+        # level element, default 1
+        level = self.getElemValue(block, 'level', 1)
+
+        # title element, default 'no title'
+        title = self.getElemValue(block, 'title', 'No title')
+
         context.content.append(
-            context.paragraph('%s' % block['title'],
+            context.paragraph('%s' % title,
                               context.styleSheet['Heading%d' % level]))

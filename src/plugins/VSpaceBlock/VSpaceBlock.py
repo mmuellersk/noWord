@@ -17,6 +17,8 @@ class VSpaceBlock(PluginInterface):
         return 'vspace'
 
     def process(self, block, context):
-        context.content.append(
-            Spacer(1, block["height"] * cm if "height" in block else 12)
-        )
+
+        # height element, default 12
+        height = block["height"] * cm if "height" in block else 12
+
+        context.content.append(Spacer(1, height))

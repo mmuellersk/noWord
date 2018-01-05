@@ -17,10 +17,17 @@ class ImageBlock(PluginInterface):
         return 'image'
 
     def process(self, block, context):
+
+        # filename element
         imageFilename = os.path.join(block['_path'], block['filename'])
-        context.appendImage(
-            path=imageFilename,
-            caption=block['caption'] if 'caption' in block else '',
-            width=block['width'] * cm,
-            align=block['align'].upper() if 'align' in block else 'CENTER',
-        )
+
+        # caption element, default ''
+        caption = self.getElemValue(block, 'caption', '')
+
+        # width element
+        width = block['width'] * cm
+
+        # align element
+        align = self.getElemValue(block, 'align', 'CENTER').upper()
+
+        context.appendImage(imageFilename, caption, width, align)
