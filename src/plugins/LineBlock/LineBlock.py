@@ -26,8 +26,10 @@ class LineBlock(PluginInterface):
         elif "dashes" in block and type(block["dashes"]) is list:
             dashes = block["dashes"]
         line = cmn_utils_rp.Hline(
-            width=block["width"] * cm if "width" in block else context.doc.currentWidth(),
-            color=context.styleSheet[block["color"]] if "color" in block else colors.black,
+            width=block["width"] *
+            cm if "width" in block else context.doc.currentWidth(),
+            color=context.styleSheet[block["color"]
+                                     ] if "color" in block else colors.black,
             thickness=block["thickness"] if "thickness" in block else 0.5,
             rounded=block["rounded"] if "rounded" in block else False,
             dashes=dashes)
