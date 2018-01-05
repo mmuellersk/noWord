@@ -14,7 +14,7 @@ class PluginInterface:
     def process(self, block, context):
         raise NotImplementedError("Plugin should implement process method")
 
-    def getElemValue( self, block, aKey, defaultValue):
+    def getElemValue(self, block, aKey, defaultValue):
 
         elem = defaultValue
 

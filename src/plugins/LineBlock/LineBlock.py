@@ -29,10 +29,12 @@ class LineBlock(PluginInterface):
             dashes = block["dashes"]
 
         # width element, default currentWidth
-        width = block["width"] * cm if "width" in block else context.doc.currentWidth()
+        width = block["width"] * \
+            cm if "width" in block else context.doc.currentWidth()
 
         # color element, default black
-        color = context.styleSheet[block["color"]] if "color" in block else colors.black
+        color = context.styleSheet[block["color"]
+                                   ] if "color" in block else colors.black
 
         # thickness element, default 0.5
         thickness = self.getElemValue(block, 'thickness', 0.5)
@@ -40,7 +42,6 @@ class LineBlock(PluginInterface):
         # rounded element, default False
         rounded = self.getElemValue(block, 'rounded', False)
 
-        
         line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes)
 
         context.content.append(line)

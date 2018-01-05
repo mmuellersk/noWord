@@ -31,7 +31,7 @@ class TableBlock(PluginInterface):
         lines = self.flattenDicts(block["rows"], keys)
 
         # displayHeader element
-        headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else []
+        headers = block["header"] if "displayHeader" not in block or block["displayHeader"] else []
 
         # repeatRows element, default 0
         repeatRows = self.getElemValue(block, 'repeatRows', 0)
@@ -44,8 +44,8 @@ class TableBlock(PluginInterface):
 
         context.content.append(
             self.buildTable(context, block['_path'],
-                headers, lines, widths, None, halign, [],
-                repeatRows, border))
+                            headers, lines, widths, None, halign, [],
+                            repeatRows, border))
 
     def flattenDicts(self, dictList, keys=[]):
         if len(dictList) == 0:
