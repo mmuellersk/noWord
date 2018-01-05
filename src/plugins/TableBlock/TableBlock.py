@@ -18,20 +18,34 @@ class TableBlock(PluginInterface):
         return 'table'
 
     def process(self, block, context):
+
+        # width element, default []
         widths = [w * cm for w in block["widths"]] if "widths" in block else []
+
+        # keys element, default block['header']
+        keys = block["keys"] if "keys" in block else block["header"]
+
+        # rows element
         if isinstance(block["rows"], str):
             block["rows"] = context.getResource(block["rows"])
+        lines = self.flattenDicts(block["rows"], keys)
 
-        keys = block["keys"] if "keys" in block else block["header"]
+        # displayHeader element
+        headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else []
+
+        # repeatRows element, default 0
+        repeatRows = self.getElemValue(block, 'repeatRows', 0)
+
+        # border element, default 0.5
+        border = self.getElemValue(block, 'border', 0.5)
+
+        # halign element, default CENTER
+        halign = self.getElemValue(block, 'halign', 'CENTER')
 
         context.content.append(
             self.buildTable(context, block['_path'],
-                            headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else [
-            ],
-                lines=self.flattenDicts(block["rows"], keys),
-                widths=widths,
-                repeatRows=block["repeatRows"] if "repeatRows" in block else 0,
-                border=block["border"] if "border" in block else 0.5))
+                headers, lines, widths, None, halign, [],
+                repeatRows, border))
 
     def flattenDicts(self, dictList, keys=[]):
         if len(dictList) == 0:
