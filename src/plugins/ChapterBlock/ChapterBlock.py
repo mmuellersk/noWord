@@ -19,5 +19,5 @@ class ChapterBlock(PluginInterface):
         if 'level' in block:
             level = block['level']
         context.content.append(
-            context.paragraph('<b>%s</b>' % block['title'],
+            context.paragraph('%s' % block['title'],
                               context.styleSheet['Heading%d' % level]))
