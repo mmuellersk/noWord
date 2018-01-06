@@ -12,36 +12,52 @@ from common.utils_rp import DocTemplateWithToc
 
 
 class NWDocument:
-    def __init__(self, aDocInfo, aStyleSheet, pagesize=A4, orientation="portrait"):
+    def __init__(self, aDocInfo, aStyleSheet):
         self.docInfo = aDocInfo
         self.style = aStyleSheet
-        self.orientation = orientation
-        self.pagesize = landscape(
-            pagesize) if orientation == "landscape" else portrait(pagesize)
+
+        if "pageOrientation" in self.docInfo:
+            self.orientation = self.docInfo["pageOrientation"]
+        else:
+            self.orientation = "portrait"
+
+        if "pageSize" in self.docInfo:
+            self.pageSize = self.docInfo["pageSize"]
+        else:
+            self.pageSize = A4
+
+        if isinstance(self.pageSize, list):
+            if len(self.pageSize) > 1:
+                self.pageRect = [self.pageSize[0], self.pageSize[1]]
+        else:
+            self.pageRect = \
+                landscape(self.pageSize) \
+                if self.orientation == "landscape" \
+                else portrait(self.pageSize)
 
         self.doc = DocTemplateWithToc('',
-                                      outputfilepagesize=self.pagesize,
+                                      outputfilepagesize=self.pageRect,
                                       leftMargin=self.style["marginL"], rightMargin=self.style["marginR"],
                                       topMargin=self.style["marginT"], bottomMargin=self.style["marginB"])
 
         portraitTempl = PageTemplate(id="portrait",
-                                     frames=Frame(0, 0, self.pagesize[0], self.pagesize[1],
+                                     frames=Frame(0, 0, self.pageRect[0], self.pageRect[1],
                                                   leftPadding=self.style["marginL"],
                                                   bottomPadding=self.style["marginB"],
                                                   rightPadding=self.style["marginR"],
                                                   topPadding=self.style["marginT"]),
                                      onPageEnd=self.drawDecoration,
-                                     pagesize=portrait(pagesize))
+                                     pagesize=self.pageRect)
         self.doc.addPageTemplates(portraitTempl)
 
         landscapeTempl = PageTemplate(id="landscape",
-                                      frames=Frame(0, 0, self.pagesize[1], self.pagesize[0],
+                                      frames=Frame(0, 0, self.pageRect[1], self.pageRect[0],
                                                    leftPadding=self.style["marginL"],
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
                                                    topPadding=self.style["marginT"]),
                                       onPageEnd=self.drawDecoration,
-                                      pagesize=landscape(pagesize))
+                                      pagesize=self.pageRect)
         self.doc.addPageTemplates(landscapeTempl)
 
         self.doc.setDefaultTemplate(self.orientation)
@@ -52,28 +68,28 @@ class NWDocument:
         self.style = aStyleSheet
 
         self.doc = DocTemplateWithToc('',
-                                      outputfilepagesize=self.pagesize,
+                                      outputfilepagesize=self.pageRect,
                                       leftMargin=self.style["marginL"], rightMargin=self.style["marginR"],
                                       topMargin=self.style["marginT"], bottomMargin=self.style["marginB"])
 
         portraitTempl = PageTemplate(id="portrait",
-                                     frames=Frame(0, 0, self.pagesize[0], self.pagesize[1],
+                                     frames=Frame(0, 0, self.pageRect[0], self.pageRect[1],
                                                   leftPadding=self.style["marginL"],
                                                   bottomPadding=self.style["marginB"],
                                                   rightPadding=self.style["marginR"],
                                                   topPadding=self.style["marginT"]),
                                      onPageEnd=self.drawDecoration,
-                                     pagesize=portrait(self.pagesize))
+                                     pagesize=self.pageRect)
         self.doc.addPageTemplates(portraitTempl)
 
         landscapeTempl = PageTemplate(id="landscape",
-                                      frames=Frame(0, 0, self.pagesize[1], self.pagesize[0],
+                                      frames=Frame(0, 0, self.pageRect[1], self.pageRect[0],
                                                    leftPadding=self.style["marginL"],
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
                                                    topPadding=self.style["marginT"]),
                                       onPageEnd=self.drawDecoration,
-                                      pagesize=landscape(self.pagesize))
+                                      pagesize=self.pageRect)
         self.doc.addPageTemplates(landscapeTempl)
 
         self.doc.setDefaultTemplate(self.orientation)
@@ -82,7 +98,7 @@ class NWDocument:
         self.decorationItems.append(funcObj)
 
     def currentHeight(self):
-        return self.pagesize[1] - self.style["marginT"] - self.style["marginB"]
+        return self.pageRect[1] - self.style["marginT"] - self.style["marginB"]
 
     def build(self, aFileName, context):
         self.context = context

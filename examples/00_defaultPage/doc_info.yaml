@@ -2,3 +2,12 @@
 author      : MMU
 revision    : 1
 date        : 18.12.2017
+
+shortDocumentType: SD
+documentType     : Sample Document
+mainSubject      : Test
+
+docStyle:
+  documentMetaTitleTemplate: "{shortDocumentType} {mainSubject}"
+  documentIdentifierTemplate: "{year}_{month}_{day}_{shortDocumentType}_{mainSubject}.pdf"
+  outputFileTemplate: "{year}_{month}_{day}_{shortDocumentType}_{mainSubject}.pdf"

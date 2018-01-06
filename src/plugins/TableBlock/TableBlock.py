@@ -25,7 +25,7 @@ class TableBlock(PluginInterface):
         keys = block["keys"] if "keys" in block else block["header"]
 
         context.content.append(
-            self.buildTable(context,
+            self.buildTable(context, block['_path'],
                             headers=block["header"] if "displayHeader" not in block or block["displayHeader"] else [
                             ],
                             lines=self.flattenDicts(block["rows"], keys),
@@ -40,7 +40,7 @@ class TableBlock(PluginInterface):
             keys = dictList[0].keys()
         return [[d[k] for k in keys] for d in dictList]
 
-    def buildTable(self, context, headers, lines, widths=[],
+    def buildTable(self, context, path, headers, lines, widths=[],
                    heights=None, halign="CENTER", highlights=[],
                    repeatRows=0, border=0.5):
         # It is possible to render a table without headers
@@ -72,7 +72,12 @@ class TableBlock(PluginInterface):
                 if isinstance(col, str):
                     lineData.append(
                         context.paragraph(col, context.styleSheet["BodyText"]))
-                # elif isinstance(col, list): lineData.append([self.buildPart(part, self.curpath) for part in col])
+                elif isinstance(col, list):
+                    shadowContext = context.clone()
+                    context.processFuncObj(col, shadowContext, path)
+                    shadowContext.process()
+                    context.collect(shadowContext)
+                    lineData.append(shadowContext.content)
 
             tableData.append(lineData)
 
