@@ -18,6 +18,13 @@ class ListBlock(PluginInterface):
         return 'list'
 
     def process(self, block, context):
+
+        # numbered element, default False
+        numbered = self.getElemValue(block, 'numbered', False)
+
+        # start element, default 1
+        start = self.getElemValue(block, 'start', 1)
+
         items = []
 
         for item in block["content"]:
@@ -29,14 +36,11 @@ class ListBlock(PluginInterface):
                 items.append(KeepTogether(
                     shadowContext.content))
             else:
-                items.append(KeepTogether(
-                    context.paragraph(item)))
+                items.append(
+                    context.paragraph(item))
 
-        context.content.append(self.buildListItems(
-            context,
-            items,
-            "numbered" in block and block["numbered"],
-            block["start"] if "start" in block else 1))
+        context.content.append(
+            self.buildListItems(context, items, numbered, start))
 
     def buildListItems(self, context, items, numbered=False, start=1):
         if type(start) is str and start == "continue":
@@ -47,7 +51,7 @@ class ListBlock(PluginInterface):
 
         kwargs = {"bulletDedent": 15,
                   "leftIndent": 30,
-                  "spaceAfter": 12,
+                  "spaceAfter": 0,
                   "bulletFontName": context.styleSheet["listBulletFontName"],
                   "start": start}
 
@@ -59,7 +63,7 @@ class ListBlock(PluginInterface):
             kwargs.update({"value": "bullet",
                            "bulletType":  "bullet",
                            "start": context.styleSheet["listBullet"],
-                           "bulletFontSize": 10,
+                           "bulletFontSize": 8,
                            "bulletOffsetY": -1})
 
         context.lastListCounter = start + len(items)

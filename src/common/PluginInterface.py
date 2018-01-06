@@ -13,3 +13,12 @@ class PluginInterface:
 
     def process(self, block, context):
         raise NotImplementedError("Plugin should implement process method")
+
+    def getElemValue(self, block, aKey, defaultValue):
+
+        elem = defaultValue
+
+        if aKey in block:
+            elem = block[aKey]
+
+        return elem

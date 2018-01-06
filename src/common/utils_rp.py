@@ -2,7 +2,7 @@ import os
 import mimetypes as mime
 
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
-from reportlab.lib import utils
+from reportlab.lib import utils, colors
 
 from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
@@ -48,28 +48,46 @@ def getImage(filename, width, dummy=False):
 # embedded flowable, depending on its state. This allows to insert a temporary object and
 # define it later. It is mainly used to speed the generation process by not inserting the
 # real images in intermediary builds.
-class DummyFlowable(Flowable):
-  def __init__(self, temp=Spacer(1, 1), final=Spacer(1, 1), enabled=True):
-    Flowable.__init__(self)
-    self.temp = temp
-    self.final = final
-    self.enable(enabled)
 
-  def enable(self, enabled): self.current = self.temp if enabled else self.final
-  def wrap(self, *args, **kwargs): return self.current.wrap(*args, **kwargs)
-  def self(self): return self.current.wrap()
-  def identify(self, *args, **kwargs): return self.current.identify(*args, **kwargs)
-  def drawOn(self, *args, **kwargs): return self.current.drawOn(*args, **kwargs)
-  def wrapOn(self, *args, **kwargs): return self.current.wrapOn(*args, **kwargs)
-  def splitOn(self, *args, **kwargs): return self.current.splitOn(*args, **kwargs)
-  def split(self, *args, **kwargs): return self.current.split(*args, **kwargs)
-  def minWidth(self): return self.current.minWidth()
-  def getKeepWithNext(self): return self.current.getKeepWithNext()
-  def getSpaceAfter(self): return self.current.getSpaceAfter()
-  def getSpaceBefore(self): return self.current.getSpaceBefore()
-  def isIndexing(self): return self.current.isIndexing()
+
+class DummyFlowable(Flowable):
+    def __init__(self, temp=Spacer(1, 1), final=Spacer(1, 1), enabled=True):
+        Flowable.__init__(self)
+        self.temp = temp
+        self.final = final
+        self.enable(enabled)
+
+    def enable(self, enabled): self.current = self.temp if enabled else self.final
+
+    def wrap(self, *args, **kwargs): return self.current.wrap(*args, **kwargs)
+
+    def self(self): return self.current.wrap()
+
+    def identify(self, *args, **
+                 kwargs): return self.current.identify(*args, **kwargs)
+
+    def drawOn(self, *args, **kwargs): return self.current.drawOn(*args, **kwargs)
+
+    def wrapOn(self, *args, **kwargs): return self.current.wrapOn(*args, **kwargs)
+
+    def splitOn(self, *args, **
+                kwargs): return self.current.splitOn(*args, **kwargs)
+
+    def split(self, *args, **kwargs): return self.current.split(*args, **kwargs)
+
+    def minWidth(self): return self.current.minWidth()
+
+    def getKeepWithNext(self): return self.current.getKeepWithNext()
+
+    def getSpaceAfter(self): return self.current.getSpaceAfter()
+
+    def getSpaceBefore(self): return self.current.getSpaceBefore()
+
+    def isIndexing(self): return self.current.isIndexing()
 
 # Wrap a PDF page (xobject) as a reportlab flowable
+
+
 class PDFPage(Flowable):
     def __init__(self, filename, width, index):
         pages = PdfReader(filename).pages
@@ -193,3 +211,26 @@ class PageCountBlocker(Flowable):
 
     def notify(unused1, unused2, unused3):
         return
+
+# Draw a horizontal line
+
+
+class Hline(Flowable):
+    def __init__(self, width, color=colors.black, thickness=0.5, rounded=True, dashes=[1, 0]):
+        self.width = width
+        self.color = color
+        self.thickness = thickness
+        self.cap = 1 if rounded else 2
+        self.dashes = dashes
+
+    def wrap(self, *args):
+        return (self.width, self.thickness)
+
+    def draw(self):
+        self.canv.saveState()
+        self.canv.setLineWidth(self.thickness)
+        self.canv.setStrokeColor(self.color)
+        self.canv.setLineCap(self.cap)
+        self.canv.setDash(*self.dashes)
+        self.canv.line(0, 0, self.width, 0)
+        self.canv.restoreState()
