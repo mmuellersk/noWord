@@ -75,7 +75,7 @@ class NWProcContext:
         self.paragraphs.append(tocEntry)
         self.paragraphs.append(chapter)
 
-        result = [CondPageBreak(2*cm)]
+        result = [CondPageBreak(2 * cm)]
         if toc:
             result.append(tocEntry)
         result.append(chapter)
