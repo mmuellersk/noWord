@@ -8,6 +8,8 @@ from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
 
+import common.NWTOCContext as NWTOCContext
+
 import common.utils_di as cmn_utils_di
 import common.utils_rp as cmn_utils_rp
 
@@ -34,6 +36,8 @@ class NWProcContext:
 
         self.lastListCounter = 1
 
+        self.toc = NWTOCContext()
+
     def clone(self):
         cloneContext = NWProcContext(
             self.docInfo,
@@ -55,6 +59,18 @@ class NWProcContext:
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
                 dummy.enable(False)
+
+    def appendChapter(self, text, level, toc, numbered, sepChar, style, label=None):
+        finalText = text
+
+        if toc and numbered:
+            finalText = self.toc.renderChapterCounter(level,sepChar) +
+                sepChar + text
+
+        tocEntry = self.toc..createTOCEntry(text, level)
+        block = Paragraph("<a name=\"%s\"/><b>%s</b>" % (tocEntry._link, text), style)
+        self.paragraphs.append(tocEntry)
+        self.paragraphs.append(block)
 
     def appendImage(self, path, caption='', width=None, align='CENTER'):
         if width is None:
