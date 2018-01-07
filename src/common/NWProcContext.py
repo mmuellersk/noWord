@@ -41,6 +41,8 @@ class NWProcContext:
 
         self.toc = NWTOCContext()
 
+        self.refs = []
+
     def clone(self):
         cloneContext = NWProcContext(
             self.docInfo,
@@ -101,7 +103,7 @@ class NWProcContext:
         self.content.append(toc)
         self.content.append(PageBreak())
 
-    def appendImage(self, path, caption='', width=None, align='CENTER'):
+    def appendImage(self, path, caption='', width=None, align='CENTER', padding=10):
         if width is None:
             width = 16 * cm
 
@@ -116,10 +118,10 @@ class NWProcContext:
         imgTable = Table(imgData)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
                                       ('VALIGN', (0, 0), (-1, -1), align),
-                                      ('LEFTPADDING', (0, 0), (-1, -1), 0),
-                                      ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-                                      ('TOPPADDING', (0, 0), (-1, -1), 0),
-                                      ('BOTTOMPADDING', (0, 0), (-1, -1), 0)]))
+                                      ('LEFTPADDING', (0, 0), (-1, -1), padding),
+                                      ('RIGHTPADDING', (0, 0), (-1, -1), padding),
+                                      ('TOPPADDING', (0, 0), (-1, -1), padding),
+                                      ('BOTTOMPADDING', (0, 0), (-1, -1), padding)]))
         imgTable.hAlign = align
         self.content.append(imgTable)
 

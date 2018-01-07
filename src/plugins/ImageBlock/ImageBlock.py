@@ -31,4 +31,7 @@ class ImageBlock(PluginInterface):
         # align element
         align = self.getElemValue(block, 'align', 'CENTER').upper()
 
-        context.appendImage(imageFilename, caption, width, align)
+        # padding element, defaukt 10
+        padding = self.getElemValue(block, 'padding', 10)
+
+        context.appendImage(imageFilename, caption, width, align, padding)
