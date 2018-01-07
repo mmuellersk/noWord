@@ -4,8 +4,9 @@ import copy
 import sys
 
 from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
-from reportlab.platypus import Spacer, CondPageBreak, KeepTogether
+from reportlab.platypus import Spacer, CondPageBreak, KeepTogether, ListFlowable
 from reportlab.platypus.tableofcontents import TableOfContents
+from reportlab.lib import colors
 from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
@@ -57,6 +58,13 @@ class NWProcContext:
     def collect(self, otherContext):
         self.dummies.extend(otherContext.dummies)
 
+    def flattenDicts(self, dictList, keys=[]):
+        if len(dictList) == 0:
+            return []
+        if len(keys) == 0:
+            keys = dictList[0].keys()
+        return [[d[k] for k in keys] for d in dictList]
+
     def buildBegins(self):
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
@@ -80,10 +88,9 @@ class NWProcContext:
             result.append(tocEntry)
         result.append(chapter)
         result.append(Spacer(1, 12 if level == 0 else 6))
-        return KeepTogether(result)
+        self.content.append(KeepTogether(result))
 
     def appendTOC(self):
-        block = []
         toc = TableOfContents()
         toc.dotsMinLevel = 0
         toc.levelStyles = [
@@ -91,10 +98,8 @@ class NWProcContext:
             self.styleSheet["Toc1"],
             self.styleSheet["Toc2"],
             self.styleSheet["Toc3"]]
-        block.append(toc)
-        block.append(PageBreak())
-
-        return block
+        self.content.append(toc)
+        self.content.append(PageBreak())
 
     def appendImage(self, path, caption='', width=None, align='CENTER'):
         if width is None:
@@ -117,6 +122,85 @@ class NWProcContext:
                                       ('BOTTOMPADDING', (0, 0), (-1, -1), 0)]))
         imgTable.hAlign = align
         self.content.append(imgTable)
+
+    def appendList(self, context, items, numbered=False, start=1):
+        if type(start) is str and start == "continue":
+            start = context.lastListCounter
+
+        elif type(start) is not int:
+            start = 1
+
+        kwargs = {"bulletDedent": 15,
+                  "leftIndent": 30,
+                  "spaceAfter": 0,
+                  "bulletFontName": context.styleSheet["listBulletFontName"],
+                  "start": start}
+
+        if numbered:
+            kwargs.update(
+                {"bulletFormat": context.styleSheet["listNumberFormat"]})
+
+        else:
+            kwargs.update({"value": "bullet",
+                           "bulletType":  "bullet",
+                           "start": context.styleSheet["listBullet"],
+                           "bulletFontSize": 8,
+                           "bulletOffsetY": -1})
+
+        context.lastListCounter = start + len(items)
+
+        self.content.append(ListFlowable([[item, Spacer(1, context.styleSheet["itemsInterSpace"])]
+                             for item in items[:-1]] + [items[-1]], **kwargs))
+
+    def appendTable(self, path, headers, lines, widths=[],
+                   heights=None, halign="CENTER", highlights=[],
+                   repeatRows=0, border=0.5):
+        # It is possible to render a table without headers
+        nbCols = max(len(headers), len(lines[0]))
+        nbLines = len(lines) + 1 if len(headers) > 0 else 0
+
+        tableData = []
+        headersLine = []
+        style = [('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                 ('VALIGN', (0, 0), (-1, -1), 'TOP')]
+        if border > 0:
+            style.append(('GRID', (0, 0), (-1, -1), border, colors.black))
+
+        for col in headers:
+            headersLine.append(
+                self.paragraph("<b>" + col + "</b>", self.styleSheet["BodyText"]))
+        if len(headers) > 0:
+            tableData.append(headersLine)
+            style.append(("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey))
+
+        for lineNumber in highlights:
+            lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
+            style.append(("BACKGROUND", (0, lineNumber), (-1, lineNumber),
+                          context.styleSheet["highlight"]))
+
+        for line in lines:
+            lineData = []
+            for col in line:
+                if isinstance(col, str):
+                    lineData.append(
+                        self.paragraph(col, self.styleSheet["BodyText"]))
+                elif isinstance(col, list):
+                    shadowContext = self.clone()
+                    shadowContext.processFuncObj(col, shadowContext, path)
+                    shadowContext.process()
+                    self.collect(shadowContext)
+                    lineData.append(shadowContext.content)
+
+            tableData.append(lineData)
+
+        # if len(widths) == 0:
+        #  widths = nbCols*[self.currentWidth() / nbCols]
+
+        table = Table(tableData, widths, heights, repeatRows=repeatRows)
+        table.setStyle(TableStyle(style))
+        table.hAlign = halign
+
+        self.content.append(table)
 
     # Called at the beginning of each page, only used to show progression
     def pageBegins(self, canvas):

@@ -18,5 +18,4 @@ class TOCBlock(PluginInterface):
 
     def process(self, block, context):
 
-        for paragraph in context.appendTOC():
-            context.content.append(paragraph)
+        context.appendTOC()

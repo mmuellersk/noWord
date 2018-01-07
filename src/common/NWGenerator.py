@@ -17,12 +17,15 @@ import common.utils_di as cmn_utils_di
 
 
 class NWGenerator:
-    def __init__(self, aSourcePath, aOutputPath):
+    def __init__(self, aSourcePath, aOutputPath, extPluginFolders=[]):
         self.pluginMng = PluginManager()
 
         self.pluginMng.addPluginFolder(
             os.path.join(os.path.dirname(__file__),
                          '../plugins/'))
+
+        for extPluginFolder in extPluginFolders:
+            self.pluginMng.addPluginFolder(extPluginFolder)
 
         self.pluginMng.loadPlugins()
 

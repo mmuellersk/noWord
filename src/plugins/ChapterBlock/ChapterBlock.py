@@ -32,7 +32,5 @@ class ChapterBlock(PluginInterface):
         # lebel element, default None
         label = self.getElemValue(block, 'label', None)
 
-        context.content.append(
-            context.appendChapter(
-                title, level, toc, numbered, '.', style, label)
-        )
+
+        context.appendChapter(title, level, toc, numbered, '.', style, label)
