@@ -25,7 +25,8 @@ class ImageBlock(PluginInterface):
         caption = self.getElemValue(block, 'caption', '')
 
         # width element
-        width = block['width'] * cm
+        width = block["width"] * \
+            cm if "width" in block else context.doc.currentWidth()
 
         # align element
         align = self.getElemValue(block, 'align', 'CENTER').upper()

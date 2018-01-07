@@ -1,4 +1,5 @@
 import os
+import re
 import mimetypes as mime
 
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer

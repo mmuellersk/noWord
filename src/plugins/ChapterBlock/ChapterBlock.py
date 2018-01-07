@@ -17,21 +17,22 @@ class ChapterBlock(PluginInterface):
     def process(self, block, context):
 
         # level element, default 1
-        level = self.getElemValue(block, 'level', 1)
-        style = context.styleSheet['Heading%d' % level
+        level = self.getElemValue(block, 'level', 0)
+        style = context.styleSheet['Heading%d' % level]
 
         # title element, default 'no title'
         title = self.getElemValue(block, 'title', 'No title')
 
         # toc element, default True
-        toc =  self.getElemValue(block, 'toc', True)
+        toc = self.getElemValue(block, 'toc', True)
 
         # numbered element, default True
-        numbered =  self.getElemValue(block, 'numbered', True)
+        numbered = self.getElemValue(block, 'numbered', True)
 
         # lebel element, default None
-        label =  self.getElemValue(block, 'label', None)
+        label = self.getElemValue(block, 'label', None)
 
         context.content.append(
-            context.appendChapter(title, level, toc, numbered, '.', style, label)
+            context.appendChapter(
+                title, level, toc, numbered, '.', style, label)
         )

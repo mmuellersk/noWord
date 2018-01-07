@@ -1,6 +1,10 @@
 #!/usr/bin/env python
 
+from hashlib import sha1
+
 import common.utils_rp as cmn_utils_rp
+
+currentLink = 1
 
 
 class NWTOCContext:
@@ -30,7 +34,7 @@ class NWTOCContext:
 
         return chapters
 
-    def createTOCEntry(text, level):
+    def createTOCEntry(self, text, level):
         global currentLink
         link = sha1(str(currentLink).encode("utf-8")).hexdigest()
         tocEntry = cmn_utils_rp.TocEntry(level, text, link)

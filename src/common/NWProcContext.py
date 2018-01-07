@@ -3,12 +3,14 @@ import re
 import copy
 import sys
 
-from reportlab.platypus import Paragraph, Table, TableStyle
+from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
+from reportlab.platypus import Spacer, CondPageBreak, KeepTogether
+from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
 
-import common.NWTOCContext as NWTOCContext
+from common.NWTOCContext import NWTOCContext
 
 import common.utils_di as cmn_utils_di
 import common.utils_rp as cmn_utils_rp
@@ -64,13 +66,35 @@ class NWProcContext:
         finalText = text
 
         if toc and numbered:
-            finalText = self.toc.renderChapterCounter(level,sepChar) +
-                sepChar + text
+            finalText = self.toc.renderChapterCounter(level, sepChar) + \
+                sepChar + ' ' + text
 
-        tocEntry = self.toc..createTOCEntry(text, level)
-        block = Paragraph("<a name=\"%s\"/><b>%s</b>" % (tocEntry._link, text), style)
+        tocEntry = self.toc.createTOCEntry(finalText, level)
+        chapter = Paragraph("<a name=\"%s\"/><b>%s</b>" %
+                            (tocEntry._link, finalText), style)
         self.paragraphs.append(tocEntry)
-        self.paragraphs.append(block)
+        self.paragraphs.append(chapter)
+
+        result = [CondPageBreak(2*cm)]
+        if toc:
+            result.append(tocEntry)
+        result.append(chapter)
+        result.append(Spacer(1, 12 if level == 0 else 6))
+        return KeepTogether(result)
+
+    def appendTOC(self):
+        block = []
+        toc = TableOfContents()
+        toc.dotsMinLevel = 0
+        toc.levelStyles = [
+            self.styleSheet["Toc0"],
+            self.styleSheet["Toc1"],
+            self.styleSheet["Toc2"],
+            self.styleSheet["Toc3"]]
+        block.append(toc)
+        block.append(PageBreak())
+
+        return block
 
     def appendImage(self, path, caption='', width=None, align='CENTER'):
         if width is None:
