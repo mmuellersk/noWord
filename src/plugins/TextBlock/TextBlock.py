@@ -15,6 +15,9 @@ class TextBlock(PluginInterface):
     def Name(self):
         return 'text'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # style element, default 'BodyText'

@@ -12,3 +12,24 @@
 - type    : text
   content : >
     Some text here.
+
+- type    : list
+  content :
+    - >
+      Item 1
+    - >
+      Item 2
+    - >
+      Item 3
+    - >
+      Item 4
+
+- type    : table
+  header  : [Field,Description]
+  keys    : [key, desc]
+  widths  : [4,12]
+  rows    :
+    - key  : Field 1
+      desc : Some value
+    - key  : Field 2
+      desc : Some value

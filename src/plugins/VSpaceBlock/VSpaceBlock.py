@@ -16,6 +16,9 @@ class VSpaceBlock(PluginInterface):
     def Name(self):
         return 'vspace'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # height element, default 12

@@ -16,6 +16,9 @@ class TableBlock(PluginInterface):
     def Name(self):
         return 'table'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # width element, default []

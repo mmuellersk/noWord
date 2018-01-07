@@ -17,6 +17,9 @@ class ListBlock(PluginInterface):
     def Name(self):
         return 'list'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # numbered element, default False
