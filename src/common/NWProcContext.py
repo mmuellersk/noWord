@@ -150,11 +150,11 @@ class NWProcContext:
         context.lastListCounter = start + len(items)
 
         self.content.append(ListFlowable([[item, Spacer(1, context.styleSheet["itemsInterSpace"])]
-                             for item in items[:-1]] + [items[-1]], **kwargs))
+                                          for item in items[:-1]] + [items[-1]], **kwargs))
 
     def appendTable(self, path, headers, lines, widths=[],
-                   heights=None, halign="CENTER", highlights=[],
-                   repeatRows=0, border=0.5):
+                    heights=None, halign="CENTER", highlights=[],
+                    repeatRows=0, border=0.5):
         # It is possible to render a table without headers
         nbCols = max(len(headers), len(lines[0]))
         nbLines = len(lines) + 1 if len(headers) > 0 else 0
