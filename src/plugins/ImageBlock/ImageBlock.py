@@ -16,6 +16,9 @@ class ImageBlock(PluginInterface):
     def Name(self):
         return 'image'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # filename element

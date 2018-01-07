@@ -19,6 +19,9 @@ class LineBlock(PluginInterface):
     def Name(self):
         return 'line'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # dashes element
