@@ -195,9 +195,6 @@ class NWProcContext:
 
             tableData.append(lineData)
 
-        # if len(widths) == 0:
-        #  widths = nbCols*[self.currentWidth() / nbCols]
-
         table = Table(tableData, widths, heights, repeatRows=repeatRows)
         table.setStyle(TableStyle(style))
         table.hAlign = halign
