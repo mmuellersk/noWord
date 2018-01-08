@@ -41,8 +41,6 @@ class NWProcContext:
 
         self.toc = NWTOCContext()
 
-        self.refs = []
-
     def clone(self):
         cloneContext = NWProcContext(
             self.docInfo,
