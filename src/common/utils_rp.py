@@ -49,7 +49,8 @@ def appendList(context, items, numbered=False, start=1, itemSpace=6):
     context.lastListCounter = start + len(items)
 
     context.content.append(ListFlowable([[item, Spacer(1, itemSpace)]
-                                      for item in items[:-1]] + [items[-1]], **kwargs))
+                                         for item in items[:-1]] + [items[-1]], **kwargs))
+
 
 def appendTable(context, path, headers, lines, widths=[],
                 heights=None, halign="CENTER", highlights=[],
@@ -97,6 +98,7 @@ def appendTable(context, path, headers, lines, widths=[],
     table.hAlign = halign
 
     context.content.append(table)
+
 
 def getImage(filename, width, dummy=False):
     filename = os.path.normpath(filename)

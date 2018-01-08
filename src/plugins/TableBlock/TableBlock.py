@@ -47,5 +47,5 @@ class TableBlock(PluginInterface):
         halign = self.getElemValue(block, 'halign', 'CENTER')
 
         cmn_utils_rp.appendTable(context, block['_path'],
-                            headers, lines, widths, None,
-                            halign, [], repeatRows, border)
+                                 headers, lines, widths, None,
+                                 halign, [], repeatRows, border)

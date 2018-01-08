@@ -10,6 +10,7 @@ from reportlab.lib.units import cm
 from common.PluginInterface import PluginInterface
 import common.utils_rp as cmn_utils_rp
 
+
 class ImageBlock(PluginInterface):
     def __init__(self):
         pass
@@ -38,7 +39,8 @@ class ImageBlock(PluginInterface):
         # padding element, defaukt 10
         padding = self.getElemValue(block, 'padding', 10)
 
-        self.appendImage(context, imageFilename, caption, width, align, padding)
+        self.appendImage(context, imageFilename,
+                         caption, width, align, padding)
 
     def appendImage(self, context, path, caption='', width=None, align='CENTER', padding=10):
         if width is None:
@@ -51,13 +53,13 @@ class ImageBlock(PluginInterface):
         image = cmn_utils_rp.getImage(path, width, dummy=True)
         context.dummies.append(image)
         imgData = [[image], [context.paragraph(
-        caption, context.styleSheet["ImageCaption"])]]
+            caption, context.styleSheet["ImageCaption"])]]
         imgTable = Table(imgData)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
-                                  ('VALIGN', (0, 0), (-1, -1), align),
-                                  ('LEFTPADDING', (0, 0), (-1, -1), padding),
-                                  ('RIGHTPADDING', (0, 0), (-1, -1), padding),
-                                  ('TOPPADDING', (0, 0), (-1, -1), padding),
-                                  ('BOTTOMPADDING', (0, 0), (-1, -1), padding)]))
+                                      ('VALIGN', (0, 0), (-1, -1), align),
+                                      ('LEFTPADDING', (0, 0), (-1, -1), padding),
+                                      ('RIGHTPADDING', (0, 0), (-1, -1), padding),
+                                      ('TOPPADDING', (0, 0), (-1, -1), padding),
+                                      ('BOTTOMPADDING', (0, 0), (-1, -1), padding)]))
         imgTable.hAlign = align
         context.content.append(imgTable)
