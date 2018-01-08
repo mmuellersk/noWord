@@ -8,6 +8,7 @@ from reportlab.lib.units import cm, mm
 
 from common.PluginInterface import PluginInterface
 import common.utils_di as cmn_utils_di
+import common.utils_rp as cmn_utils_rp
 
 
 class TableBlock(PluginInterface):
@@ -45,6 +46,6 @@ class TableBlock(PluginInterface):
         # halign element, default CENTER
         halign = self.getElemValue(block, 'halign', 'CENTER')
 
-        context.appendTable(block['_path'],
+        cmn_utils_rp.appendTable(context, block['_path'],
                             headers, lines, widths, None,
                             halign, [], repeatRows, border)

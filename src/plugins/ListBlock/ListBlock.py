@@ -9,6 +9,7 @@ from reportlab.lib.units import cm, mm
 
 from common.PluginInterface import PluginInterface
 
+import common.utils_rp as cmn_utils_rp
 
 class ListBlock(PluginInterface):
     def __init__(self):
@@ -30,7 +31,7 @@ class ListBlock(PluginInterface):
 
         # itemspace element, default see styleSheet
         itemSpace = self.getElemValue(block, 'itemspace',
-                                      context.styleSheet["itemsInterSpace"])
+            context.styleSheet["itemsInterSpace"])
 
         items = []
 
@@ -46,4 +47,4 @@ class ListBlock(PluginInterface):
                 items.append(
                     context.paragraph(item))
 
-        context.appendList(context, items, numbered, start, itemSpace)
+        cmn_utils_rp.appendList(context, items, numbered, start, itemSpace)
