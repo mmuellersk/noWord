@@ -3,9 +3,13 @@
 import sys
 sys.path.insert(0, '...')
 
+from reportlab.platypus import Paragraph, KeepTogether, Spacer
+from reportlab.platypus import CondPageBreak
+from reportlab.lib.units import cm
 
 from common.PluginInterface import PluginInterface
 
+from TOCBuilder import TOCBuilder
 
 class ChapterBlock(PluginInterface):
     def __init__(self):
@@ -15,7 +19,8 @@ class ChapterBlock(PluginInterface):
         return 'chapter'
 
     def prepare(self, block, context):
-        pass
+        if not hasattr(context,'toc'):
+            context.toc = TOCBuilder()
 
     def process(self, block, context):
 
@@ -35,4 +40,24 @@ class ChapterBlock(PluginInterface):
         # lebel element, default None
         label = self.getElemValue(block, 'label', None)
 
-        context.appendChapter(title, level, toc, numbered, '.', style, label)
+        self.appendChapter(context, title, level, toc, numbered, '.', style, label)
+
+    def appendChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
+        finalText = text
+
+        if toc and numbered:
+            finalText = context.toc.renderChapterCounter(level, sepChar) + \
+                sepChar + ' ' + text
+
+        tocEntry = context.toc.createTOCEntry(finalText, level)
+        chapter = Paragraph("<a name=\"%s\"/>%s" %
+                            (tocEntry._link, finalText), style)
+        context.paragraphs.append(tocEntry)
+        context.paragraphs.append(chapter)
+
+        result = [CondPageBreak(2 * cm)]
+        if toc:
+            result.append(tocEntry)
+        result.append(chapter)
+        result.append(Spacer(1, 12 if level == 0 else 6))
+        context.content.append(KeepTogether(result))

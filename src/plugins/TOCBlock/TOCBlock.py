@@ -4,6 +4,8 @@ import sys
 sys.path.insert(0, '...')
 
 
+from reportlab.platypus import PageBreak
+from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.lib.units import cm
 
 from common.PluginInterface import PluginInterface
@@ -20,5 +22,12 @@ class TOCBlock(PluginInterface):
         pass
 
     def process(self, block, context):
-
-        context.appendTOC()
+        toc = TableOfContents()
+        toc.dotsMinLevel = 0
+        toc.levelStyles = [
+            context.styleSheet["Toc0"],
+            context.styleSheet["Toc1"],
+            context.styleSheet["Toc2"],
+            context.styleSheet["Toc3"]]
+        context.content.append(toc)
+        context.content.append(PageBreak())

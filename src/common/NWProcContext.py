@@ -5,13 +5,10 @@ import sys
 
 from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
 from reportlab.platypus import Spacer, CondPageBreak, KeepTogether, ListFlowable
-from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
-
-from common.NWTOCContext import NWTOCContext
 
 import common.utils_di as cmn_utils_di
 import common.utils_rp as cmn_utils_rp
@@ -39,8 +36,6 @@ class NWProcContext:
 
         self.lastListCounter = 1
 
-        self.toc = NWTOCContext()
-
     def clone(self):
         cloneContext = NWProcContext(
             self.docInfo,
@@ -62,37 +57,6 @@ class NWProcContext:
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
                 dummy.enable(False)
-
-    def appendChapter(self, text, level, toc, numbered, sepChar, style, label=None):
-        finalText = text
-
-        if toc and numbered:
-            finalText = self.toc.renderChapterCounter(level, sepChar) + \
-                sepChar + ' ' + text
-
-        tocEntry = self.toc.createTOCEntry(finalText, level)
-        chapter = Paragraph("<a name=\"%s\"/>%s" %
-                            (tocEntry._link, finalText), style)
-        self.paragraphs.append(tocEntry)
-        self.paragraphs.append(chapter)
-
-        result = [CondPageBreak(2 * cm)]
-        if toc:
-            result.append(tocEntry)
-        result.append(chapter)
-        result.append(Spacer(1, 12 if level == 0 else 6))
-        self.content.append(KeepTogether(result))
-
-    def appendTOC(self):
-        toc = TableOfContents()
-        toc.dotsMinLevel = 0
-        toc.levelStyles = [
-            self.styleSheet["Toc0"],
-            self.styleSheet["Toc1"],
-            self.styleSheet["Toc2"],
-            self.styleSheet["Toc3"]]
-        self.content.append(toc)
-        self.content.append(PageBreak())
 
     def appendImage(self, path, caption='', width=None, align='CENTER', padding=10):
         if width is None:

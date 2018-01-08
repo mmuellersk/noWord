@@ -7,7 +7,7 @@ import common.utils_rp as cmn_utils_rp
 currentLink = 1
 
 
-class NWTOCContext:
+class TOCBuilder:
     def __init__(self):
         self.chapterCounter = {}
 
