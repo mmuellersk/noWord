@@ -58,13 +58,6 @@ class NWProcContext:
     def collect(self, otherContext):
         self.dummies.extend(otherContext.dummies)
 
-    def flattenDicts(self, dictList, keys=[]):
-        if len(dictList) == 0:
-            return []
-        if len(keys) == 0:
-            keys = dictList[0].keys()
-        return [[d[k] for k in keys] for d in dictList]
-
     def buildBegins(self):
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:

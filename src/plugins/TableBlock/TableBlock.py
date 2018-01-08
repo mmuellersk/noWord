@@ -7,6 +7,7 @@ from reportlab.platypus import Table, TableStyle
 from reportlab.lib.units import cm, mm
 
 from common.PluginInterface import PluginInterface
+import common.utils_di as cmn_utils_di
 
 
 class TableBlock(PluginInterface):
@@ -30,7 +31,7 @@ class TableBlock(PluginInterface):
         # rows element
         if isinstance(block["rows"], str):
             block["rows"] = context.getResource(block["rows"])
-        lines = context.flattenDicts(block["rows"], keys)
+        lines = cmn_utils_di.flattenDicts(block["rows"], keys)
 
         # displayHeader element
         headers = block["header"] if "displayHeader" not in block or block["displayHeader"] else []

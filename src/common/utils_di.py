@@ -14,3 +14,10 @@ def splitDate(aDocInfo):
                 "day": "{0:02d}".format(dt.day)})
 
     return aDocInfo
+
+def flattenDicts(dictList, keys=[]):
+    if len(dictList) == 0:
+        return []
+    if len(keys) == 0:
+        keys = dictList[0].keys()
+    return [[d[k] for k in keys] for d in dictList]
