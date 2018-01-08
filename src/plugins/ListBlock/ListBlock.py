@@ -41,9 +41,10 @@ class ListBlock(PluginInterface):
 
         for item in block["content"]:
             if isinstance(item, list):
-                context.processFuncObj(item, context, block['_path'])
-                items.append(KeepTogether(
-                    context.process()))
+                content = []
+                content.extend(context.processFuncObj(col, context, block['_path']))
+                content.extend(context.process())
+                items.append(KeepTogether(content))
             else:
                 items.append(
                     context.paragraph(item))

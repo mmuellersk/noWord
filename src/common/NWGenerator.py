@@ -85,7 +85,7 @@ class NWGenerator:
         blocks = []
         for block in self.processFolder(self.context.sourcePath):
             blocks.append(block)
-        
+
         # prepare blocks
         for block in blocks:
             plugin = self.pluginMng.findPlugin(block['type'])
