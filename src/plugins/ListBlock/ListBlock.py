@@ -28,6 +28,10 @@ class ListBlock(PluginInterface):
         # start element, default 1
         start = self.getElemValue(block, 'start', 1)
 
+        # itemspace element, default see styleSheet
+        itemSpace = self.getElemValue(block, 'itemspace',
+            context.styleSheet["itemsInterSpace"])
+
         items = []
 
         for item in block["content"]:
@@ -42,4 +46,4 @@ class ListBlock(PluginInterface):
                 items.append(
                     context.paragraph(item))
 
-        context.appendList(context, items, numbered, start)
+        context.appendList(context, items, numbered, start, itemSpace)

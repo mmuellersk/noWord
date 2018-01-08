@@ -125,7 +125,7 @@ class NWProcContext:
         imgTable.hAlign = align
         self.content.append(imgTable)
 
-    def appendList(self, context, items, numbered=False, start=1):
+    def appendList(self, context, items, numbered=False, start=1, itemSpace=6):
         if type(start) is str and start == "continue":
             start = context.lastListCounter
 
@@ -151,7 +151,7 @@ class NWProcContext:
 
         context.lastListCounter = start + len(items)
 
-        self.content.append(ListFlowable([[item, Spacer(1, context.styleSheet["itemsInterSpace"])]
+        self.content.append(ListFlowable([[item, Spacer(1, itemSpace)]
                                           for item in items[:-1]] + [items[-1]], **kwargs))
 
     def appendTable(self, path, headers, lines, widths=[],
