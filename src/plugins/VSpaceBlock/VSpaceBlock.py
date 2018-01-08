@@ -24,4 +24,6 @@ class VSpaceBlock(PluginInterface):
         # height element, default 12
         height = block["height"] * cm if "height" in block else 12
 
-        context.content.append(Spacer(1, height))
+        content = []
+        content.append(Spacer(1, height))
+        return content

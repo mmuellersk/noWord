@@ -26,6 +26,8 @@ class TitleBlock(PluginInterface):
         # title element, default 'no title'
         title = self.getElemValue(block, 'title', 'No title')
 
-        context.content.append(
+        content = []
+        content.append(
             context.paragraph('%s' % title,
                               context.styleSheet['Title%d' % level]))
+        return content

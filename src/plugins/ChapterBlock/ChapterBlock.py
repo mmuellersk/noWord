@@ -41,10 +41,12 @@ class ChapterBlock(PluginInterface):
         # lebel element, default None
         label = self.getElemValue(block, 'label', None)
 
-        self.appendChapter(context, title, level, toc,
+        return self.makeChapter(context, title, level, toc,
                            numbered, '.', style, label)
 
-    def appendChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
+    def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
+        content = []
+
         finalText = text
 
         if toc and numbered:
@@ -62,4 +64,6 @@ class ChapterBlock(PluginInterface):
             result.append(tocEntry)
         result.append(chapter)
         result.append(Spacer(1, 12 if level == 0 else 6))
-        context.content.append(KeepTogether(result))
+        content.append(KeepTogether(result))
+
+        return content

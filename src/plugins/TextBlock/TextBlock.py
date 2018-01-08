@@ -26,5 +26,8 @@ class TextBlock(PluginInterface):
         # content element
         content = block['content']
 
+        result = []
+
         style = context.styleSheet[styleName]
-        context.content.append(context.paragraph(content, style))
+        result.append(context.paragraph(content, style))
+        return result

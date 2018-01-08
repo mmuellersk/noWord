@@ -29,5 +29,8 @@ class TOCBlock(PluginInterface):
             context.styleSheet["Toc1"],
             context.styleSheet["Toc2"],
             context.styleSheet["Toc3"]]
-        context.content.append(toc)
-        context.content.append(PageBreak())
+
+        content = []
+        content.append(toc)
+        content.append(PageBreak())
+        return content

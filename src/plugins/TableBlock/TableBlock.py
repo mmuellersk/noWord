@@ -19,7 +19,18 @@ class TableBlock(PluginInterface):
         return 'table'
 
     def prepare(self, block, context):
-        pass
+        # keys element, default block['header']
+        keys = block["keys"] if "keys" in block else block["header"]
+
+        # rows element
+        if isinstance(block["rows"], str):
+            block["rows"] = context.getResource(block["rows"])
+        lines = cmn_utils_di.flattenDicts(block["rows"], keys)
+
+        for line in lines:
+            for col in line:
+                if isinstance(col, list):
+                    context.prepareFuncObj(col, context, block['_path'])
 
     def process(self, block, context):
 
@@ -46,6 +57,6 @@ class TableBlock(PluginInterface):
         # halign element, default CENTER
         halign = self.getElemValue(block, 'halign', 'CENTER')
 
-        cmn_utils_rp.appendTable(context, block['_path'],
+        return cmn_utils_rp.makeTable(context, block['_path'],
                                  headers, lines, widths, None,
                                  halign, [], repeatRows, border)

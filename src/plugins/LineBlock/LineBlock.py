@@ -47,4 +47,7 @@ class LineBlock(PluginInterface):
 
         line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes)
 
-        context.content.append(line)
+        content = []
+        content.append(line)
+
+        return content

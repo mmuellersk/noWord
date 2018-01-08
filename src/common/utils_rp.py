@@ -19,7 +19,7 @@ allowedImages = [
     "image/gif"]
 
 
-def appendList(context, items, numbered=False, start=1, itemSpace=6):
+def makeList(context, items, numbered=False, start=1, itemSpace=6):
     if not hasattr(context, 'lastListCounter'):
         context.lastListCounter = 1
 
@@ -48,11 +48,14 @@ def appendList(context, items, numbered=False, start=1, itemSpace=6):
 
     context.lastListCounter = start + len(items)
 
-    context.content.append(ListFlowable([[item, Spacer(1, itemSpace)]
+    content = []
+    content.append(ListFlowable([[item, Spacer(1, itemSpace)]
                                          for item in items[:-1]] + [items[-1]], **kwargs))
 
+    return content
 
-def appendTable(context, path, headers, lines, widths=[],
+
+def makeTable(context, path, headers, lines, widths=[],
                 heights=None, halign="CENTER", highlights=[],
                 repeatRows=0, border=0.5):
     # It is possible to render a table without headers
@@ -85,11 +88,8 @@ def appendTable(context, path, headers, lines, widths=[],
                 lineData.append(
                     context.paragraph(col, context.styleSheet["BodyText"]))
             elif isinstance(col, list):
-                shadowContext = context.clone()
-                shadowContext.processFuncObj(col, shadowContext, path)
-                shadowContext.process()
-                context.collect(shadowContext)
-                lineData.append(shadowContext.content)
+                context.processFuncObj(col, context, path)
+                lineData.append(context.process())
 
         tableData.append(lineData)
 
@@ -97,7 +97,9 @@ def appendTable(context, path, headers, lines, widths=[],
     table.setStyle(TableStyle(style))
     table.hAlign = halign
 
-    context.content.append(table)
+    content = []
+    content.append(table)
+    return content
 
 
 def getImage(filename, width, dummy=False):

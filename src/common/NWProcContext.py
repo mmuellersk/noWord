@@ -15,13 +15,11 @@ import common.utils_rp as cmn_utils_rp
 
 
 class NWProcContext:
-    def __init__(self, aDocInfo, aSourcePath, aOutputPath, aProcessFuncObj):
+    def __init__(self, aDocInfo, aSourcePath, aOutputPath, aPrepareFuncObj, aProcessFuncObj):
         self.docInfo = cmn_utils_di.splitDate(aDocInfo)
         self.sourcePath = aSourcePath
         self.outputPath = aOutputPath
 
-        self.content = []
-        self.content.append(cmn_utils_rp.TriggerFlowable(self.buildBegins))
         self.paragraphs = []
         self.styleSheet = styles
 
@@ -32,26 +30,8 @@ class NWProcContext:
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
         self.currentImage = 1
+        self.prepareFuncObj = aPrepareFuncObj
         self.processFuncObj = aProcessFuncObj
-
-        self.lastListCounter = 1
-
-    def clone(self):
-        cloneContext = NWProcContext(
-            self.docInfo,
-            self.sourcePath,
-            self.outputPath,
-            self.processFuncObj)
-
-        cloneContext.doc = self.doc
-
-        # pass stylesheet in case if it was overriden
-        cloneContext.styleSheet = self.styleSheet
-
-        return cloneContext
-
-    def collect(self, otherContext):
-        self.dummies.extend(otherContext.dummies)
 
     def buildBegins(self):
         if not self.pageCounter.firstRun:
@@ -144,5 +124,8 @@ class NWProcContext:
             creator="noWord - non-WYSIWYG document generator",
             producer="ReportLab PDF Library - www.reportlab.com")
 
-        self.content.append(metadata)
-        self.content.append(self.pageCounter)
+        content = []
+        content.append(metadata)
+        content.append(self.pageCounter)
+
+        return content
