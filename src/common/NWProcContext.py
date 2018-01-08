@@ -99,11 +99,12 @@ class NWProcContext:
                 self.docInfo[templateKey] = ""
 
         regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._/\[\]]*)}}")
+        txt = ''
         for p in self.paragraphs:
             if isinstance(p, Paragraph):
                 txt = p.text
-            # elif isinstance(p, reportUtils.TocEntry):
-            #    txt = p._text
+            elif isinstance(p, cmn_utils_rp.TocEntry):
+                txt = p._text
             cmds = regex.findall(txt)
             if len(cmds) > 0:
                 for cmd in cmds:
