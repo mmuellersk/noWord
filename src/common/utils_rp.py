@@ -74,12 +74,13 @@ def makeTable(context, path, headers, lines, widths=[],
             context.paragraph("<b>" + col + "</b>", context.styleSheet["BodyText"]))
     if len(headers) > 0:
         tableData.append(headersLine)
-        style.append(("BACKGROUND", (0, 0), (-1, 0), colors.lightgrey))
+        style.append(("BACKGROUND", (0, 0), (-1, 0),
+                        context.styleSheet["headerBackground"]))
 
     for lineNumber in highlights:
         lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
         style.append(("BACKGROUND", (0, lineNumber), (-1, lineNumber),
-                      context.styleSheet["highlight"]))
+                      context.styleSheet["highlightBackground"]))
 
     for line in lines:
         lineData = []

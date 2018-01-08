@@ -42,6 +42,10 @@ styles["listBullet"] = bullet
 styles["listNumberFormat"] = "%s. "
 styles["listBulletFontName"] = "Times-Roman"
 
+# table styles
+styles["headerBackground"] = colors.lightgrey
+styles["highlightBackground"] = colors.HexColor("#ffff00")
+
 # paragraph styles
 styles['default'] = ParagraphStyle(name="BodyText",
                                    fontName='Times-Roman',
