@@ -80,7 +80,7 @@ class NWProcContext:
                 sepChar + ' ' + text
 
         tocEntry = self.toc.createTOCEntry(finalText, level)
-        chapter = Paragraph("<a name=\"%s\"/><b>%s</b>" %
+        chapter = Paragraph("<a name=\"%s\"/>%s" %
                             (tocEntry._link, finalText), style)
         self.paragraphs.append(tocEntry)
         self.paragraphs.append(chapter)
