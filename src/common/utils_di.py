@@ -15,6 +15,7 @@ def splitDate(aDocInfo):
 
     return aDocInfo
 
+
 def flattenDicts(dictList, keys=[]):
     if len(dictList) == 0:
         return []

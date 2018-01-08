@@ -30,7 +30,7 @@ class ListBlock(PluginInterface):
 
         # itemspace element, default see styleSheet
         itemSpace = self.getElemValue(block, 'itemspace',
-            context.styleSheet["itemsInterSpace"])
+                                      context.styleSheet["itemsInterSpace"])
 
         items = []
 

@@ -11,6 +11,7 @@ from common.PluginInterface import PluginInterface
 
 from TOCBuilder import TOCBuilder
 
+
 class ChapterBlock(PluginInterface):
     def __init__(self):
         pass
@@ -19,7 +20,7 @@ class ChapterBlock(PluginInterface):
         return 'chapter'
 
     def prepare(self, block, context):
-        if not hasattr(context,'toc'):
+        if not hasattr(context, 'toc'):
             context.toc = TOCBuilder()
 
     def process(self, block, context):
@@ -40,7 +41,8 @@ class ChapterBlock(PluginInterface):
         # lebel element, default None
         label = self.getElemValue(block, 'label', None)
 
-        self.appendChapter(context, title, level, toc, numbered, '.', style, label)
+        self.appendChapter(context, title, level, toc,
+                           numbered, '.', style, label)
 
     def appendChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         finalText = text
