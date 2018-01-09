@@ -19,9 +19,12 @@ class ChapterBlock(PluginInterface):
     def Name(self):
         return 'chapter'
 
-    def prepare(self, block, context):
+    def init(self, context):
         if not hasattr(context, 'toc'):
             context.toc = TOCBuilder()
+
+    def prepare(self, block, context):
+        pass
 
     def process(self, block, context):
 

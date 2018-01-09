@@ -18,6 +18,9 @@ class TOCBlock(PluginInterface):
     def Name(self):
         return 'toc'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

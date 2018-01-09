@@ -19,6 +19,9 @@ class LineBlock(PluginInterface):
     def Name(self):
         return 'line'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

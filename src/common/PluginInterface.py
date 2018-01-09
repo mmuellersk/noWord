@@ -11,6 +11,9 @@ class PluginInterface:
     def Category(self):
         return 'default'
 
+    def init(self, context):
+        raise NotImplementedError("Plugin should implement init method")
+
     def prepare(self, block, context):
         raise NotImplementedError("Plugin should implement prepare method")
 

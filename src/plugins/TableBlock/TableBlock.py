@@ -18,6 +18,9 @@ class TableBlock(PluginInterface):
     def Name(self):
         return 'table'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         # keys element, default block['header']
         keys = block["keys"] if "keys" in block else block["header"]

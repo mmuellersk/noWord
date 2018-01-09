@@ -82,9 +82,20 @@ class NWGenerator:
         return content
 
     def process(self):
+        # load block list
         blocks = []
         for block in self.processFolder(self.context.sourcePath):
             blocks.append(block)
+
+        # init plugins: init only used plugins
+        pluginset = set()
+        for block in blocks:
+            plugin = self.pluginMng.findPlugin(block['type'])
+            if plugin is not None:
+                pluginset.add(plugin)
+        print(pluginset)
+        for plugin in pluginset:
+            plugin.init(self.context)
 
         # prepare blocks
         for block in blocks:
