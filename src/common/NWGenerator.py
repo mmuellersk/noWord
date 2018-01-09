@@ -93,7 +93,6 @@ class NWGenerator:
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
                 pluginset.add(plugin)
-        print(pluginset)
         for plugin in pluginset:
             plugin.init(self.context)
 

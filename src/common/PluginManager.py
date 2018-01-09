@@ -46,11 +46,6 @@ class PluginManager:
 
         return None
 
-    def initPlugins(self, context):
-        for key in self.pluginCategories:
-            for plugin in self.pluginCategories[key]:
-                plugin.init(context)
-
     def load_module(self, path, name=""):
         try:
             # take the module name by default
