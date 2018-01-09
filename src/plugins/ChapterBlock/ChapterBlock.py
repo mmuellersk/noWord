@@ -42,7 +42,7 @@ class ChapterBlock(PluginInterface):
         label = self.getElemValue(block, 'label', None)
 
         return self.makeChapter(context, title, level, toc,
-                           numbered, '.', style, label)
+                                numbered, '.', style, label)
 
     def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         content = []

@@ -11,6 +11,7 @@ from common.PluginInterface import PluginInterface
 
 import common.utils_rp as cmn_utils_rp
 
+
 class ListBlock(PluginInterface):
     def __init__(self):
         pass
@@ -35,14 +36,15 @@ class ListBlock(PluginInterface):
 
         # itemspace element, default see styleSheet
         itemSpace = self.getElemValue(block, 'itemspace',
-            context.styleSheet["itemsInterSpace"])
+                                      context.styleSheet["itemsInterSpace"])
 
         items = []
 
         for item in block["content"]:
             if isinstance(item, list):
                 content = []
-                content.extend(context.processFuncObj(item, context, block['_path']))
+                content.extend(context.processFuncObj(
+                    item, context, block['_path']))
                 items.append(KeepTogether(content))
             else:
                 items.append(

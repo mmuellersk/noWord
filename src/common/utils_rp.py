@@ -50,14 +50,14 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
 
     content = []
     content.append(ListFlowable([[item, Spacer(1, itemSpace)]
-                                         for item in items[:-1]] + [items[-1]], **kwargs))
+                                 for item in items[:-1]] + [items[-1]], **kwargs))
 
     return content
 
 
 def makeTable(context, path, headers, lines, widths=[],
-                heights=None, halign="CENTER", highlights=[],
-                repeatRows=0, border=0.5):
+              heights=None, halign="CENTER", highlights=[],
+              repeatRows=0, border=0.5):
     # It is possible to render a table without headers
     nbCols = max(len(headers), len(lines[0]))
     nbLines = len(lines) + 1 if len(headers) > 0 else 0
@@ -75,7 +75,7 @@ def makeTable(context, path, headers, lines, widths=[],
     if len(headers) > 0:
         tableData.append(headersLine)
         style.append(("BACKGROUND", (0, 0), (-1, 0),
-                        context.styleSheet["headerBackground"]))
+                      context.styleSheet["headerBackground"]))
 
     for lineNumber in highlights:
         lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
