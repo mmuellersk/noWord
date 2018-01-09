@@ -26,14 +26,13 @@ class TableBlock(PluginInterface):
         keys = block["keys"] if "keys" in block else block["header"]
 
         # rows element
-        if isinstance(block["rows"], str):
-            block["rows"] = context.getResource(block["rows"])
-        lines = cmn_utils_di.flattenDicts(block["rows"], keys)
+        if isinstance(block["rows"], list):
+            lines = cmn_utils_di.flattenDicts(block["rows"], keys)
 
-        for line in lines:
-            for col in line:
-                if isinstance(col, list):
-                    context.prepareFuncObj(col, context, block['_path'])
+            for line in lines:
+                for col in line:
+                    if isinstance(col, list):
+                        context.prepareFuncObj(col, context, block['_path'])
 
     def process(self, block, context):
 
