@@ -49,7 +49,7 @@ class ChapterBlock(PluginInterface):
 
         finalText = text
 
-        if toc and numbered:
+        if numbered:
             finalText = context.toc.renderChapterCounter(level, sepChar) + \
                 sepChar + ' ' + text
 
@@ -62,6 +62,7 @@ class ChapterBlock(PluginInterface):
         result = [CondPageBreak(2 * cm)]
         if toc:
             result.append(tocEntry)
+
         result.append(chapter)
         result.append(Spacer(1, 12 if level == 0 else 6))
         content.append(KeepTogether(result))

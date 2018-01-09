@@ -91,7 +91,6 @@ def makeTable(context, path, headers, lines, widths=[],
             elif isinstance(col, list):
                 content = []
                 content.extend(context.processFuncObj(col, context, path))
-                content.extend(context.process())
                 lineData.append(content)
 
         tableData.append(lineData)
