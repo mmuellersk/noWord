@@ -19,6 +19,9 @@ class LineBlock(PluginInterface):
     def Name(self):
         return 'line'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # dashes element
@@ -44,4 +47,7 @@ class LineBlock(PluginInterface):
 
         line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes)
 
-        context.content.append(line)
+        content = []
+        content.append(line)
+
+        return content

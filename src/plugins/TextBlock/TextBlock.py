@@ -15,6 +15,9 @@ class TextBlock(PluginInterface):
     def Name(self):
         return 'text'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
 
         # style element, default 'BodyText'
@@ -23,5 +26,8 @@ class TextBlock(PluginInterface):
         # content element
         content = block['content']
 
+        result = []
+
         style = context.styleSheet[styleName]
-        context.content.append(context.paragraph(content, style))
+        result.append(context.paragraph(content, style))
+        return result

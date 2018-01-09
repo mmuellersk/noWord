@@ -103,10 +103,10 @@ class NWDocument:
     def currentWidth(self):
         return self.pageRect[0] - self.style["marginL"] - self.style["marginR"]
 
-    def build(self, aFileName, context):
+    def build(self, aFileName, context, content):
         self.context = context
         self.doc.filename = aFileName
-        self.doc.multiBuild(self.context.content)
+        self.doc.multiBuild(content)
 
     def drawDecoration(self, canvas, doc):
         canvas.saveState()

@@ -16,6 +16,11 @@ class NewpageBlock(PluginInterface):
     def Name(self):
         return 'newpage'
 
+    def prepare(self, block, context):
+        pass
+
     def process(self, block, context):
-        context.content.append(
+        content = []
+        content.append(
             CondPageBreak(0.9 * context.doc.currentHeight()))
+        return content

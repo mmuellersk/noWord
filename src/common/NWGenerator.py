@@ -14,15 +14,19 @@ from common.NWDocument import NWDocument
 
 import common.utils_fs as cmn_utils_fs
 import common.utils_di as cmn_utils_di
+import common.utils_rp as cmn_utils_rp
 
 
 class NWGenerator:
-    def __init__(self, aSourcePath, aOutputPath):
+    def __init__(self, aSourcePath, aOutputPath, extPluginFolders=[]):
         self.pluginMng = PluginManager()
 
         self.pluginMng.addPluginFolder(
             os.path.join(os.path.dirname(__file__),
                          '../plugins/'))
+
+        for extPluginFolder in extPluginFolders:
+            self.pluginMng.addPluginFolder(extPluginFolder)
 
         self.pluginMng.loadPlugins()
 
@@ -34,6 +38,7 @@ class NWGenerator:
         self.context = NWProcContext(docInfos,
                                      aSourcePath,
                                      aOutputPath,
+                                     self.prepareBlocks,
                                      self.processBlocks)
 
         self.overrideValues(
@@ -55,24 +60,52 @@ class NWGenerator:
     def addDecoration(self, funcObj):
         self.doc.addDecoration(funcObj)
 
-    def processBlocks(self, blocks, context, path):
+    def prepareBlocks(self, blocks, context, path):
         for block in blocks:
             block['_path'] = path
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
-                plugin.process(block, context)
+                plugin.prepare(block, context)
             else:
                 print('Plugin not found: %s' % block['type'])
 
-    def process(self):
-        for block in self.processFolder(self.context.sourcePath):
+    def processBlocks(self, blocks, context, path):
+        content = []
+        for block in blocks:
+            block['_path'] = path
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
-                plugin.process(block, self.context)
+                content.extend(plugin.process(block, context))
             else:
                 print('Plugin not found: %s' % block['type'])
 
-        self.context.process()
+        return content
+
+    def process(self):
+        blocks = []
+        for block in self.processFolder(self.context.sourcePath):
+            blocks.append(block)
+
+        # prepare blocks
+        for block in blocks:
+            plugin = self.pluginMng.findPlugin(block['type'])
+            if plugin is not None:
+                plugin.prepare(block, self.context)
+            else:
+                print('Plugin not found: %s' % block['type'])
+
+        # process blocks
+        content = []
+        content.append(cmn_utils_rp.TriggerFlowable(self.context.buildBegins))
+
+        for block in blocks:
+            plugin = self.pluginMng.findPlugin(block['type'])
+            if plugin is not None:
+                content.extend(plugin.process(block, self.context))
+            else:
+                print('Plugin not found: %s' % block['type'])
+
+        content.extend(self.context.process())
 
         if not os.path.isdir(self.context.outputPath):
             os.makedirs(self.context.outputPath)
@@ -80,7 +113,7 @@ class NWGenerator:
         outputfile = os.path.join(
             self.context.outputPath,
             self.context.docInfo["outputFileTemplate"])
-        self.doc.build(outputfile, self.context)
+        self.doc.build(outputfile, self.context, content)
 
         return self.context.pageCounter.pageCount
 

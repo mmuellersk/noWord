@@ -3,8 +3,13 @@
 import sys
 sys.path.insert(0, '...')
 
+from reportlab.platypus import Paragraph, KeepTogether, Spacer
+from reportlab.platypus import CondPageBreak
+from reportlab.lib.units import cm
 
 from common.PluginInterface import PluginInterface
+
+from TOCBuilder import TOCBuilder
 
 
 class ChapterBlock(PluginInterface):
@@ -14,14 +19,52 @@ class ChapterBlock(PluginInterface):
     def Name(self):
         return 'chapter'
 
+    def prepare(self, block, context):
+        if not hasattr(context, 'toc'):
+            context.toc = TOCBuilder()
+
     def process(self, block, context):
 
         # level element, default 1
-        level = self.getElemValue(block, 'level', 1)
+        level = self.getElemValue(block, 'level', 0)
+        style = context.styleSheet['Heading%d' % level]
 
         # title element, default 'no title'
         title = self.getElemValue(block, 'title', 'No title')
 
-        context.content.append(
-            context.paragraph('%s' % title,
-                              context.styleSheet['Heading%d' % level]))
+        # toc element, default True
+        toc = self.getElemValue(block, 'toc', True)
+
+        # numbered element, default True
+        numbered = self.getElemValue(block, 'numbered', True)
+
+        # lebel element, default None
+        label = self.getElemValue(block, 'label', None)
+
+        return self.makeChapter(context, title, level, toc,
+                           numbered, '.', style, label)
+
+    def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
+        content = []
+
+        finalText = text
+
+        if numbered:
+            finalText = context.toc.renderChapterCounter(level, sepChar) + \
+                sepChar + ' ' + text
+
+        tocEntry = context.toc.createTOCEntry(finalText, level)
+        chapter = Paragraph("<a name=\"%s\"/>%s" %
+                            (tocEntry._link, finalText), style)
+        context.paragraphs.append(tocEntry)
+        context.paragraphs.append(chapter)
+
+        result = [CondPageBreak(2 * cm)]
+        if toc:
+            result.append(tocEntry)
+
+        result.append(chapter)
+        result.append(Spacer(1, 12 if level == 0 else 6))
+        content.append(KeepTogether(result))
+
+        return content

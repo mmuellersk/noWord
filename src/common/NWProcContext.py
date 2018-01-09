@@ -3,7 +3,9 @@ import re
 import copy
 import sys
 
-from reportlab.platypus import Paragraph, Table, TableStyle
+from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
+from reportlab.platypus import Spacer, CondPageBreak, KeepTogether, ListFlowable
+from reportlab.lib import colors
 from reportlab.lib.units import cm
 
 from common.DefaultStyles import styles
@@ -13,13 +15,11 @@ import common.utils_rp as cmn_utils_rp
 
 
 class NWProcContext:
-    def __init__(self, aDocInfo, aSourcePath, aOutputPath, aProcessFuncObj):
+    def __init__(self, aDocInfo, aSourcePath, aOutputPath, aPrepareFuncObj, aProcessFuncObj):
         self.docInfo = cmn_utils_di.splitDate(aDocInfo)
         self.sourcePath = aSourcePath
         self.outputPath = aOutputPath
 
-        self.content = []
-        self.content.append(cmn_utils_rp.TriggerFlowable(self.buildBegins))
         self.paragraphs = []
         self.styleSheet = styles
 
@@ -30,53 +30,13 @@ class NWProcContext:
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
         self.currentImage = 1
+        self.prepareFuncObj = aPrepareFuncObj
         self.processFuncObj = aProcessFuncObj
-
-        self.lastListCounter = 1
-
-    def clone(self):
-        cloneContext = NWProcContext(
-            self.docInfo,
-            self.sourcePath,
-            self.outputPath,
-            self.processFuncObj)
-
-        cloneContext.doc = self.doc
-
-        # pass stylesheet in case if it was overriden
-        cloneContext.styleSheet = self.styleSheet
-
-        return cloneContext
-
-    def collect(self, otherContext):
-        self.dummies.extend(otherContext.dummies)
 
     def buildBegins(self):
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
                 dummy.enable(False)
-
-    def appendImage(self, path, caption='', width=None, align='CENTER'):
-        if width is None:
-            width = 16 * cm
-
-        if len(caption) > 0:
-            caption = str(self.currentImage) + ". " + caption
-            self.currentImage = self.currentImage + 1
-
-        image = cmn_utils_rp.getImage(path, width, dummy=True)
-        self.dummies.append(image)
-        imgData = [[image], [self.paragraph(
-            caption, self.styleSheet["ImageCaption"])]]
-        imgTable = Table(imgData)
-        imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
-                                      ('VALIGN', (0, 0), (-1, -1), align),
-                                      ('LEFTPADDING', (0, 0), (-1, -1), 0),
-                                      ('RIGHTPADDING', (0, 0), (-1, -1), 0),
-                                      ('TOPPADDING', (0, 0), (-1, -1), 0),
-                                      ('BOTTOMPADDING', (0, 0), (-1, -1), 0)]))
-        imgTable.hAlign = align
-        self.content.append(imgTable)
 
     # Called at the beginning of each page, only used to show progression
     def pageBegins(self, canvas):
@@ -139,11 +99,12 @@ class NWProcContext:
                 self.docInfo[templateKey] = ""
 
         regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._/\[\]]*)}}")
+        txt = ''
         for p in self.paragraphs:
             if isinstance(p, Paragraph):
                 txt = p.text
-            # elif isinstance(p, reportUtils.TocEntry):
-            #    txt = p._text
+            elif isinstance(p, cmn_utils_rp.TocEntry):
+                txt = p._text
             cmds = regex.findall(txt)
             if len(cmds) > 0:
                 for cmd in cmds:
@@ -164,5 +125,8 @@ class NWProcContext:
             creator="noWord - non-WYSIWYG document generator",
             producer="ReportLab PDF Library - www.reportlab.com")
 
-        self.content.append(metadata)
-        self.content.append(self.pageCounter)
+        content = []
+        content.append(metadata)
+        content.append(self.pageCounter)
+
+        return content

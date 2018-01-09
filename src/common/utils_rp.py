@@ -1,7 +1,9 @@
 import os
+import re
 import mimetypes as mime
 
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
+from reportlab.platypus import ListFlowable, Table, TableStyle
 from reportlab.lib import utils, colors
 
 from pdfrw import PdfReader
@@ -15,6 +17,91 @@ allowedImages = [
     "image/x-ms-bmp",
     "image/tiff",
     "image/gif"]
+
+
+def makeList(context, items, numbered=False, start=1, itemSpace=6):
+    if not hasattr(context, 'lastListCounter'):
+        context.lastListCounter = 1
+
+    if type(start) is str and start == "continue":
+        start = context.lastListCounter
+
+    elif type(start) is not int:
+        start = 1
+
+    kwargs = {"bulletDedent": 15,
+              "leftIndent": 30,
+              "spaceAfter": 0,
+              "bulletFontName": context.styleSheet["listBulletFontName"],
+              "start": start}
+
+    if numbered:
+        kwargs.update(
+            {"bulletFormat": context.styleSheet["listNumberFormat"]})
+
+    else:
+        kwargs.update({"value": "bullet",
+                       "bulletType":  "bullet",
+                       "start": context.styleSheet["listBullet"],
+                       "bulletFontSize": 8,
+                       "bulletOffsetY": -1})
+
+    context.lastListCounter = start + len(items)
+
+    content = []
+    content.append(ListFlowable([[item, Spacer(1, itemSpace)]
+                                         for item in items[:-1]] + [items[-1]], **kwargs))
+
+    return content
+
+
+def makeTable(context, path, headers, lines, widths=[],
+                heights=None, halign="CENTER", highlights=[],
+                repeatRows=0, border=0.5):
+    # It is possible to render a table without headers
+    nbCols = max(len(headers), len(lines[0]))
+    nbLines = len(lines) + 1 if len(headers) > 0 else 0
+
+    tableData = []
+    headersLine = []
+    style = [('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+             ('VALIGN', (0, 0), (-1, -1), 'TOP')]
+    if border > 0:
+        style.append(('GRID', (0, 0), (-1, -1), border, colors.black))
+
+    for col in headers:
+        headersLine.append(
+            context.paragraph("<b>" + col + "</b>", context.styleSheet["BodyText"]))
+    if len(headers) > 0:
+        tableData.append(headersLine)
+        style.append(("BACKGROUND", (0, 0), (-1, 0),
+                        context.styleSheet["headerBackground"]))
+
+    for lineNumber in highlights:
+        lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
+        style.append(("BACKGROUND", (0, lineNumber), (-1, lineNumber),
+                      context.styleSheet["highlightBackground"]))
+
+    for line in lines:
+        lineData = []
+        for col in line:
+            if isinstance(col, str):
+                lineData.append(
+                    context.paragraph(col, context.styleSheet["BodyText"]))
+            elif isinstance(col, list):
+                content = []
+                content.extend(context.processFuncObj(col, context, path))
+                lineData.append(content)
+
+        tableData.append(lineData)
+
+    table = Table(tableData, widths, heights, repeatRows=repeatRows)
+    table.setStyle(TableStyle(style))
+    table.hAlign = halign
+
+    content = []
+    content.append(table)
+    return content
 
 
 def getImage(filename, width, dummy=False):
