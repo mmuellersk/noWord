@@ -13,7 +13,6 @@ from common.PluginInterface import PluginInterface
 import common.utils_fs as cmn_utils_fs
 
 
-
 class ResourceBlock(PluginInterface):
     def __init__(self):
         pass
