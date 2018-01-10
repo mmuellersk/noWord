@@ -20,8 +20,10 @@ class ChapterBlock(PluginInterface):
         return 'chapter'
 
     def init(self, context):
-        if not hasattr(context, 'toc'):
-            context.toc = TOCBuilder()
+        if hasattr(context, 'toc'):
+            raise Exception('Chapter plugin failed during init: toc has already been initialized in context by another plugin')
+
+        context.toc = TOCBuilder()
 
     def prepare(self, block, context):
         pass
