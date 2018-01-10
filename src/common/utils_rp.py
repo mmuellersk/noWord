@@ -31,8 +31,10 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
 
     kwargs = {"bulletDedent": 15,
               "leftIndent": 30,
+              "spaceBefore": 0,
               "spaceAfter": 0,
               "bulletFontName": context.styleSheet["listBulletFontName"],
+              "bulletFontSize": context.styleSheet["listBulletFontSize"],
               "start": start}
 
     if numbered:
