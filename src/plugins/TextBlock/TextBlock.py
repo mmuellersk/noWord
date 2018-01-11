@@ -15,6 +15,9 @@ class TextBlock(PluginInterface):
     def Name(self):
         return 'text'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

@@ -15,6 +15,9 @@ class TitleBlock(PluginInterface):
     def Name(self):
         return 'title'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

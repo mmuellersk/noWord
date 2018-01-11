@@ -16,6 +16,9 @@ class NewpageBlock(PluginInterface):
     def Name(self):
         return 'newpage'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

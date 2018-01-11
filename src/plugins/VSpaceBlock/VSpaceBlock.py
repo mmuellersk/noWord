@@ -16,6 +16,9 @@ class VSpaceBlock(PluginInterface):
     def Name(self):
         return 'vspace'
 
+    def init(self, context):
+        pass
+
     def prepare(self, block, context):
         pass
 

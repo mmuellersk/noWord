@@ -19,9 +19,14 @@ class ChapterBlock(PluginInterface):
     def Name(self):
         return 'chapter'
 
+    def init(self, context):
+        if hasattr(context, 'toc'):
+            raise Exception('Chapter plugin failed during init: toc has already been initialized in context by another plugin')
+
+        context.toc = TOCBuilder()
+
     def prepare(self, block, context):
-        if not hasattr(context, 'toc'):
-            context.toc = TOCBuilder()
+        pass
 
     def process(self, block, context):
 
@@ -42,7 +47,7 @@ class ChapterBlock(PluginInterface):
         label = self.getElemValue(block, 'label', None)
 
         return self.makeChapter(context, title, level, toc,
-                           numbered, '.', style, label)
+                                numbered, '.', style, label)
 
     def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         content = []
