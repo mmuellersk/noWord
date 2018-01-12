@@ -20,15 +20,6 @@ allowedImages = [
 
 
 def makeList(context, items, numbered=False, start=1, itemSpace=6):
-    if not hasattr(context, 'lastListCounter'):
-        context.lastListCounter = 1
-
-    if type(start) is str and start == "continue":
-        start = context.lastListCounter
-
-    elif type(start) is not int:
-        start = 1
-
     kwargs = {"bulletDedent": 15,
               "leftIndent": 30,
               "spaceBefore": 0,
