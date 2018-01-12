@@ -20,7 +20,7 @@ class ListBlock(PluginInterface):
         return 'list'
 
     def init(self, context):
-        pass
+        context.lastListCounter = 1
 
     def prepare(self, block, context):
         items = []
@@ -36,6 +36,9 @@ class ListBlock(PluginInterface):
 
         # start element, default 1
         start = self.getElemValue(block, 'start', 1)
+        if 'start' in block:
+            if (type(block['start']) is str) and (start == "continue"):
+                start = context.lastListCounter
 
         # itemspace element, default see styleSheet
         itemSpace = self.getElemValue(block, 'itemspace',
