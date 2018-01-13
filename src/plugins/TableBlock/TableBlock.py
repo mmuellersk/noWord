@@ -41,7 +41,8 @@ class TableBlock(PluginInterface):
 
         # rows element
         if isinstance(block["rows"], str):
-            block["rows"] = context.getResource(block["rows"])
+            block["rows"] = context.getResource(
+                context.resources, block["rows"])
         lines = cmn_utils_di.flattenDicts(block["rows"], keys)
 
         # displayHeader element
@@ -52,7 +53,7 @@ class TableBlock(PluginInterface):
         if "widths" in block:
             widths = [w * cm for w in block["widths"]]
         else:
-            widths = nbCols*[context.doc.currentWidth() / nbCols]
+            widths = nbCols * [context.doc.currentWidth() / nbCols]
 
         # repeatRows element, default 0
         repeatRows = self.getElemValue(block, 'repeatRows', 0)

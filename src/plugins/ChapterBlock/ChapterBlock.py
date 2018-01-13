@@ -21,7 +21,8 @@ class ChapterBlock(PluginInterface):
 
     def init(self, context):
         if hasattr(context, 'toc'):
-            raise Exception('Chapter plugin failed during init: toc has already been initialized in context by another plugin')
+            raise Exception(
+                'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
         context.toc = TOCBuilder()
 
