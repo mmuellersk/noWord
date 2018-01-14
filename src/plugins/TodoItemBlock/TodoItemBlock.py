@@ -31,7 +31,8 @@ class TodoItemBlock(PluginInterface):
         status = self.getElemValue(block, 'status', 'Open')
 
         # width element
-        width = block["width"] * cm if "width" in block else context.doc.currentWidth()
+        width = block["width"] * \
+            cm if "width" in block else context.doc.currentWidth()
 
         return self.makeTodoItem(context, title, status, width)
 
@@ -63,9 +64,9 @@ class TodoItemBlock(PluginInterface):
         tableData.append([context.paragraph(icon, context.styleSheet["TODOIcon"]),
                           context.paragraph(text, textStyle)])
 
-        todoTable = Table(tableData, [iconWidth, width-iconWidth])
+        todoTable = Table(tableData, [iconWidth, width - iconWidth])
 
         todoTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), 'LEFT'),
-                                      ('VALIGN', (0, 0), (-1, -1), 'TOP')]))
+                                       ('VALIGN', (0, 0), (-1, -1), 'TOP')]))
 
         return [todoTable]

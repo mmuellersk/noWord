@@ -9,7 +9,6 @@ from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 
-
 assetsDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
 
 # Choosing font
@@ -127,16 +126,16 @@ styles['TODOIcon'] = ParagraphStyle(name="TODOIcon",
                                     spaceAfter=8)
 
 styles['TODOText'] = ParagraphStyle(name="TODOText",
-                                parent=styles['default'],
-                                alignment=TA_LEFT,
-                                fontSize=10,
-                                spaceBefore=8,
-                                spaceAfter=8)
+                                    parent=styles['default'],
+                                    alignment=TA_LEFT,
+                                    fontSize=10,
+                                    spaceBefore=8,
+                                    spaceAfter=8)
 
 styles['TODOTextDone'] = ParagraphStyle(name="TODOTextDone",
-                            parent=styles['default'],
-                            textColor=styles["lightgray"],
-                            alignment=TA_LEFT,
-                            fontSize=10,
-                            spaceBefore=8,
-                            spaceAfter=8)
+                                        parent=styles['default'],
+                                        textColor=styles["lightgray"],
+                                        alignment=TA_LEFT,
+                                        fontSize=10,
+                                        spaceBefore=8,
+                                        spaceAfter=8)
