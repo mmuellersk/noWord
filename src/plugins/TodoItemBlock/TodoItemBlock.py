@@ -3,7 +3,7 @@
 import sys
 sys.path.insert(0, '...')
 
-from reportlab.platypus import Paragraph, Table
+from reportlab.platypus import Paragraph, Table, TableStyle
 from reportlab.lib.units import cm
 
 from common.PluginInterface import PluginInterface
@@ -64,5 +64,8 @@ class TodoItemBlock(PluginInterface):
                           context.paragraph(text, textStyle)])
 
         todoTable = Table(tableData, [iconWidth, width-iconWidth])
+
+        todoTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+                                      ('VALIGN', (0, 0), (-1, -1), 'TOP')]))
 
         return [todoTable]
