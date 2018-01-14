@@ -23,7 +23,7 @@ The following illustration outlines the main components of the noWord system.
 This files contains global settings of the document like:
 * doc id, version, author, etc
 * templates
-* processing instructions 
+* processing instructions
 
 ### Content files
 As content file format we chose YAML over json for it's multiline support.
@@ -63,11 +63,13 @@ You can define your own block types using the plugin mecanism.
 ### Templates
 For maximum flexibility, you can write you own templates using python.
 
-## Built With
+## Built With / Credits
 
 * [ReportLab](http://www.reportlab.com/opensource/) - ReportLab is the time-proven,
 ultra-robust open-source engine for creating complex,
 data-driven PDF documents and custom vector graphics.
+
+* [Font Awesome](http://fortawesome.github.io/Font-Awesome/) - Font Awesome is a scalable vector icons library that can instantly be customized.
 
 ## Contributing
 

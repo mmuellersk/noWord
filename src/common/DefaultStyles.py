@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -6,6 +7,14 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
+
+
+
+assetsDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+
+# Choosing font
+pdfmetrics.registerFont(
+    TTFont('FontAwesome', os.path.join(assetsDir, "FontAwesome.ttf")))
 
 
 styles = {}
@@ -18,6 +27,7 @@ styles["marginB"] = 78
 
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
+styles['lightgray'] = colors.HexColor("#bbbbbb")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -107,3 +117,26 @@ styles['ImageCaption'] = ParagraphStyle(name="ImageCaption",
                                         fontSize=12,
                                         spaceBefore=4,
                                         spaceAfter=8)
+
+styles['TODOIcon'] = ParagraphStyle(name="TODOIcon",
+                                    parent=styles['default'],
+                                    fontName='FontAwesome',
+                                    alignment=TA_LEFT,
+                                    fontSize=10,
+                                    spaceBefore=8,
+                                    spaceAfter=8)
+
+styles['TODOText'] = ParagraphStyle(name="TODOText",
+                                parent=styles['default'],
+                                alignment=TA_LEFT,
+                                fontSize=10,
+                                spaceBefore=8,
+                                spaceAfter=8)
+
+styles['TODOTextDone'] = ParagraphStyle(name="TODOTextDone",
+                            parent=styles['default'],
+                            textColor=styles["lightgray"],
+                            alignment=TA_LEFT,
+                            fontSize=10,
+                            spaceBefore=8,
+                            spaceAfter=8)
