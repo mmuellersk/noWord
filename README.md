@@ -69,7 +69,7 @@ For maximum flexibility, you can write you own templates using python.
 ultra-robust open-source engine for creating complex,
 data-driven PDF documents and custom vector graphics.
 
-* [Font Awesome](http://fortawesome.github.io/Font-Awesome/) - Font Awesome is a scalable vector icons library that can instantly be customized.
+* [Font Awesome](http://fontawesome.io/) - Font Awesome is a scalable vector icons library that can instantly be customized.
 
 ## Contributing
 
