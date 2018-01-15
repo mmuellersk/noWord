@@ -54,6 +54,10 @@ class TodoItemBlock(PluginInterface):
             text = '<strike>%s</strike>' % text
             icon = '&#xf046;'
             textStyle = context.styleSheet["TODOTextDone"]
+        elif status == 'InProgress':
+            text = '<b>%s</b>' % text
+            icon = '&#xf096;'
+            textStyle = context.styleSheet["TODOTextProgress"]
         else:
             text = 'Not defined'
             icon = ''

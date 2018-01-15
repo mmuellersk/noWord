@@ -27,6 +27,7 @@ styles["marginB"] = 78
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
 styles['lightgray'] = colors.HexColor("#bbbbbb")
+styles['green'] = colors.HexColor("#00aa00")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -135,6 +136,14 @@ styles['TODOText'] = ParagraphStyle(name="TODOText",
 styles['TODOTextDone'] = ParagraphStyle(name="TODOTextDone",
                                         parent=styles['default'],
                                         textColor=styles["lightgray"],
+                                        alignment=TA_LEFT,
+                                        fontSize=10,
+                                        spaceBefore=8,
+                                        spaceAfter=8)
+
+styles['TODOTextProgress'] = ParagraphStyle(name="TODOTextProgress",
+                                        parent=styles['default'],
+                                        textColor=styles["green"],
                                         alignment=TA_LEFT,
                                         fontSize=10,
                                         spaceBefore=8,
