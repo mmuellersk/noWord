@@ -51,7 +51,10 @@ class ForeachBlock(PluginInterface):
 
             content.append(subcontent)
 
-        context.textCmdProcessors.pop('current')
-        context.textCmdProcessors.pop('index')
+        if 'current' in context.textCmdProcessors:
+            context.textCmdProcessors.pop('current')
+
+        if 'index' in context.textCmdProcessors:
+            context.textCmdProcessors.pop('index')
 
         return content
