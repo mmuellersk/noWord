@@ -52,16 +52,16 @@ class NWProcContext:
     def paragraph(self, text, style=None):
         if style is None:
             style = self.styleSheet["BodyText"]
-        p = Paragraph(text, style)
+        p = Paragraph(self.processTextCmds(text), style)
         self.paragraphs.append(p)
         return p
 
-    def getResource(self, ref):
+    def getResource(self, source, ref):
         tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
         parts = ref.split("/")
         alias = parts[0]
         path = parts[1:]
-        resource = self.resources[alias]
+        resource = source[alias]
         for child in path:
             result = tableRegex.findall(child)
             if len(result) > 0:
@@ -72,7 +72,7 @@ class NWProcContext:
         return resource
 
     def resourceProcessor(self, ref):
-        return str(self.getResource(ref))
+        return str(self.getResource(self.resources, ref))
 
     def processTextCmd(self, cmd, data):
         ret = False
@@ -85,6 +85,15 @@ class NWProcContext:
             return "{{%s:%s}}" % (cmd, data)
         else:
             return ret
+
+    def processTextCmds(self, txt):
+        txt = str(txt)
+        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._/\[\]]*)?}}")
+        cmds = regex.findall(txt)
+        for cmd in cmds:
+            txt = txt.replace("{{%s:%s}}" %
+                              cmd, self.processTextCmd(cmd[0], cmd[1]))
+        return txt
 
     def process(self):
         # Render document variables

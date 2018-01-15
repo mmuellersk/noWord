@@ -36,19 +36,24 @@ class TableBlock(PluginInterface):
 
     def process(self, block, context):
 
-        # width element, default []
-        widths = [w * cm for w in block["widths"]] if "widths" in block else []
-
         # keys element, default block['header']
         keys = block["keys"] if "keys" in block else block["header"]
 
         # rows element
         if isinstance(block["rows"], str):
-            block["rows"] = context.getResource(block["rows"])
+            block["rows"] = context.getResource(
+                context.resources, block["rows"])
         lines = cmn_utils_di.flattenDicts(block["rows"], keys)
 
         # displayHeader element
         headers = block["header"] if "displayHeader" not in block or block["displayHeader"] else []
+
+        # width element, default []
+        nbCols = max(len(headers), len(lines[0]))
+        if "widths" in block:
+            widths = [w * cm for w in block["widths"]]
+        else:
+            widths = nbCols * [context.doc.currentWidth() / nbCols]
 
         # repeatRows element, default 0
         repeatRows = self.getElemValue(block, 'repeatRows', 0)
