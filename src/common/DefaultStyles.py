@@ -88,10 +88,3 @@ styles['BodyText'] = ParagraphStyle(name="BodyText",
                                     fontSize=12,
                                     spaceBefore=6,
                                     spaceAfter=6)
-
-styles['ImageCaption'] = ParagraphStyle(name="ImageCaption",
-                                        parent=styles['default'],
-                                        alignment=TA_CENTER,
-                                        fontSize=12,
-                                        spaceBefore=4,
-                                        spaceAfter=8)

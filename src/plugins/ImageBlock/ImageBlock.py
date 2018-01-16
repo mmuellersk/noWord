@@ -5,7 +5,9 @@ sys.path.insert(0, '...')
 
 
 from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from common.PluginInterface import PluginInterface
 import common.utils_rp as cmn_utils_rp
@@ -19,7 +21,13 @@ class ImageBlock(PluginInterface):
         return 'image'
 
     def init(self, context):
-        pass
+        if not 'ImageCaption' in context.styleSheet:
+            context.styleSheet['ImageCaption'] = ParagraphStyle(name="ImageCaption",
+                                                                parent=context.styleSheet['default'],
+                                                                alignment=TA_CENTER,
+                                                                fontSize=12,
+                                                                spaceBefore=4,
+                                                                spaceAfter=8)
 
     def prepare(self, block, context):
         pass
