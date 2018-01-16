@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import os
 
 from reportlab.pdfbase import pdfmetrics
 from reportlab.pdfbase.ttfonts import TTFont
@@ -6,6 +7,13 @@ from reportlab.lib import colors
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
+
+
+assetsDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+
+# Choosing font
+pdfmetrics.registerFont(
+    TTFont('FontAwesome', os.path.join(assetsDir, "FontAwesome.ttf")))
 
 
 styles = {}
@@ -18,6 +26,7 @@ styles["marginB"] = 78
 
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
+styles['green'] = colors.HexColor("#00aa00")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -47,7 +56,7 @@ styles["headerBackground"] = colors.lightgrey
 styles["highlightBackground"] = colors.HexColor("#ffff00")
 
 # paragraph styles
-styles['default'] = ParagraphStyle(name="BodyText",
+styles['default'] = ParagraphStyle(name="default",
                                    fontName='Times-Roman',
                                    fontSize=10,
                                    leading=12,
