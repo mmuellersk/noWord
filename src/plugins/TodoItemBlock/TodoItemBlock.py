@@ -3,7 +3,8 @@
 import sys
 sys.path.insert(0, '...')
 
-from reportlab.platypus import Paragraph, Table, TableStyle
+from reportlab.platypus import Paragraph, Table, TableStyle, ParagraphStyle
+from reportlab.lib import colors
 from reportlab.lib.units import cm
 
 from common.PluginInterface import PluginInterface
@@ -17,7 +18,44 @@ class TodoItemBlock(PluginInterface):
         return 'todoitem'
 
     def init(self, context):
-        pass
+
+        if not 'lightgray' in context.styleSheet:
+            context.styleSheet['lightgray'] = colors.HexColor("#bbbbbb")
+
+        if not 'TODOIcon' in context.styleSheet:
+            context.styleSheet['TODOIcon'] = ParagraphStyle(name="TODOIcon",
+                                                            parent=context.styleSheet['default'],
+                                                            fontName='FontAwesome',
+                                                            alignment=TA_LEFT,
+                                                            fontSize=10,
+                                                            spaceBefore=8,
+                                                            spaceAfter=8)
+
+        if not 'TODOText' in context.styleSheet:
+            context.styleSheet['TODOText'] = ParagraphStyle(name="TODOText",
+                                                            parent=context.styleSheet['default'],
+                                                            alignment=TA_LEFT,
+                                                            fontSize=10,
+                                                            spaceBefore=8,
+                                                            spaceAfter=8)
+
+        if not 'TODOTextDone' in context.styleSheet:
+            context.styleSheet['TODOTextDone'] = ParagraphStyle(name="TODOTextDone",
+                                                                parent=context.styleSheet['default'],
+                                                                textColor=context.styleSheet["lightgray"],
+                                                                alignment=TA_LEFT,
+                                                                fontSize=10,
+                                                                spaceBefore=8,
+                                                                spaceAfter=8)
+
+        if not 'TODOTextProgress' in context.styleSheet:
+            context.styleSheet['TODOTextProgress'] = ParagraphStyle(name="TODOTextProgress",
+                                                                    parent=context.styleSheet['default'],
+                                                                    textColor=context.styleSheet["green"],
+                                                                    alignment=TA_LEFT,
+                                                                    fontSize=10,
+                                                                    spaceBefore=8,
+                                                                    spaceAfter=8)
 
     def prepare(self, block, context):
         pass

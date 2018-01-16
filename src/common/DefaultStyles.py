@@ -26,7 +26,6 @@ styles["marginB"] = 78
 
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
-styles['lightgray'] = colors.HexColor("#bbbbbb")
 styles['green'] = colors.HexColor("#00aa00")
 
 # Some characters usable as list bullets
@@ -57,7 +56,7 @@ styles["headerBackground"] = colors.lightgrey
 styles["highlightBackground"] = colors.HexColor("#ffff00")
 
 # paragraph styles
-styles['default'] = ParagraphStyle(name="BodyText",
+styles['default'] = ParagraphStyle(name="default",
                                    fontName='Times-Roman',
                                    fontSize=10,
                                    leading=12,
@@ -116,35 +115,4 @@ styles['ImageCaption'] = ParagraphStyle(name="ImageCaption",
                                         alignment=TA_CENTER,
                                         fontSize=12,
                                         spaceBefore=4,
-                                        spaceAfter=8)
-
-styles['TODOIcon'] = ParagraphStyle(name="TODOIcon",
-                                    parent=styles['default'],
-                                    fontName='FontAwesome',
-                                    alignment=TA_LEFT,
-                                    fontSize=10,
-                                    spaceBefore=8,
-                                    spaceAfter=8)
-
-styles['TODOText'] = ParagraphStyle(name="TODOText",
-                                    parent=styles['default'],
-                                    alignment=TA_LEFT,
-                                    fontSize=10,
-                                    spaceBefore=8,
-                                    spaceAfter=8)
-
-styles['TODOTextDone'] = ParagraphStyle(name="TODOTextDone",
-                                        parent=styles['default'],
-                                        textColor=styles["lightgray"],
-                                        alignment=TA_LEFT,
-                                        fontSize=10,
-                                        spaceBefore=8,
-                                        spaceAfter=8)
-
-styles['TODOTextProgress'] = ParagraphStyle(name="TODOTextProgress",
-                                        parent=styles['default'],
-                                        textColor=styles["green"],
-                                        alignment=TA_LEFT,
-                                        fontSize=10,
-                                        spaceBefore=8,
                                         spaceAfter=8)
