@@ -88,31 +88,3 @@ styles['BodyText'] = ParagraphStyle(name="BodyText",
                                     fontSize=12,
                                     spaceBefore=6,
                                     spaceAfter=6)
-
-styles['Heading1'] = ParagraphStyle(name="Heading1",
-                                    parent=styles['default'],
-                                    alignment=TA_LEFT,
-                                    fontSize=20,
-                                    spaceBefore=10,
-                                    spaceAfter=10)
-
-styles['Heading2'] = ParagraphStyle(name="Heading2",
-                                    parent=styles['default'],
-                                    alignment=TA_LEFT,
-                                    fontSize=18,
-                                    spaceBefore=9,
-                                    spaceAfter=9)
-
-styles['Heading3'] = ParagraphStyle(name="Heading3",
-                                    parent=styles['default'],
-                                    alignment=TA_LEFT,
-                                    fontSize=16,
-                                    spaceBefore=8,
-                                    spaceAfter=8)
-
-styles['ImageCaption'] = ParagraphStyle(name="ImageCaption",
-                                        parent=styles['default'],
-                                        alignment=TA_CENTER,
-                                        fontSize=12,
-                                        spaceBefore=4,
-                                        spaceAfter=8)

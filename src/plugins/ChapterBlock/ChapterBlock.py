@@ -4,8 +4,10 @@ import sys
 sys.path.insert(0, '...')
 
 from reportlab.platypus import Paragraph, KeepTogether, Spacer
+from reportlab.lib.styles import ParagraphStyle
 from reportlab.platypus import CondPageBreak
 from reportlab.lib.units import cm
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from common.PluginInterface import PluginInterface
 
@@ -25,6 +27,31 @@ class ChapterBlock(PluginInterface):
                 'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
         context.toc = TOCBuilder()
+
+        # define used styles if not exists already
+        if not 'Heading0' in context.styleSheet:
+            context.styleSheet['Heading0'] = ParagraphStyle(name="Heading0",
+                                                            parent=context.styleSheet['default'],
+                                                            alignment=TA_LEFT,
+                                                            fontSize=20,
+                                                            spaceBefore=10,
+                                                            spaceAfter=10)
+
+        if not 'Heading1' in context.styleSheet:
+            context.styleSheet['Heading1'] = ParagraphStyle(name="Heading1",
+                                                            parent=context.styleSheet['default'],
+                                                            alignment=TA_LEFT,
+                                                            fontSize=18,
+                                                            spaceBefore=9,
+                                                            spaceAfter=9)
+
+        if not 'Heading2' in context.styleSheet:
+            context.styleSheet['Heading2'] = ParagraphStyle(name="Heading2",
+                                                            parent=context.styleSheet['default'],
+                                                            alignment=TA_LEFT,
+                                                            fontSize=16,
+                                                            spaceBefore=8,
+                                                            spaceAfter=8)
 
     def prepare(self, block, context):
         pass
