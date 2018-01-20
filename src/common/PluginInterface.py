@@ -28,3 +28,13 @@ class PluginInterface:
             elem = block[aKey]
 
         return elem
+
+    def getElemValue2(self, block, aKey, aSubKey, defaultValue):
+
+        elem = defaultValue
+
+        if aKey in block:
+            if aSubKey in block[aKey]:
+                elem = block[aKey][aSubKey]
+
+        return elem
