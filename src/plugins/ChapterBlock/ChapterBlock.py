@@ -27,6 +27,13 @@ class ChapterBlock(PluginInterface):
             raise Exception(
                 'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
+        # this TOC is used for the simulation of the construction
+        # during prepareing phase: It allos to calculate the link
+        # before actually creating the final TOC
+        context.prepare_toc = TOCBuilder()
+
+        # this TOC is used for the final construction during processing
+        # phase
         context.toc = TOCBuilder()
 
         # define used styles if not exists already
@@ -63,6 +70,10 @@ class ChapterBlock(PluginInterface):
                                                             spaceAfter=8)
 
     def prepare(self, block, context):
+
+        # title element, default 'no title'
+        title = self.getElemValue(block, 'title', 'No title')
+
         # level element, default 1
         level = self.getElemValue(block, 'level', 0)
 
@@ -72,13 +83,13 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
-        link = context.toc.preprocessTOCEntry(level)
-        numberLabel = context.toc.renderDummyChapterCounter(
+        tocEntry = context.prepare_toc.createTOCEntry(title, level)
+        numberLabel = context.prepare_toc.renderChapterCounter(
             level, self.sepChar)
 
         if label and numbered:
             anchor = {}
-            anchor['_name'] = link
+            anchor['_name'] = tocEntry._link
             anchor['_label'] = numberLabel
             if anchor['_name'] in context.anchors:
                 print("Warning: overwriting bookmark " + anchor['_name'])
