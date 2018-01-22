@@ -12,7 +12,7 @@ import common.utils_rp as cmn_utils_rp
 
 class AnchorBlock(PluginInterface):
     def __init__(self):
-        self.anchors = {}
+        pass
 
     def Name(self):
         return 'anchor'
@@ -29,12 +29,9 @@ class AnchorBlock(PluginInterface):
         # lable element
         anchor['_label'] = block['label']
 
-        if anchor['_name'] in self.anchors:
+        if anchor['_name'] in context.anchors:
             print("Warning: overwriting bookmark " + anchor['_name'])
-        self.anchors[anchor['_name']] = anchor
-
-        if not 'link' in context.textCmdProcessors:
-            context.textCmdProcessors['link'] = self.processAnchor
+        context.anchors[anchor['_name']] = anchor
 
     def process(self, block, context):
 
@@ -44,22 +41,7 @@ class AnchorBlock(PluginInterface):
         # lable element
         label = block['label']
 
-
         content = [Paragraph('<a name=\"%s\" />%s' % (name, label),
-            context.styleSheet['BodyText'])]
+                             context.styleSheet['BodyText'])]
 
         return content
-
-    def processAnchor(self, name):
-
-        if not name in self.anchors:
-            print("Warning: anchor not found " + name)
-            return ''
-
-        anchor = self.anchors[name]
-
-        return str("<a href=\"#%s\">%s</a>" % (anchor['_name'], anchor['_label']))
-
-
-
-

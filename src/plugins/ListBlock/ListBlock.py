@@ -57,9 +57,10 @@ class ListBlock(PluginInterface):
                     items.append(
                         context.paragraph(item))
         elif isinstance(block["content"], str):
-            resourceData = context.getResource(context.resources, block["content"])
+            resourceData = context.getResource(
+                context.resources, block["content"])
             for item in resourceData:
                 items.append(
-                        context.paragraph(item))
+                    context.paragraph(item))
 
         return cmn_utils_rp.makeList(context, items, numbered, start, itemSpace)

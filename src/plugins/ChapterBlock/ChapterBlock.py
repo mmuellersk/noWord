@@ -16,7 +16,8 @@ from TOCBuilder import TOCBuilder
 
 class ChapterBlock(PluginInterface):
     def __init__(self):
-        pass
+        self.anchors = {}
+        self.sepChar = '.'
 
     def Name(self):
         return 'chapter'
@@ -62,7 +63,26 @@ class ChapterBlock(PluginInterface):
                                                             spaceAfter=8)
 
     def prepare(self, block, context):
-        pass
+        # level element, default 1
+        level = self.getElemValue(block, 'level', 0)
+
+        # numbered element, default True
+        numbered = self.getElemValue(block, 'numbered', True)
+
+        # label element, default None
+        label = self.getElemValue(block, 'label', None)
+
+        link = context.toc.preprocessTOCEntry(level)
+        numberLabel = context.toc.renderDummyChapterCounter(
+            level, self.sepChar)
+
+        if label and numbered:
+            anchor = {}
+            anchor['_name'] = link
+            anchor['_label'] = numberLabel
+            if anchor['_name'] in context.anchors:
+                print("Warning: overwriting bookmark " + anchor['_name'])
+            context.anchors[label] = anchor
 
     def process(self, block, context):
 
@@ -79,11 +99,11 @@ class ChapterBlock(PluginInterface):
         # numbered element, default True
         numbered = self.getElemValue(block, 'numbered', True)
 
-        # lebel element, default None
+        # label element, default None
         label = self.getElemValue(block, 'label', None)
 
         return self.makeChapter(context, title, level, toc,
-                                numbered, '.', style, label)
+                                numbered, self.sepChar, style, label)
 
     def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         content = []
@@ -91,10 +111,11 @@ class ChapterBlock(PluginInterface):
         finalText = text
 
         if numbered:
-            finalText = context.toc.renderChapterCounter(level, sepChar) + \
-                sepChar + ' ' + text
+            numberLabel = context.toc.renderChapterCounter(level, sepChar)
+            finalText = numberLabel + sepChar + ' ' + text
 
         tocEntry = context.toc.createTOCEntry(finalText, level)
+
         chapter = Paragraph("<a name=\"%s\"/>%s" %
                             (tocEntry._link, finalText), style)
         context.paragraphs.append(tocEntry)
