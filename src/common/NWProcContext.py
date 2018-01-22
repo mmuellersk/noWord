@@ -150,11 +150,5 @@ class NWProcContext:
             return ''
 
         anchor = self.anchors[name]
-        name = ''
 
-        if '_link' in anchor:
-            name = anchor['_link']
-        else:
-            name = anchor['_name']
-
-        return str("<a href=\"#%s\">%s</a>" % (name, anchor['_label']))
+        return str("<a href=\"#%s\">%s</a>" % (anchor['_name'], anchor['_label']))
