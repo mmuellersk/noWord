@@ -16,7 +16,6 @@ from TOCBuilder import TOCBuilder
 
 class ChapterBlock(PluginInterface):
     def __init__(self):
-        self.anchors = {}
         self.sepChar = '.'
 
     def Name(self):
