@@ -46,13 +46,20 @@ class ListBlock(PluginInterface):
 
         items = []
 
-        for item in block["content"]:
-            if isinstance(item, list):
-                content = []
-                content.extend(context.processFuncObj(
-                    item, context, block['_path']))
-                items.append(KeepTogether(content))
-            else:
+        if isinstance(block["content"], list):
+            for item in block["content"]:
+                if isinstance(item, list):
+                    content = []
+                    content.extend(context.processFuncObj(
+                        item, context, block['_path']))
+                    items.append(KeepTogether(content))
+                else:
+                    items.append(
+                        context.paragraph(item))
+        elif isinstance(block["content"], str):
+            resourceData = context.getResource(
+                context.resources, block["content"])
+            for item in resourceData:
                 items.append(
                     context.paragraph(item))
 

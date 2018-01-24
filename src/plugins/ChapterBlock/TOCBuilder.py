@@ -4,11 +4,10 @@ from hashlib import sha1
 
 import common.utils_rp as cmn_utils_rp
 
-currentLink = 1
-
 
 class TOCBuilder:
     def __init__(self):
+        self.currentLink = 1
         self.chapterCounter = {}
 
     def getCurrentChapterCounter(self, level):
@@ -16,10 +15,6 @@ class TOCBuilder:
             self.chapterCounter[level] = 1
 
         return self.chapterCounter[level]
-
-    def incrementChapterCounter(self, level):
-        currentLevelCount = self.getCurrentChapterCounter(level)
-        self.chapterCounter[level] = currentLevelCount + 1
 
     def renderChapterCounter(self, level, sepChar='.'):
         chapters = ""
@@ -35,8 +30,7 @@ class TOCBuilder:
         return chapters
 
     def createTOCEntry(self, text, level):
-        global currentLink
-        link = sha1(str(currentLink).encode("utf-8")).hexdigest()
+        link = sha1(str(self.currentLink).encode("utf-8")).hexdigest()
         tocEntry = cmn_utils_rp.TocEntry(level, text, link)
-        currentLink = currentLink + 1
+        self.currentLink = self.currentLink + 1
         return tocEntry

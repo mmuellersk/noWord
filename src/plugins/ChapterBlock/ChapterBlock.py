@@ -16,7 +16,7 @@ from TOCBuilder import TOCBuilder
 
 class ChapterBlock(PluginInterface):
     def __init__(self):
-        pass
+        self.sepChar = '.'
 
     def Name(self):
         return 'chapter'
@@ -26,6 +26,13 @@ class ChapterBlock(PluginInterface):
             raise Exception(
                 'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
+        # this TOC is used for the simulation of the construction
+        # during prepareing phase: It allos to calculate the link
+        # before actually creating the final TOC
+        context.prepare_toc = TOCBuilder()
+
+        # this TOC is used for the final construction during processing
+        # phase
         context.toc = TOCBuilder()
 
         # define used styles if not exists already
@@ -33,7 +40,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading0'] = ParagraphStyle(name="Heading0",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=20,
+                                                            fontSize=18,
                                                             spaceBefore=10,
                                                             spaceAfter=10)
 
@@ -41,7 +48,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading1'] = ParagraphStyle(name="Heading1",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=18,
+                                                            fontSize=16,
                                                             spaceBefore=9,
                                                             spaceAfter=9)
 
@@ -49,12 +56,43 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading2'] = ParagraphStyle(name="Heading2",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=16,
+                                                            fontSize=14,
+                                                            spaceBefore=8,
+                                                            spaceAfter=8)
+
+        if not 'Heading3' in context.styleSheet:
+            context.styleSheet['Heading3'] = ParagraphStyle(name="Heading3",
+                                                            parent=context.styleSheet['default'],
+                                                            alignment=TA_LEFT,
+                                                            fontSize=12,
                                                             spaceBefore=8,
                                                             spaceAfter=8)
 
     def prepare(self, block, context):
-        pass
+
+        # title element, default 'no title'
+        title = self.getElemValue(block, 'title', 'No title')
+
+        # level element, default 1
+        level = self.getElemValue(block, 'level', 0)
+
+        # numbered element, default True
+        numbered = self.getElemValue(block, 'numbered', True)
+
+        # label element, default None
+        label = self.getElemValue(block, 'label', None)
+
+        tocEntry = context.prepare_toc.createTOCEntry(title, level)
+        numberLabel = context.prepare_toc.renderChapterCounter(
+            level, self.sepChar)
+
+        if label and numbered:
+            anchor = {}
+            anchor['_name'] = tocEntry._link
+            anchor['_label'] = numberLabel
+            if anchor['_name'] in context.anchors:
+                print("Warning: overwriting bookmark " + anchor['_name'])
+            context.anchors[label] = anchor
 
     def process(self, block, context):
 
@@ -71,11 +109,11 @@ class ChapterBlock(PluginInterface):
         # numbered element, default True
         numbered = self.getElemValue(block, 'numbered', True)
 
-        # lebel element, default None
+        # label element, default None
         label = self.getElemValue(block, 'label', None)
 
         return self.makeChapter(context, title, level, toc,
-                                numbered, '.', style, label)
+                                numbered, self.sepChar, style, label)
 
     def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         content = []
@@ -83,10 +121,11 @@ class ChapterBlock(PluginInterface):
         finalText = text
 
         if numbered:
-            finalText = context.toc.renderChapterCounter(level, sepChar) + \
-                sepChar + ' ' + text
+            numberLabel = context.toc.renderChapterCounter(level, sepChar)
+            finalText = numberLabel + sepChar + ' ' + text
 
         tocEntry = context.toc.createTOCEntry(finalText, level)
+
         chapter = Paragraph("<a name=\"%s\"/>%s" %
                             (tocEntry._link, finalText), style)
         context.paragraphs.append(tocEntry)
