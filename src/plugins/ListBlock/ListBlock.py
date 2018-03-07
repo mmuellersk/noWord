@@ -44,6 +44,10 @@ class ListBlock(PluginInterface):
         itemSpace = self.getElemValue(block, 'itemspace',
                                       context.styleSheet["itemsInterSpace"])
 
+        # style element, default 'BodyText'
+        styleName = self.getElemValue(block, 'style', 'BodyText')
+        style = context.styleSheet[styleName]
+
         items = []
 
         if isinstance(block["content"], list):
@@ -55,12 +59,12 @@ class ListBlock(PluginInterface):
                     items.append(KeepTogether(content))
                 else:
                     items.append(
-                        context.paragraph(item))
+                        context.paragraph(item, style))
         elif isinstance(block["content"], str):
             resourceData = context.getResource(
                 context.resources, block["content"])
             for item in resourceData:
                 items.append(
-                    context.paragraph(item))
+                    context.paragraph(item, style))
 
         return cmn_utils_rp.makeList(context, items, numbered, start, itemSpace)
