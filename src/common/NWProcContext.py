@@ -134,7 +134,7 @@ class NWProcContext:
                  "documentMetaAuthorTemplate",
                  "documentMetaSubjectTemplate",
                  "documentMetaKeywordsTemplate"]],
-            creator="noWord - non-WYSIWYG document generator",
+            creator="noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord",
             producer="ReportLab PDF Library - www.reportlab.com")
 
         content = []
