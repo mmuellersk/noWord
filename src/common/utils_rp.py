@@ -114,7 +114,7 @@ def getImage(filename, width, dummy=False):
     # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
     # vector graphics.
     elif imageType == "application/pdf":
-        pages = PDFPage(filename, width=width, index=0)
+        pages = PDFSinglePage(filename, width=width, index=0)
         height = img.height
 
     else:
@@ -165,15 +165,26 @@ class DummyFlowable(Flowable):
 
     def isIndexing(self): return self.current.isIndexing()
 
+# Open a PDF file and return an array of xobjects
+
+
+def PDFPages(filename):
+    pages = PdfReader(filename).pages
+    return [pagexobj(x) for x in pages]
+
+
+def PDFSinglePage(filename, width, index):
+    pages = PdfReader(filename).pages
+    return PDFPage(pagexobj(pages[index]), width)
+
 # Wrap a PDF page (xobject) as a reportlab flowable
 
 
 class PDFPage(Flowable):
-    def __init__(self, filename, width, index):
-        pages = PdfReader(filename).pages
-        self.page = pagexobj(pages[index])
+    def __init__(self, page, width):
+        self.page = page
         self.width = width
-        self.height = width / (self.page.BBox[2] / self.page.BBox[3])
+        self.height = width / (page.BBox[2] / page.BBox[3])
 
     def wrap(self, *args):
         return (self.width, self.height)
