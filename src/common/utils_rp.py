@@ -50,7 +50,7 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
 
 def makeTable(context, path, headers, lines, widths=[],
               heights=None, halign="CENTER", highlights=[],
-              repeatRows=0, border=0.5):
+              repeatRows=0, border=0.5, bgcolor=[]):
     # It is possible to render a table without headers
     nbCols = max(len(headers), len(lines[0]))
     nbLines = len(lines) + 1 if len(headers) > 0 else 0
@@ -74,6 +74,12 @@ def makeTable(context, path, headers, lines, widths=[],
         lineNumber = lineNumber + 1 if len(headersLine) > 0 else 0
         style.append(("BACKGROUND", (0, lineNumber), (-1, lineNumber),
                       context.styleSheet["highlightBackground"]))
+
+    for item in bgcolor:
+        style.append(("BACKGROUND",
+                      (item["from"][0], item["from"][1]),
+                      (item["to"][0], item["to"][1]),
+                      item["color"]))
 
     for line in lines:
         lineData = []

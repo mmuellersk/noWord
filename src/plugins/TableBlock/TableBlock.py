@@ -64,6 +64,11 @@ class TableBlock(PluginInterface):
         # halign element, default CENTER
         halign = self.getElemValue(block, 'halign', 'CENTER')
 
+        bgcolor = []
+
+        if "bgcolor" in block:
+            bgcolor = block["bgcolor"]
+
         return cmn_utils_rp.makeTable(context, block['_path'],
                                       headers, lines, widths, None,
-                                      halign, [], repeatRows, border)
+                                      halign, [], repeatRows, border, bgcolor)
