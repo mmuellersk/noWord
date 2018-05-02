@@ -49,7 +49,7 @@ class ForeachBlock(PluginInterface):
             subcontent = []
             subcontent.extend(context.processFuncObj(subblocks, context, path))
 
-            content.append(subcontent)
+            content.extend(subcontent)
 
         if 'current' in context.textCmdProcessors:
             context.textCmdProcessors.pop('current')

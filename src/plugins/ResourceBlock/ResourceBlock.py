@@ -33,6 +33,9 @@ class ResourceBlock(PluginInterface):
         # alias element
         alias = block['alias']
 
+        # level element, default 1
+        setGlobal = self.getElemValue(block, 'global', False)
+
         data = cmn_utils_fs.deserialize(
             os.path.join(block['_path'], filename))
 
@@ -40,6 +43,9 @@ class ResourceBlock(PluginInterface):
             context.resources[alias].update(data)
         else:
             context.resources[alias] = data
+
+        if setGlobal :
+            context.docInfo.update(data)
 
         # return empty list
         return []
