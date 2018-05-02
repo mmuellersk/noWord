@@ -50,6 +50,7 @@ styles["itemsInterSpace"] = 6
 styles["listBullet"] = bullet
 styles["listNumberFormat"] = "%s. "
 styles["listBulletFontName"] = "Times-Roman"
+styles["listBulletFontSize"] = 10
 
 # table styles
 styles["headerBackground"] = colors.lightgrey
