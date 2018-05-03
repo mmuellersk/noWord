@@ -31,16 +31,28 @@ class ForeachBlock(PluginInterface):
         # content element
         content = block['content']
 
-        return self.makeForeach(context, block['_path'], resource, content)
+        # keys element
+        keys = ""
 
-    def makeForeach(self, context, path, resource, subblocks):
+        if "keys" in block:
+            keys = block["keys"]
+
+        return self.makeForeach(context, block['_path'], resource, keys, content)
+
+    def makeForeach(self, context, path, resource, keys, subblocks):
 
         resourceData = context.getResource(context.resources, resource)
+        keysData = context.getResource(context.resources, keys)
 
         content = []
 
         index = 0
         for item in resourceData:
+            if keysData:
+                if "id" in item:
+                    if item["id"] not in keysData:
+                        continue
+            
             index += 1
             context.textCmdProcessors["current"] = lambda res: context.getResource(
                 item, res)
