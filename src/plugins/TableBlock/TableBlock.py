@@ -43,6 +43,17 @@ class TableBlock(PluginInterface):
         if isinstance(block["rows"], str):
             block["rows"] = context.getResource(
                 context.resources, block["rows"])
+
+            if "filter" in block:
+                filters = context.getResource(
+                    context.resources, block["filter"])
+                resourceData = block["rows"]
+                block["rows"] = []
+                for item in resourceData:
+                    if "id" in item:
+                        if item["id"] in filters:
+                            block["rows"].append(item)
+
         lines = cmn_utils_di.flattenDicts(block["rows"], keys)
 
         # displayHeader element
