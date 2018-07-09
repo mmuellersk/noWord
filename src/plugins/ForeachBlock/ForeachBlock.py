@@ -44,7 +44,6 @@ class ForeachBlock(PluginInterface):
 
     def makeForeach(self, context, path, resource, keys, name, subblocks):
 
-        print(context.resources.keys())
         resourceData = context.getResource(context.resources, resource)
 
         keysData = None
