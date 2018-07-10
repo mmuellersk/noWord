@@ -59,6 +59,9 @@ class NWProcContext:
         self.paragraphs.append(p)
         return p
 
+    def addResource(self, key, value):
+        self.resources[key] = value
+
     def getResource(self, source, ref):
         tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
         parts = ref.split("/")

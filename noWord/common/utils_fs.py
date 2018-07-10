@@ -1,13 +1,20 @@
 #!/usr/bin/env python
 import os
+import sys
 import argparse
 import json
 import yaml
 import plistlib
 
+sys.path.insert(0, '.')
+import noWord as meta
+
 
 def parserCommandLine(additionalArgs=[]):
-    parser = argparse.ArgumentParser("noWord pdf generator")
+    parser = argparse.ArgumentParser(description="noWord pdf generator")
+
+    parser.add_argument('-v', '--version', action='version', version=meta.__version__)
+
     parser.add_argument(dest="source", help="Source folder")
     parser.add_argument(dest="dest", help="Destination folder")
 

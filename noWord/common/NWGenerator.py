@@ -5,6 +5,7 @@ import platform
 import reportlab.lib.enums
 import copy
 import sys
+sys.path.insert(0, '.')
 sys.path.insert(0, '..')
 
 
@@ -15,6 +16,8 @@ from common.NWDocument import NWDocument
 import common.utils_fs as cmn_utils_fs
 import common.utils_di as cmn_utils_di
 import common.utils_rp as cmn_utils_rp
+
+import noWord as meta
 
 
 class NWGenerator:
@@ -40,6 +43,8 @@ class NWGenerator:
                                      aOutputPath,
                                      self.prepareBlocks,
                                      self.processBlocks)
+
+        self.context.addResource( 'noWordInfo', {'name':meta.__name__,'version':meta.__version__})
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
