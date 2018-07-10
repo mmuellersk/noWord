@@ -1,0 +1,73 @@
+
+
+- type     : vspace
+  height   : 2
+
+
+- type      : title
+  level     : 0
+  title     : >
+    <b>{{res:meta/documentType}}</b>
+
+- type      : title
+  level     : 0
+  title     : >
+    <b>{{res:noWordInfo/name}}</b>
+
+- type      : line
+
+- type     : vspace
+  height   : 6
+
+- type      : newpage
+
+# Disclaimer
+
+# Meta Info
+- type: title
+  level: 2
+  title: Product / Software
+
+- type         : table
+  displayHeader: False
+  keys         : [label, value]
+  widths       : [6,10]
+  halign       : LEFT
+  rows         :
+    - label    : <b>Software</b>
+      value    : '{{res:noWordInfo/name}}'
+    - label    : <b>Version</b>
+      value    : '{{res:noWordInfo/version}}'
+      
+# Revision history
+
+- type: title
+  level: 2
+  title: Revision and Description of Change
+
+- type: table
+  header: [Revision, Date, Author, Reviewer, Comment]
+  keys: [revision, date, author, reviewer, comment]
+  widths: [2, 3, 3, 3, 5]
+  halign       : LEFT
+  rows: 'meta/revisions'
+
+- type: title
+  level: 2
+  title: Glossary
+
+- type: table
+  header: [Abbr., Description]
+  keys: [short, desc]
+  widths: [4, 12]
+  halign       : LEFT
+  rows: 'meta/glossary'
+
+- type:   newpage
+
+# Table of contents
+- type: title
+  level: 2
+  title: Table of Content
+
+- type: toc

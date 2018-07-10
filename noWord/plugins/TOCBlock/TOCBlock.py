@@ -10,7 +10,7 @@ from reportlab.platypus.tableofcontents import TableOfContents
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
 
 class TOCBlock(PluginInterface):

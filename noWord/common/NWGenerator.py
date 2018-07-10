@@ -5,17 +5,22 @@ import platform
 import reportlab.lib.enums
 import copy
 import sys
-sys.path.insert(0, '.')
+
+noWordDir = os.path.join(os.path.dirname(
+        os.path.abspath(__file__)), "../..")
+
 sys.path.insert(0, '..')
+sys.path.insert(0, noWordDir)
+sys.path.insert(0, './noWord')
 
 
-from common.PluginManager import PluginManager
-from common.NWProcContext import NWProcContext
-from common.NWDocument import NWDocument
+from noWord.common.PluginManager import PluginManager
+from noWord.common.NWProcContext import NWProcContext
+from noWord.common.NWDocument import NWDocument
 
-import common.utils_fs as cmn_utils_fs
-import common.utils_di as cmn_utils_di
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_fs as cmn_utils_fs
+import noWord.common.utils_di as cmn_utils_di
+import noWord.common.utils_rp as cmn_utils_rp
 
 import noWord as meta
 

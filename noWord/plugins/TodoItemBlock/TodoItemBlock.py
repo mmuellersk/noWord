@@ -8,7 +8,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
 
 class TodoItemBlock(PluginInterface):

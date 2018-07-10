@@ -5,9 +5,9 @@ sys.path.insert(0, '...')
 
 from reportlab.platypus import KeepTogether
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class ForeachBlock(PluginInterface):

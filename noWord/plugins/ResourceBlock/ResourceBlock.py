@@ -7,10 +7,10 @@ sys.path.insert(0, '...')
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_rp as cmn_utils_rp
 
-from common.PluginInterface import PluginInterface
-import common.utils_fs as cmn_utils_fs
+from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_fs as cmn_utils_fs
 
 
 class ResourceBlock(PluginInterface):

@@ -7,9 +7,9 @@ from reportlab.platypus import Table, TableStyle, KeepTogether, Spacer
 from reportlab.lib import colors
 from reportlab.lib.units import cm, mm
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class ListBlock(PluginInterface):

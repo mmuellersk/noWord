@@ -7,7 +7,7 @@ from reportlab.platypus import Paragraph
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
 
 class TitleBlock(PluginInterface):

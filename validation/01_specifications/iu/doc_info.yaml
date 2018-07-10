@@ -1,0 +1,38 @@
+docId     : iu
+documentType: Intended Use
+mainSubject : noWord
+shortDocumentType: IU
+author    : Matthias Müller
+
+revision: '1'
+revisions:
+  - revision  : '1'
+    date      : '10.07.2018'
+    author    : Matthias Müller
+    reviewer  : ''
+    comment   : Creation of the document
+
+
+
+glossary:
+  - short: IU
+    desc : Intended use
+
+docStyle:
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentIdentifierTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentMetaTitleTemplate: '{documentType} {mainSubject}'
+  revisionTemplate: "iu_r_{revision}"
+
+decorations:
+  - drawGraphicSignature
+  - drawHeader
+  - drawFooter
+
+styles :
+  marginT: 120
+  marginL: 70
+  marginR: 70
+  headerMargin: 20
+  watermarkPadding: 100

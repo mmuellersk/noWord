@@ -6,9 +6,9 @@ sys.path.insert(0, '...')
 from reportlab.platypus import Table, TableStyle
 from reportlab.lib.units import cm, mm
 
-from common.PluginInterface import PluginInterface
-import common.utils_di as cmn_utils_di
-import common.utils_rp as cmn_utils_rp
+from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_di as cmn_utils_di
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class TableBlock(PluginInterface):

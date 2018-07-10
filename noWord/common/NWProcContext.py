@@ -8,10 +8,10 @@ from reportlab.platypus import Spacer, CondPageBreak, KeepTogether, ListFlowable
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
-from common.DefaultStyles import styles
+from noWord.common.DefaultStyles import styles
 
-import common.utils_di as cmn_utils_di
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_di as cmn_utils_di
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class NWProcContext:

@@ -5,7 +5,7 @@ sys.path.insert(0, '..')
 
 from reportlab.platypus import CondPageBreak
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 from reportlab.lib.units import cm, mm
 
 

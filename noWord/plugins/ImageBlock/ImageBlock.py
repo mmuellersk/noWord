@@ -9,8 +9,8 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
-from common.PluginInterface import PluginInterface
-import common.utils_rp as cmn_utils_rp
+from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class ImageBlock(PluginInterface):

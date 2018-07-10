@@ -8,7 +8,7 @@ from reportlab.lib.units import cm, mm
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A4, portrait, landscape
 
-from common.utils_rp import DocTemplateWithToc
+from noWord.common.utils_rp import DocTemplateWithToc
 
 
 class NWDocument:

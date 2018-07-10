@@ -9,7 +9,7 @@ from reportlab.platypus import CondPageBreak
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
 from TOCBuilder import TOCBuilder
 

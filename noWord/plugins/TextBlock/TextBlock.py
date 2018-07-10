@@ -5,7 +5,7 @@ sys.path.insert(0, '...')
 
 from reportlab.platypus import Paragraph
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 
 
 class TextBlock(PluginInterface):

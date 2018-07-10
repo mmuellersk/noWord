@@ -2,7 +2,7 @@
 
 from hashlib import sha1
 
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class TOCBuilder:

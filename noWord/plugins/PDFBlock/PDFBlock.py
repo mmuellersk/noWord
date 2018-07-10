@@ -5,10 +5,10 @@ sys.path.insert(0, '..')
 
 from reportlab.platypus import CondPageBreak
 
-from common.PluginInterface import PluginInterface
+from noWord.common.PluginInterface import PluginInterface
 from reportlab.lib.units import cm, mm
 
-import common.utils_rp as cmn_utils_rp
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class PDFBlock(PluginInterface):
