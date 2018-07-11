@@ -1,32 +1,23 @@
 
 
 - type     : vspace
-  height   : 2
+  height   : 6
 
 
 - type      : title
   level     : 0
   title     : >
-    <b>{{res:meta/documentType}}</b>
+    <b>{{res:meta/documentType}} - {{res:noWordInfo/name}}</b>
 
-- type      : title
-  level     : 0
-  title     : >
-    <b>{{res:noWordInfo/name}}</b>
 
 - type      : line
 
 - type     : vspace
-  height   : 6
-
-- type      : newpage
+  height   : 10
 
 # Disclaimer
 
 # Meta Info
-- type: title
-  level: 2
-  title: Product / Software
 
 - type         : table
   displayHeader: False
@@ -34,12 +25,19 @@
   widths       : [6,10]
   halign       : LEFT
   rows         :
+    - label    : <b>Author</b>
+      value    : '{{res:meta/author}}'
     - label    : <b>Software</b>
       value    : '{{res:noWordInfo/name}}'
     - label    : <b>Version</b>
       value    : '{{res:noWordInfo/version}}'
-      
+    - label    : <b>Build timestamp</b>
+      value    : '{{res:buildInfo/timestamp}}'
+    - label    : <b>Builder</b>
+      value    : '{{res:buildInfo/builder}}'
+
 # Revision history
+- type      : newpage
 
 - type: title
   level: 2
@@ -62,8 +60,6 @@
   widths: [4, 12]
   halign       : LEFT
   rows: 'meta/glossary'
-
-- type:   newpage
 
 # Table of contents
 - type: title

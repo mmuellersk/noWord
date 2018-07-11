@@ -7,7 +7,7 @@ import yaml
 import plistlib
 
 noWordDir = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), "../..")
+    os.path.abspath(__file__)), "../..")
 
 sys.path.insert(0, noWordDir)
 
@@ -17,7 +17,8 @@ import noWord as meta
 def parserCommandLine(additionalArgs=[]):
     parser = argparse.ArgumentParser(description="noWord pdf generator")
 
-    parser.add_argument('-v', '--version', action='version', version=meta.__version__)
+    parser.add_argument('-v', '--version', action='version',
+                        version=meta.__version__)
 
     parser.add_argument(dest="source", help="Source folder")
     parser.add_argument(dest="dest", help="Destination folder")

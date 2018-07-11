@@ -44,7 +44,7 @@ class ResourceBlock(PluginInterface):
         else:
             context.resources[alias] = data
 
-        if setGlobal :
+        if setGlobal:
             context.docInfo.update(data)
 
         # return empty list

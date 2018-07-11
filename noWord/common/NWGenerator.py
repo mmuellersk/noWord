@@ -1,13 +1,14 @@
 #!/usr/bin/env python
 import os
 import sys
-import platform
+import pwd
 import reportlab.lib.enums
 import copy
 import sys
+import datetime
 
 noWordDir = os.path.join(os.path.dirname(
-        os.path.abspath(__file__)), "../..")
+    os.path.abspath(__file__)), "../..")
 
 sys.path.insert(0, '..')
 sys.path.insert(0, noWordDir)
@@ -23,6 +24,8 @@ import noWord.common.utils_di as cmn_utils_di
 import noWord.common.utils_rp as cmn_utils_rp
 
 import noWord as meta
+
+import noWord.common.DefaultDecoration as NoWordDecoration
 
 
 class NWGenerator:
@@ -49,13 +52,24 @@ class NWGenerator:
                                      self.prepareBlocks,
                                      self.processBlocks)
 
-        self.context.addResource( 'noWordInfo', {'name':meta.__name__,'version':meta.__version__})
+        self.context.addResource(
+            'noWordInfo', {'name': meta.__name__, 'version': meta.__version__})
+
+        self.context.addResource(
+            'buildInfo', {
+                'timestamp': datetime.datetime.now().isoformat(),
+                'builder': pwd.getpwuid( os.getuid() )[ 0 ]})
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
 
         self.doc = NWDocument(self.context.docInfo, self.context.styleSheet)
         self.context.doc = self.doc
+
+        if 'decorations' in self.context.docInfo:
+            decorations = self.context.docInfo['decorations']
+            for decoration in decorations:
+                self.addDecoration(getattr(NoWordDecoration, decoration))
 
     def overrideValues(self, strkey, dicTraget, dicSource):
         if strkey in dicSource:

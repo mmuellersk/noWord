@@ -23,10 +23,13 @@ styles["marginL"] = 78
 styles["marginR"] = 78
 styles["marginT"] = 106
 styles["marginB"] = 78
+styles["headerMargin"] = 0.2 * cm
+styles["footerMargin"] = 1.2 * cm
 
 # colors
 styles['darkgray'] = colors.HexColor("#222222")
 styles['green'] = colors.HexColor("#00aa00")
+styles['darkyellow'] = colors.HexColor("#999900")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -46,7 +49,7 @@ styles["templates"]["outputFileTemplate"] = "{shortDocumentType}_{mainSubject}_{
 styles["templates"]["revisionTemplate"] = "{shortDocumentType}_r.{revision}"
 
 # list styles
-styles["itemsInterSpace"] = 6
+styles["itemsInterSpace"] = 0
 styles["listBullet"] = bullet
 styles["listNumberFormat"] = "%s. "
 styles["listBulletFontName"] = "Times-Roman"
@@ -89,3 +92,15 @@ styles['BodyText'] = ParagraphStyle(name="BodyText",
                                     fontSize=12,
                                     spaceBefore=6,
                                     spaceAfter=6)
+
+
+styles["HeaderRight"] = ParagraphStyle(name="HeaderRight",
+                                       parent=styles['default'],
+                                       fontSize=10,
+                                       alignment=TA_RIGHT)
+
+
+styles["FooterRight"] = ParagraphStyle(name="FooterRight",
+                                       parent=styles['default'],
+                                       fontSize=10,
+                                       alignment=TA_RIGHT)

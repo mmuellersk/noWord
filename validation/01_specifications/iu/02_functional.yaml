@@ -1,0 +1,24 @@
+- type  : chapter
+  title : Functional overview
+
+- type    : text
+  content : >
+    noWord generates pdf documents based on content files formatted in YAML.
+    noWord has not graphical user interface. All operation are triggered by a standard CLI
+    interface. noWord propose only standard document features listed below:
+
+- type    : list
+  content :
+    - Text
+    - Titles
+    - Chapters
+    - Table of contents
+    - Lists
+    - Tables
+    - Images
+    - Links
+    - Basic flow (newpage, vspace, line)
+
+- type    : text
+  content : >
+    noWord allows only to generated standard documents.

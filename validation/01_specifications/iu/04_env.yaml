@@ -1,0 +1,8 @@
+- type  : chapter
+  title : Use environment
+
+- type    : text
+  content : >
+    noWord has to be used only in a software development tool chain.
+    noWord is developed as cross platform software system and can be used on linux,
+    unix like systems, macosx and even on Windows. 

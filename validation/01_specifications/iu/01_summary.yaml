@@ -1,0 +1,8 @@
+- type  : chapter
+  title : Summary
+
+- type    : text
+  content : >
+    noWord is a non-WYSIWYG document generator for IT professionals. Based on content files formated in YAML,
+    this software generates pdf documents. Main objective is to provide a framework which allows to integrate
+    a given document generation process into a common software development process (IDE, scm, CI).
