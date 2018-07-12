@@ -1,0 +1,10 @@
+
+mainSubject : text_test
+author    : Test Author
+revision  : 1
+date      : 11.07.2018
+description: Test text plugin, resources manager and styles
+
+docStyle:
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'

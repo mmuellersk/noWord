@@ -1,0 +1,38 @@
+docId     : spd
+documentType: Software Development Plan
+mainSubject : noWord
+shortDocumentType: SDP
+author    : Matthias Müller
+
+revision: '1'
+revisions:
+  - revision  : '1'
+    date      : '11.07.2018'
+    author    : Matthias Müller
+    reviewer  : Community
+    comment   : Creation of the document
+
+
+
+glossary:
+  - short: SDP
+    desc : Software Development Plan
+
+docStyle:
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentIdentifierTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentMetaTitleTemplate: '{documentType} {mainSubject}'
+  revisionTemplate: "iu_r_{revision}"
+
+decorations:
+  - drawGraphicSignature
+  - drawHeader
+  - drawFooter
+
+styles :
+  marginT: 120
+  marginL: 70
+  marginR: 70
+  headerMargin: 20
+  watermarkPadding: 100
