@@ -1,8 +1,5 @@
 pdfrw==0.4
 Pillow==4.3.0
-pyaml==17.10.0
 pyparsing==2.2.0
 PyYAML==3.11
 reportlab==3.4.0
-six==1.10.0
-smmap2==2.0.3
