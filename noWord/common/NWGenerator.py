@@ -58,7 +58,7 @@ class NWGenerator:
         self.context.addResource(
             'buildInfo', {
                 'timestamp': datetime.datetime.now().isoformat(),
-                'builder': pwd.getpwuid( os.getuid() )[ 0 ]})
+                'builder': pwd.getpwuid(os.getuid())[0]})
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
