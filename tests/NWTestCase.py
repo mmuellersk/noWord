@@ -4,7 +4,7 @@
 import os
 import sys
 
-from wand.image import Image
+from pdf2image import convert_from_path
 from timeit import default_timer as timer
 
 
@@ -43,6 +43,7 @@ class NWTestCase:
         pdfFile = os.path.join(
             self.outputfolder, self.doc_info['mainSubject'] + '.pdf')
 
+
         if not os.path.exists(pdfFile):
             self.context['error'] = 'pdf file was not generated'
             return False
@@ -71,11 +72,5 @@ class NWTestCase:
 
         if not self.verifyGeneration():
             return
-
-        pdffile = self.reffile+'[0]'
-        print(pdffile)
-
-        with Image(filename=pdffile) as img:
-            pass
-            #img.format = 'png'
-            #img.save(filename=os.path.join(self.outputfolder,'ref.png'))
+        refimg  = convert_from_path(self.reffile)
+        testimg = convert_from_path(self.pdfFile)
