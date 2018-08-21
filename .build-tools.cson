@@ -4,10 +4,10 @@ providers: [
     config:
       commands: [
         {
-          project: "/Volumes/WorkVault01/WorkMatthias/Dev/noWord"
-          source: "/Volumes/WorkVault01/WorkMatthias/Dev/noWord/.build-tools.cson"
-          name: "Build Default page"
-          command: "python3 ./src/nw_proc.py ./examples/00_defaultPage ./build/"
+          project: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord"
+          source: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord/.build-tools.cson"
+          name: "Build IU: Intended Use"
+          command: "python3 ./noWord/nw_proc.py ./validation/01_specifications/iu ./build/"
           wd: "."
           env: {}
           modifier:
