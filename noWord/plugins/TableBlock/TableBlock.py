@@ -40,8 +40,9 @@ class TableBlock(PluginInterface):
         keys = block["keys"] if "keys" in block else block["header"]
 
         # rows element
-        if isinstance(block["rows"], str):
-            block["rows"] = context.getResource(
+        data = block["rows"]
+        if isinstance(data, str):
+            data = context.getResource(
                 context.resources, block["rows"])
 
             if "filter" in block:
@@ -54,13 +55,20 @@ class TableBlock(PluginInterface):
                         if item["id"] in filters:
                             block["rows"].append(item)
 
-        lines = cmn_utils_di.flattenDicts(block["rows"], keys)
+        if block['rows'] is None:
+            block['rows'] = ''
+
+        lines = cmn_utils_di.flattenDicts(data, keys)
 
         # displayHeader element
         headers = block["header"] if "displayHeader" not in block or block["displayHeader"] else []
 
         # width element, default []
-        nbCols = max(len(headers), len(lines[0]))
+        if not lines:
+            nbCols = len(headers)
+        else:
+            nbCols = max(len(headers), len(lines[0]))
+
         if "widths" in block:
             widths = [w * cm for w in block["widths"]]
         else:

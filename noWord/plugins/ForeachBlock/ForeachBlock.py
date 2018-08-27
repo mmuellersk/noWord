@@ -35,7 +35,7 @@ class ForeachBlock(PluginInterface):
         name = self.getElemValue(block, 'name', 'current')
 
         # keys element
-        keys = ""
+        keys = None
 
         if "keys" in block:
             keys = block["keys"]
@@ -45,9 +45,10 @@ class ForeachBlock(PluginInterface):
     def makeForeach(self, context, path, resource, keys, name, subblocks):
         resourceData = context.getResource(context.resources, resource)
 
-        keysData = context.getResource(context.resources,keys)
-        
-        if keysData is None: keysData = []
+        if keys is not None:
+            keysData = context.getResource(context.resources,keys)
+        else:
+            keysData = []
 
         content = []
         
