@@ -52,7 +52,11 @@ def makeTable(context, path, headers, lines, widths=[],
               heights=None, halign="CENTER", highlights=[],
               repeatRows=0, border=0.5, bgcolor=[]):
     # It is possible to render a table without headers
-    nbCols = max(len(headers), len(lines[0]))
+    if not lines:
+        nbCols = len(headers)
+    else:
+        nbCols = max(len(headers), len(lines[0])) 
+    
     nbLines = len(lines) + 1 if len(headers) > 0 else 0
 
     tableData = []
