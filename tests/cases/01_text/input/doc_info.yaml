@@ -6,5 +6,7 @@ date      : 11.07.2018
 description: Test text plugin, resources manager and styles
 
 docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
   documentMetaAuthorTemplate: "{author}"
   outputFileTemplate: '{mainSubject}.pdf'

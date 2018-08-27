@@ -15,7 +15,7 @@ import noWord.common.utils_fs as cmn_utils_fs
 class NWTestCase:
     def __init__(self, inputfolder, outputfolder):
         self.inputfolder = os.path.join(inputfolder, 'input')
-        self.reffile = os.path.join(inputfolder, 'ref/ref.pdf')
+        self.reffile = os.path.join(inputfolder, 'ref/ref.txt')
         self.outputfolder = outputfolder
 
         self.doc_info = cmn_utils_fs.loadYAML(

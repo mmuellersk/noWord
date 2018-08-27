@@ -171,6 +171,17 @@ class DummyFlowable(Flowable):
 
     def isIndexing(self): return self.current.isIndexing()
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'DummyFlowable'
+        str += 'temp: %s,\n' % self.temp.__str__()
+        str += 'final: %s,\n' % self.final.__str__()
+        str += ') noWord.#%s ' % 'DummyFlowable'
+
+        return str
+
 # Open a PDF file and return an array of xobjects
 
 
@@ -203,6 +214,17 @@ class PDFPage(Flowable):
         self.canv.doForm(makerl(self.canv, self.page))
         self.canv.restoreState()
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'PDFPage'
+        str += 'width: %s,\n' % self.width
+        str += 'height: %s,\n' % self.height
+        str += ') noWord.#%s ' % 'PDFPage'
+
+        return str
+
 # This empty flowable is provides a trigger that will call a function when it is rendered.
 
 
@@ -211,17 +233,21 @@ class TriggerFlowable(Flowable):
         Flowable.__init__(self)
         self.callback = callback
 
-    def __str__(self):
-        return 'noWord: TriggerFlowable class'
-
-    def __repr__(self):
-        return 'noWord: TriggerFlowable class'
-
     def callback(self):
         return
 
     def draw(self):
         self.callback()
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'TriggerFlowable'
+        str += 'callback: %s,\n' % self.callback.__str__()
+        str += ') noWord.#%s ' % 'TriggerFlowable'
+
+        return str
 
 # This flowable creates a table of content entry where it is placed.
 
@@ -236,6 +262,20 @@ class TocEntry(Flowable):
 
     def draw(unused):
         return
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'TocEntry'
+        str += '_level: %s,\n' % self._level
+        str += '_text: %s,\n' % self._text
+        str += '_link: %s,\n' % self._link
+        str += 'width: %s,\n' % self.width
+        str += 'height: %s,\n' % self.height
+        str += ') noWord.#%s ' % 'TocEntry'
+
+        return str
 
 # Doc Template with table of contents
 
@@ -281,6 +321,21 @@ class Metadata(Flowable):
         infos.producer = self.producer
         return
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'Metadata'
+        str += 'title: %s,\n' % self.title
+        str += 'author: %s,\n' % self.author
+        str += 'subject: %s,\n' % self.subject
+        str += 'keywords: %s,\n' % self.keywords
+        str += 'creator: %s,\n' % self.creator
+        str += 'producer: %s\n' % self.producer
+        str += ') noWord.#%s ' % 'Metadata'
+
+        return str
+
 # This class is a trick to count the total number of pages. This class must be included at
 # the end of the report and ask for one more generation to include the correct page count.
 
@@ -315,6 +370,18 @@ class PageCountBlocker(Flowable):
     def notify(unused1, unused2, unused3):
         return
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'PageCountBlocker'
+        str += 'pageCount: %s,\n' % self.pageCount
+        str += 'width: %s,\n' % self.width
+        str += 'firstRun: %s,\n' % self.firstRun
+        str += ') noWord.#%s ' % 'PageCountBlocker'
+
+        return str
+
 # Draw a horizontal line
 
 
@@ -337,3 +404,17 @@ class Hline(Flowable):
         self.canv.setDash(*self.dashes)
         self.canv.line(0, 0, self.width, 0)
         self.canv.restoreState()
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'Hline'
+        str += 'width: %s,\n' % self.width
+        str += 'color: %s,\n' % self.color
+        str += 'thickness: %s,\n' % self.thickness
+        str += 'cap: %s,\n' % self.cap
+        str += 'dashes: %s,\n' % self.dashes
+        str += ') noWord.#%s ' % 'Hline'
+
+        return str

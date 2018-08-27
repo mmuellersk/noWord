@@ -32,7 +32,7 @@ def scanInputRoot(path):
 
         if os.path.isdir(itemPath) and not item.startswith("."):
             inputfile = os.path.join(itemPath, 'input/doc_info.yaml')
-            reffile = os.path.join(itemPath, 'ref/ref.pdf')
+            reffile = os.path.join(itemPath, 'ref/ref.txt')
 
             # return only valid case folders
             if os.path.exists(inputfile) and \
