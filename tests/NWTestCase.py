@@ -4,7 +4,6 @@
 import os
 import sys
 
-from pdf2image import convert_from_path
 from timeit import default_timer as timer
 
 
@@ -56,21 +55,26 @@ class NWTestCase:
         pass
 
 
+    def outputResult(self):
+        print(self.context)
+
+
     def run(self):
         if not self.verifyDocInfo():
+            self.outputResult()
             return
 
         start = timer()
 
         generator = NWGenerator(
             aSourcePath=self.inputfolder,
-            aOutputPath=self.outputfolder)
+            aOutputPath=self.outputfolder,
+            dumpContent=True)
 
         nbPages = generator.process()
 
         duration = (timer() - start)
 
         if not self.verifyGeneration():
+            self.outputResult()
             return
-        refimg  = convert_from_path(self.reffile)
-        testimg = convert_from_path(self.pdfFile)

@@ -52,7 +52,6 @@ def main():
                            os.path.join(outputfolder, inputname))
 
         case1.run()
-        print(case1.context)
 
 
 if __name__ == '__main__':

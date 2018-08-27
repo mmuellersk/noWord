@@ -211,6 +211,12 @@ class TriggerFlowable(Flowable):
         Flowable.__init__(self)
         self.callback = callback
 
+    def __str__(self):
+        return 'noWord: TriggerFlowable class'
+
+    def __repr__(self):
+        return 'noWord: TriggerFlowable class'
+
     def callback(self):
         return
 
