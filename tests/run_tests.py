@@ -3,12 +3,13 @@ import os
 import sys
 import argparse
 
+from timeit import default_timer as timer
 
 sys.path.insert(0, '.')
 import noWord as meta
 
 
-from NWTestCase import NWTestCase
+from noWord.common.NWTestCase import NWTestCase
 
 
 def parserCommandLine(additionalArgs=[]):
@@ -41,17 +42,31 @@ def scanInputRoot(path):
 
 
 def main():
+    start = timer()
+
     args = parserCommandLine()
 
     inputroot = os.path.abspath(args.source)
     outputfolder = os.path.abspath(args.output)
 
-    for casefolder in scanInputRoot(inputroot):
-        inputname = os.path.basename(casefolder)
-        case1 = NWTestCase(casefolder,
-                           os.path.join(outputfolder, inputname))
+    ntest = 0
 
-        case1.run()
+    results = []
+
+    for casefolder in scanInputRoot(inputroot):
+        testcase = NWTestCase(casefolder,outputfolder)
+
+        result = {}
+        testcase.run(result)
+
+        results.append(result)
+
+        ntest += 1
+
+    duration = (timer() - start)
+
+    print('test processing finished\n number of tests: %d\n total duration: %.5f seconds' %
+          (ntest, (timer() - start)))
 
 
 if __name__ == '__main__':

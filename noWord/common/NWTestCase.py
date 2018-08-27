@@ -4,7 +4,6 @@
 import os
 import sys
 
-from timeit import default_timer as timer
 
 
 from noWord.common.NWGenerator import NWGenerator
@@ -13,9 +12,9 @@ import noWord.common.utils_fs as cmn_utils_fs
 
 
 class NWTestCase:
-    def __init__(self, inputfolder, outputfolder):
-        self.inputfolder = os.path.join(inputfolder, 'input')
-        self.reffile = os.path.join(inputfolder, 'ref/ref.txt')
+    def __init__(self, testfolder, outputfolder):
+        self.inputfolder = os.path.join(testfolder, 'input')
+        self.reffile = os.path.join(testfolder, 'ref/ref.txt')
         self.outputfolder = outputfolder
 
         self.doc_info = cmn_utils_fs.loadYAML(
@@ -59,12 +58,10 @@ class NWTestCase:
         print(self.context)
 
 
-    def run(self):
+    def run(self, result):
         if not self.verifyDocInfo():
             self.outputResult()
             return
-
-        start = timer()
 
         generator = NWGenerator(
             aSourcePath=self.inputfolder,
@@ -72,8 +69,6 @@ class NWTestCase:
             dumpContent=True)
 
         nbPages = generator.process()
-
-        duration = (timer() - start)
 
         if not self.verifyGeneration():
             self.outputResult()
