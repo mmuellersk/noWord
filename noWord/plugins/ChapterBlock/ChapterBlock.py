@@ -118,15 +118,16 @@ class ChapterBlock(PluginInterface):
     def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
         content = []
 
-        finalText = text
+        finalText = context.processTextCmds(text)
 
         if numbered:
             numberLabel = context.toc.renderChapterCounter(level, sepChar)
-            finalText = numberLabel + sepChar + ' ' + text
+            finalText = numberLabel + sepChar + ' ' + finalText
+
 
         tocEntry = context.toc.createTOCEntry(finalText, level)
 
-        chapter = Paragraph("<a name=\"%s\"/>%s" %
+        chapter = context.paragraph("<a name=\"%s\"/>%s" %
                             (tocEntry._link, finalText), style)
         context.paragraphs.append(tocEntry)
         context.paragraphs.append(chapter)
