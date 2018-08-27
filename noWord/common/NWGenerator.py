@@ -115,6 +115,14 @@ class NWGenerator:
         # init plugins: init only used plugins
         pluginset = set()
         for block in blocks:
+            if 'content' in block:
+                for blockContent in block['content']:
+                    if 'type' in blockContent:
+                        plugin = self.pluginMng.findPlugin(blockContent['type'])
+                        if plugin is not None:
+                            pluginset.add(plugin)
+                            continue
+
             plugin = self.pluginMng.findPlugin(block['type'])
             if plugin is not None:
                 pluginset.add(plugin)

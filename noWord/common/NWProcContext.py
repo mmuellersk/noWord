@@ -95,7 +95,7 @@ class NWProcContext:
 
     def processTextCmds(self, txt):
         txt = str(txt)
-        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._/\[\]]*)?}}")
+        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._\/\[\]]*)?}}")
         cmds = regex.findall(txt)
         for cmd in cmds:
             txt = txt.replace("{{%s:%s}}" %
@@ -114,7 +114,7 @@ class NWProcContext:
             except KeyError:
                 self.docInfo[templateKey] = ""
 
-        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._/\[\]]*)}}")
+        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._\/\[\]]*)}}")
         txt = ''
         for p in self.paragraphs:
             if isinstance(p, Paragraph):
