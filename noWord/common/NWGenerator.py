@@ -73,7 +73,8 @@ class NWGenerator:
         if 'decorations' in self.context.docInfo:
             decorations = self.context.docInfo['decorations']
             for decoration in decorations:
-                self.addDecoration(getattr(NoWordDecoration, decoration))
+                if hasattr(NoWordDecoration, decoration) :
+                    self.addDecoration(getattr(NoWordDecoration, decoration))
 
     def overrideValues(self, strkey, dicTraget, dicSource):
         if strkey in dicSource:
