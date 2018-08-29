@@ -55,8 +55,8 @@ def makeTable(context, path, headers, lines, widths=[],
     if not lines:
         nbCols = len(headers)
     else:
-        nbCols = max(len(headers), len(lines[0])) 
-    
+        nbCols = max(len(headers), len(lines[0]))
+
     nbLines = len(lines) + 1 if len(headers) > 0 else 0
 
     tableData = []
@@ -248,7 +248,7 @@ class TriggerFlowable(Flowable):
 
     def __repr__(self):
         str = 'noWord.%s (\n' % 'TriggerFlowable'
-        str += 'callback: %s,\n' % self.callback.__str__()
+        str += 'callback: %s,\n' % self.callback.__name__
         str += ') noWord.#%s ' % 'TriggerFlowable'
 
         return str
