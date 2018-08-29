@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
-import pwd
+import getpass
 import reportlab.lib.enums
 import copy
 import sys
@@ -62,7 +62,7 @@ class NWGenerator:
         self.context.addResource(
             'buildInfo', {
                 'timestamp': datetime.datetime.now().isoformat(),
-                'builder': pwd.getpwuid(os.getuid())[0]})
+                'builder': getpass.getuser()})
 
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
