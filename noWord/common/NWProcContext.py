@@ -26,7 +26,8 @@ class NWProcContext:
         self.resources = {"meta": self.docInfo}
         self.textCmdProcessors = {
             "res": self.resourceProcessor,
-            "link": self.processAnchor}
+            "link": self.processAnchor,
+            "docref": self.docrefProcessor}
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
@@ -35,6 +36,7 @@ class NWProcContext:
         self.processFuncObj = aProcessFuncObj
 
         self.anchors = {}
+        self.docrefs = {}
 
     def buildBegins(self):
         if not self.pageCounter.firstRun:
@@ -148,7 +150,6 @@ class NWProcContext:
         return content
 
     def processAnchor(self, name):
-
         if not name in self.anchors:
             print("Warning: anchor not found " + name)
             return ''
@@ -156,3 +157,10 @@ class NWProcContext:
         anchor = self.anchors[name]
 
         return str("<a href=\"#%s\">%s</a>" % (anchor['_name'], anchor['_label']))
+
+    def docrefProcessor(self, ref):
+        if ref not in self.docrefs:
+            print("Reference " + ref + " not found!")
+            return False
+        else:
+            return str(self.docrefs[ref]['outputFileTemplate'])
