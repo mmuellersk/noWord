@@ -159,7 +159,6 @@ class NWProcContext:
         return str("<a href=\"#%s\">%s</a>" % (anchor['_name'], anchor['_label']))
 
     def docrefProcessor(self, ref):
-        print(ref)
         if ref not in self.docrefs:
             print("Reference " + ref + " not found!")
             return False
