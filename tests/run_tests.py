@@ -2,6 +2,10 @@
 import os
 import sys
 import argparse
+import glob
+import yaml
+import datetime
+import getpass
 
 from timeit import default_timer as timer
 
@@ -26,6 +30,26 @@ def parserCommandLine(additionalArgs=[]):
 
     return parser.parse_args()
 
+def collectMetaInfo(outputfolder):
+    metaInfo = {}
+
+    noWordInfo = {'name': meta.__name__, 'version': meta.__version__}
+    metaInfo['noWordInfo'] = noWordInfo
+
+    buildInfo = {
+        'timestamp': datetime.datetime.now().isoformat(),
+        'builder': getpass.getuser()}
+    metaInfo['buildInfo'] = buildInfo
+
+    with open(os.path.join(outputfolder, 'meta.yaml'), 'w') as outfile:
+        yaml.dump(metaInfo, outfile, default_flow_style=False)
+
+
+def cleanupOutputfolder(folder):
+
+    files = glob.glob(os.path.join(folder, '*'))
+    for f in files:
+        os.remove(f)
 
 def scanInputRoot(path):
     for item in sorted(os.listdir(path)):
@@ -49,6 +73,11 @@ def main():
     inputroot = os.path.abspath(args.source)
     outputfolder = os.path.abspath(args.output)
 
+    # setup test env
+    cleanupOutputfolder(outputfolder)
+    collectMetaInfo(outputfolder)
+
+    # run test
     ntest = 0
 
     results = []
@@ -56,12 +85,14 @@ def main():
     for casefolder in scanInputRoot(inputroot):
         testcase = NWTestCase(casefolder,outputfolder)
 
-        result = {}
-        testcase.run(result)
+        testcase.run()
 
-        results.append(result)
+        results.append(testcase.context)
 
         ntest += 1
+
+    with open(os.path.join(outputfolder, 'report.yaml'), 'w') as outfile:
+        yaml.dump(results, outfile, default_flow_style=False)
 
     duration = (timer() - start)
 

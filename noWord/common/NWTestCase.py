@@ -4,6 +4,7 @@
 import os
 import sys
 
+# This class provides a framework for the execution of one unit test.
 
 
 from noWord.common.NWGenerator import NWGenerator
@@ -21,6 +22,7 @@ class NWTestCase:
             os.path.join(self.inputfolder, 'doc_info.yaml'))
 
         self.context = {}
+        self.context['passed'] = False
 
     def verifyDocInfo(self):
         if 'mainSubject' in self.doc_info:
@@ -38,29 +40,99 @@ class NWTestCase:
         return True
 
     def verifyGeneration(self):
-        pdfFile = os.path.join(
+        outputFile = os.path.join(
+            self.outputfolder, self.doc_info['mainSubject'] + '.pdf.txt')
+
+        if not os.path.exists(outputFile):
+            self.context['error'] = 'output file was not generated'
+            return False
+
+        self.context['outputFile'] = outputFile
+
+        outputPdfFile = os.path.join(
             self.outputfolder, self.doc_info['mainSubject'] + '.pdf')
 
-
-        if not os.path.exists(pdfFile):
+        if not os.path.exists(outputPdfFile):
             self.context['error'] = 'pdf file was not generated'
             return False
 
-        self.pdfFile = pdfFile
+        self.context['outputPdfFile'] = outputPdfFile
 
         return True
 
+    # Text file comparioson based on:
+    # https://www.opentechguides.com/how-to/article/python/58/python-file-comparison.html
     def compareResult(self):
-        pass
+        # Open file for reading in text mode (default mode)
+        f1 = open(self.context['outputFile'])
+        f2 = open(self.reffile)
+
+        # Read the first line from the files
+        f1_line = f1.readline()
+        f2_line = f2.readline()
+
+        # Initialize counter for line number
+        line_no = 1
+
+        error = ''
+        passed = True
+
+        # Loop if either file1 or file2 has not reached EOF
+        while f1_line != '' or f2_line != '':
+
+             # Strip the leading whitespaces
+             f1_line = f1_line.rstrip()
+             f2_line = f2_line.rstrip()
+
+             # Compare the lines from both file
+             if f1_line != f2_line:
+
+                 # If a line does not exist on file2 then mark the output with + sign
+                 if f2_line == '' and f1_line != '':
+                     passed = False
+                     error += ">+" + ("Line-%d" % line_no) + f1_line + "\n"
+                 # otherwise output the line on file1 and mark it with > sign
+                 elif f1_line != '':
+                     passed = False
+                     error += ">" + ("Line-%d" % line_no) + f1_line + "\n"
+                 # If a line does not exist on file1 then mark the output with + sign
+                 if f1_line == '' and f2_line != '':
+                     passed = False
+                     error += "<+" + ("Line-%d" % line_no) + f2_line + "\n"
+                 # otherwise output the line on file2 and mark it with < sign
+                 elif f2_line != '':
+                     passed = False
+                     error += "<" + ("Line-%d" % line_no) + f2_line + "\n"
+
+
+             #Read the next line from the file
+             f1_line = f1.readline()
+             f2_line = f2.readline()
+
+
+             #Increment line counter
+             line_no += 1
+
+        # Close the files
+        f1.close()
+        f2.close()
+
+        self.context['error'] = error
+        self.context['passed'] = passed
+
+        return self.context['passed']
 
 
     def outputResult(self):
-        print(self.context)
+        if not self.passed:
+            print("Test failed")
+            print(self.context['error'])
+        else:
+            print("Test passed")
 
 
-    def run(self, result):
+    def run(self):
         if not self.verifyDocInfo():
-            self.outputResult()
             return
 
         generator = NWGenerator(
@@ -71,5 +143,7 @@ class NWTestCase:
         nbPages = generator.process()
 
         if not self.verifyGeneration():
-            self.outputResult()
+            return
+
+        if not self.compareResult():
             return
