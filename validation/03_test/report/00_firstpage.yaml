@@ -1,0 +1,30 @@
+
+
+
+- type      : title
+  level     : 0
+  title     : >
+    <b>{{res:meta/documentType}} - {{res:noWordInfo/name}}</b>
+
+- type      : line
+
+- type      : vspace
+
+# Meta Info
+
+- type         : table
+  displayHeader: False
+  keys         : [label, value]
+  widths       : [6,10]
+  halign       : LEFT
+  rows         :
+    - label    : <b>Author</b>
+      value    : '{{res:meta/author}}'
+    - label    : <b>Software</b>
+      value    : '{{res:noWordInfo/name}}'
+    - label    : <b>Version</b>
+      value    : '{{res:noWordInfo/version}}'
+    - label    : <b>Build timestamp</b>
+      value    : '{{res:buildInfo/timestamp}}'
+    - label    : <b>Builder</b>
+      value    : '{{res:buildInfo/builder}}'

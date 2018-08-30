@@ -1,0 +1,46 @@
+docId     : trp
+documentType: Test Report
+mainSubject : noWord
+shortDocumentType: TRP
+author    : Matthias Müller
+
+revision: '1'
+revisions:
+  - revision  : '1'
+    date      : '29.08.2018'
+    author    : Matthias Müller
+    reviewer  : Community
+    comment   : Creation of the document
+
+
+
+glossary:
+  - short: IU
+    desc : Intended use
+  - short: CLI
+    desc : Command Line Interface
+  - short: IDE
+    desc : Integrated Development Environment
+  - short: CI
+    desc : Continuous Integration
+  - short: SCM
+    desc : Software Configuration Management
+
+docStyle:
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentIdentifierTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
+  documentMetaTitleTemplate: '{documentType} {mainSubject}'
+  revisionTemplate: "trp_r_{revision}"
+
+decorations:
+  - drawGraphicSignature
+  - drawHeader
+  - drawFooter
+
+styles :
+  marginT: 120
+  marginL: 70
+  marginR: 70
+  headerMargin: 20
+  watermarkPadding: 100
