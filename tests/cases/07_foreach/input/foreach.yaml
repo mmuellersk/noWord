@@ -1,0 +1,13 @@
+- type: resource
+  alias: data
+  filename: data.yaml
+
+- type: foreach
+  resource: data
+  content:
+    - type    : text
+      content : >
+         <b>{{current:id}}</b>
+    - type    : text
+      content : >
+         {{current:field}}
