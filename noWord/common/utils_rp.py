@@ -180,8 +180,8 @@ class DummyFlowable(Flowable):
 
     def __repr__(self):
         str = 'noWord.%s (\n' % 'DummyFlowable'
-        str += 'temp: %s,\n' % self.temp.__str__()
-        str += 'final: %s,\n' % self.final.__str__()
+        str += 'temp: %s,\n' % self.temp.__class__
+        str += 'final: %s,\n' % self.final.__class__
         str += ') noWord.#%s ' % 'DummyFlowable'
 
         return str

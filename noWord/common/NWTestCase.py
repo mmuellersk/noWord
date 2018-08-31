@@ -3,6 +3,7 @@
 
 import os
 import sys
+import html
 
 # This class provides a framework for the execution of one unit test.
 
@@ -49,10 +50,9 @@ class NWTestCase:
 
         self.context['outputFile'] = outputFile
 
-        outputPdfFile = os.path.join(
-            self.outputfolder, self.doc_info['mainSubject'] + '.pdf')
+        outputPdfFile = self.doc_info['mainSubject'] + '.pdf'
 
-        if not os.path.exists(outputPdfFile):
+        if not os.path.exists(os.path.join(self.outputfolder, self.doc_info['mainSubject'] + '.pdf')) :
             self.context['error'] = 'pdf file was not generated'
             return False
 
@@ -87,22 +87,24 @@ class NWTestCase:
              # Compare the lines from both file
              if f1_line != f2_line:
 
+                 prefix = "Line-%d" % line_no
+
                  # If a line does not exist on file2 then mark the output with + sign
                  if f2_line == '' and f1_line != '':
                      passed = False
-                     error += ">+" + ("Line-%d" % line_no) + f1_line + "\n"
+                     error += html.escape(">+ " + prefix + f1_line) + '<br/>'
                  # otherwise output the line on file1 and mark it with > sign
                  elif f1_line != '':
                      passed = False
-                     error += ">" + ("Line-%d" % line_no) + f1_line + "\n"
+                     error += html.escape("<  " + prefix + f1_line) + '<br/>'
                  # If a line does not exist on file1 then mark the output with + sign
                  if f1_line == '' and f2_line != '':
                      passed = False
-                     error += "<+" + ("Line-%d" % line_no) + f2_line + "\n"
+                     error += html.escape("<+ " + prefix + f2_line) + '<br/>'
                  # otherwise output the line on file2 and mark it with < sign
                  elif f2_line != '':
                      passed = False
-                     error += "<" + ("Line-%d" % line_no) + f2_line + "\n"
+                     error += html.escape("<  " + prefix + f2_line) + '<br/>'
 
 
              #Read the next line from the file
@@ -123,12 +125,17 @@ class NWTestCase:
         return self.context['passed']
 
 
-    def outputResult(self):
-        if not self.passed:
-            print("Test failed")
+    def finaliseTest(self):
+        if not self.context['passed']:
+            print("Test FAILED: " + self.context['testname'])
             print(self.context['error'])
+            self.context['passedStr'] = 'FAILED'
         else:
-            print("Test passed")
+            print("Test passed: " + self.context['testname'])
+            self.context['passedStr'] = 'Passed'
+
+        if self.context['error'] == '':
+            self.context['error'] = 'Non'
 
 
     def run(self):
@@ -145,5 +152,6 @@ class NWTestCase:
         if not self.verifyGeneration():
             return
 
-        if not self.compareResult():
-            return
+        self.compareResult()
+
+        self.finaliseTest()

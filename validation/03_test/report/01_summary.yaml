@@ -1,0 +1,15 @@
+- type: resource
+  alias: report
+  filename: ../data/report.yaml
+
+- type      : title
+  level     : 1
+  title     : >
+    Test summary
+
+- type: table
+  header: [Test, Description, Result]
+  keys: [testname, testdesc, passedStr]
+  widths: [4,9,4]
+  halign: LEFT
+  rows: report

@@ -1,0 +1,43 @@
+- type    : newpage
+
+- type   : title
+  level  : 1
+  title  : Detailed test output
+
+- type    : text
+  content : >
+    On the following pages the detailed test output is provided:
+
+- type    : list
+  content :
+    - Name of the test
+    - Errors, if their are any
+    - Generated pdf document
+
+- type: foreach
+  resource: report
+  content:
+
+    - type:   newpage
+
+    - type         : table
+      displayHeader: False
+      keys         : [label, value]
+      widths       : [6,11]
+      halign       : LEFT
+      rows         :
+        - label    : <b>Test name:</b>
+          value    : '{{current:testname}}'
+        - label    : <b>Result:</b>
+          value    : '{{current:passedStr}}'
+        - label    : <b>Generated pdf file:</b>
+          value    : '{{current:outputPdfFile}}'
+
+    - type    : text
+      content : >
+         <b>Errrors</b><br/>
+         {{current:error}}
+
+    - type    : pdf
+      width   : 14
+      filename: "../data/{{current:outputPdfFile}}"

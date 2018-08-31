@@ -39,8 +39,9 @@ decorations:
   - drawFooter
 
 styles :
-  marginT: 120
-  marginL: 70
-  marginR: 70
-  headerMargin: 20
+  marginT: 60
+  marginL: 50
+  marginR: 50
+  marginB: 20
+  headerMargin: 30
   watermarkPadding: 100

@@ -1,0 +1,30 @@
+
+- type    : table
+  displayHeader : False
+  keys : [col1, col2, col3]
+  border : 0
+  widths : [3, 5, 7]
+  rows:
+    - col1:
+        - type     : image
+          width    : 2
+          align    : Left
+          filename : image.jpg
+
+      col2 :
+        - type     : image
+          width    : 4
+          align    : Left
+          filename : image.jpg
+
+      col3 :
+        - type     : image
+          width    : 6
+          align    : Left
+          filename : image.jpg
+
+
+- type     : image
+  width    : 12
+  align    : Center
+  filename : image.jpg

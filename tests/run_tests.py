@@ -6,6 +6,7 @@ import glob
 import yaml
 import datetime
 import getpass
+import reportlab
 
 from timeit import default_timer as timer
 
@@ -33,7 +34,10 @@ def parserCommandLine(additionalArgs=[]):
 def collectMetaInfo(outputfolder):
     metaInfo = {}
 
-    noWordInfo = {'name': meta.__name__, 'version': meta.__version__}
+    noWordInfo = {
+        'name': meta.__name__,
+        'version': meta.__version__,
+        'reportlabversion': reportlab.Version}
     metaInfo['noWordInfo'] = noWordInfo
 
     buildInfo = {
@@ -47,9 +51,12 @@ def collectMetaInfo(outputfolder):
 
 def cleanupOutputfolder(folder):
 
-    files = glob.glob(os.path.join(folder, '*'))
-    for f in files:
-        os.remove(f)
+    if os.path.exists(folder) :
+        files = glob.glob(os.path.join(folder, '*'))
+        for f in files:
+            os.remove(f)
+    else :
+        os.mkdir(folder)
 
 def scanInputRoot(path):
     for item in sorted(os.listdir(path)):
