@@ -51,7 +51,7 @@ class NWDocument:
         self.doc.addPageTemplates(portraitTempl)
 
         landscapeTempl = PageTemplate(id="landscape",
-                                      frames=Frame(0, 0, self.pageRect[1], self.pageRect[0],
+                                      frames=Frame(0, 0, self.pageRect[0], self.pageRect[1],
                                                    leftPadding=self.style["marginL"],
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
@@ -83,7 +83,7 @@ class NWDocument:
         self.doc.addPageTemplates(portraitTempl)
 
         landscapeTempl = PageTemplate(id="landscape",
-                                      frames=Frame(0, 0, self.pageRect[1], self.pageRect[0],
+                                      frames=Frame(0, 0, self.pageRect[0], self.pageRect[1],
                                                    leftPadding=self.style["marginL"],
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
