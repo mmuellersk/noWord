@@ -1,0 +1,19 @@
+
+- type : anchor
+  name : a1
+  label: Anchor1
+
+- type : anchor
+  name : a2
+  label: Anchor2
+
+- type   : vspace
+  height : 3
+
+- type    : text
+  content : >
+    Reference to: [{{link:a2}}]
+
+- type    : text
+  content : >
+    Reference to: [{{link:a1}}]

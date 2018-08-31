@@ -1,0 +1,53 @@
+[   noWord.TriggerFlowable (
+callback: buildBegins,
+) noWord.#TriggerFlowable ,
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': '<a name="a1" />Anchor1'
+'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='a1'), fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='Anchor1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': '<a name="a2" />Anchor2'
+'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='a2'), fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='Anchor2', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 85.03937007874015),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Reference to: [<a href="#a2">Anchor2</a>]'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='Reference to: [', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='a', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[(0, '#a2')], rise=0, text='Anchor2', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text=']', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Reference to: [<a href="#a1">Anchor1</a>]'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text='Reference to: [', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='a', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[(0, '#a1')], rise=0, text='Anchor1', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Times-Roman', fontSize=12, greek=0, italic=0, link=[], rise=0, text=']', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    noWord.Metadata (
+title: anchor_test,
+author: Test Author,
+subject: anchor_test,
+keywords: ,
+creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
+producer: ReportLab PDF Library - www.reportlab.com
+) noWord.#Metadata ,
+    noWord.PageCountBlocker (
+pageCount: 0,
+width: 0,
+firstRun: True,
+) noWord.#PageCountBlocker ]
