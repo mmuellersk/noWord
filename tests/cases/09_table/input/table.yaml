@@ -1,0 +1,92 @@
+
+- type: resource
+  alias: data
+  filename: data.yaml
+
+- type: table
+  header: [ID, Text]
+  keys: [id, field]
+  widths: [4,12]
+  halign: LEFT
+  rows: data
+
+- type   : vspace
+  height : 3
+
+- type   : table
+  keys   : [col1, col2]
+  displayHeader: False
+  widths : [8, 8]
+  rows   :
+    - col1 : Some text
+      col2 : >
+        Some text 2
+
+- type   : vspace
+  height : 3
+
+- type     : table
+  displayHeader: False
+  keys     : [c1, c2, c3, c4]
+  widths   : [7, 3, 3, 3]
+  halign   : LEFT
+  bgcolor  :
+    - from  : [1,2]
+      to    : [1,2]
+      color : '#c6ffb3'
+    - from  : [1,3]
+      to    : [2,3]
+      color : '#c6ffb3'
+    - from  : [1,4]
+      to    : [3,4]
+      color : '#c6ffb3'
+    - from  : [1,1]
+      to    : [3,1]
+      color : '#ffb3b3'
+    - from  : [2,2]
+      to    : [3,2]
+      color : '#ffb3b3'
+    - from  : [3,3]
+      to    : [3,3]
+      color : '#ffb3b3'
+  rows     :
+    - c1 : ''
+      c2 : <b>(1) Minor</b>
+      c3 : <b>(2) Major</b>
+      c4 : <b>(3) Severe</b>
+    - c1 : >
+        <b>(1) Frequent</b><br/>
+        Expected Events: > 10.000
+      c2 : >
+        <font color=red><b>Inacceptable</b></font>
+      c3 : >
+        <font color=red><b>Inacceptable</b></font>
+      c4 : >
+        <font color=red><b>Inacceptable</b></font>
+    - c1 : >
+        <b>(2) Remote</b><br/>
+        Expected Events: 100 - 10.000
+      c2 : >
+        <font color=green><b>Acceptable</b></font>
+      c3 : >
+        <font color=red><b>Inacceptable</b></font>
+      c4 : >
+        <font color=red><b>Inacceptable</b></font>
+    - c1 : >
+        <b>(3) Improbable</b><br/>
+        Expected Events: 1 - 100
+      c2 : >
+        <font color=green><b>Acceptable</b></font>
+      c3 : >
+        <font color=green><b>Acceptable</b></font>
+      c4 : >
+        <font color=red><b>Inacceptable</b></font>
+    - c1 : >
+        <b>(4) Unthinkable</b><br/>
+        Expected Events: < 1
+      c2 : >
+        <font color=green><b>Acceptable</b></font>
+      c3 : >
+        <font color=green><b>Acceptable</b></font>
+      c4 : >
+        <font color=green><b>Acceptable</b></font>
