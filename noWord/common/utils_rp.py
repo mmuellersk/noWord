@@ -5,6 +5,7 @@ import mimetypes as mime
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
 from reportlab.platypus import ListFlowable, Table, TableStyle
 from reportlab.lib import utils, colors
+from reportlab.lib.units import cm, mm
 
 from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
@@ -133,6 +134,19 @@ def getImage(filename, width, dummy=False):
         height = img.width / 2
 
     return DummyFlowable(Spacer(width, height), img, dummy)
+
+def optimalWidth(par, maxWidth, maxHeight):
+  w, minHeight = par.wrap(maxWidth, maxHeight)
+  totalMM = int(w / mm)
+
+  while totalMM > 0:
+    totalMM -= 1
+    w, h = par.wrap(totalMM * mm, maxHeight)
+    if h > minHeight:
+      totalMM += 1
+      break
+
+  return totalMM * mm
 
 # This class provides a proxy that forwards all reportlab calls to a temporary or a final
 # embedded flowable, depending on its state. This allows to insert a temporary object and
@@ -312,6 +326,60 @@ class PageCountBlocker(Flowable):
 
     def notify(unused1, unused2, unused3):
         return
+
+# This class is a workaround to be able to draw vertical text. It will directly draw on 
+# the canvas, getting its content and style from the provided paragraph, so the width and 
+# height it will use is NOT dynamic, ensure you have enough space when you use it.
+
+
+class VerticalText(Flowable):
+  def __init__(self, paragraph, xoffset=0, yoffset=0):
+    Flowable.__init__(self)
+    self.paragraph = paragraph
+    self.w = 0
+    self.xoffset = xoffset
+    self.yoffset = yoffset
+
+  def wrap(self, w, h):
+    w, h = self.paragraph.wrap(h, w)
+    self.w = h
+    self.h = optimalWidth(self.paragraph, 20*cm, 20*cm)
+    return self.w, self.h
+
+  def draw(self):
+    self.paragraph.wrap(self.h, self.w)
+    self.canv.saveState()
+    self.canv.translate(self.xoffset + self.w, self.yoffset)
+    self.canv.rotate(90)
+    self.paragraph.drawOn(self.canv, 0, 0)
+    self.canv.restoreState()
+
+# Draw a text inside a colored circle, the hoffset can be used to fix the vertical 
+# alignment of the text inside the circle, as paragraph object seems so report wrong 
+# height when it uses custom fonts.
+ 
+
+class Sticker(Flowable):
+    def __init__(self, paragraph, backColor, padding=0.1*cm, hoffset=0):
+        self.paragraph = paragraph
+        self.backColor = backColor
+        self.padding = padding
+        self.hoffset = hoffset
+
+    def wrap(self, availWidth, availHeight):
+        maxWidth = min(availWidth, availHeight)
+        w, h = self.paragraph.wrap(maxWidth, maxWidth)
+        w = self.paragraph.minWidth()
+        self.pw, self.ph = self.paragraph.wrap(w, h)
+        self.radius = max(self.pw, self.ph) / 2 + self.padding
+        return 2 * [2 * self.radius]
+
+    def draw(self):
+        self.canv.saveState()
+        self.canv.setFillColor(self.backColor)
+        self.canv.circle(self.radius, self.radius, self.radius, stroke=0, fill=1)
+        self.paragraph.drawOn(self.canv, self.radius - self.pw / 2, self.radius - self.ph / 2 + self.hoffset)
+        self.canv.restoreState()
 
 # Draw a horizontal line
 
