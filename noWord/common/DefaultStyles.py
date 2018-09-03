@@ -127,3 +127,13 @@ styles['GreenText'] = ParagraphStyle(name="GreenText",
 styles['RedText'] = ParagraphStyle(name="RedText",
                                    parent=styles['default'],
                                    textColor=styles["red"])
+
+styles['Code'] = ParagraphStyle(name="Code",
+                                parent=styles['default'],
+                                fontName='Courier',
+                                fontSize=10,
+                                textColor=colors.white,
+                                backColor=colors.black,
+                                spaceBefore=6,
+                                spaceAfter=6,
+                                borderPadding=3)

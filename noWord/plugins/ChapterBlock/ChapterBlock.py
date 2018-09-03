@@ -40,7 +40,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading0'] = ParagraphStyle(name="Heading0",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=18,
+                                                            fontSize=14,
                                                             spaceBefore=10,
                                                             spaceAfter=10)
 
@@ -48,7 +48,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading1'] = ParagraphStyle(name="Heading1",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=16,
+                                                            fontSize=12,
                                                             spaceBefore=9,
                                                             spaceAfter=9)
 
@@ -56,7 +56,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading2'] = ParagraphStyle(name="Heading2",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=14,
+                                                            fontSize=11,
                                                             spaceBefore=8,
                                                             spaceAfter=8)
 
@@ -64,7 +64,7 @@ class ChapterBlock(PluginInterface):
             context.styleSheet['Heading3'] = ParagraphStyle(name="Heading3",
                                                             parent=context.styleSheet['default'],
                                                             alignment=TA_LEFT,
-                                                            fontSize=12,
+                                                            fontSize=10,
                                                             spaceBefore=8,
                                                             spaceAfter=8)
 
