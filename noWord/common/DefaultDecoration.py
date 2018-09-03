@@ -17,7 +17,7 @@ def drawGraphicSignature(canvas, doc, data, style):
     p.rect(0, decoBottom, width, decoTop - decoBottom)
     canvas.clipPath(p, stroke=0)
     canvas.linearGradient(0, decoBottom, 0, decoTop,
-                          (style["darkgray"], style["darkyellow"]), extend=False)
+                          (style["darkgray"], style["darkblue"]), extend=False)
     canvas.setStrokeColor(style["darkgray"])
     canvas.setFillColor(style["darkgray"])
     canvas.rect(0, decoBottom, width, decoBottom - decoTop, fill=1)

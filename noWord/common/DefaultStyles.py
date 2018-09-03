@@ -42,6 +42,8 @@ styles["footerMargin"] = 1.2 * cm
 styles['darkgray'] = colors.HexColor("#222222")
 styles['green'] = colors.HexColor("#00aa00")
 styles['darkyellow'] = colors.HexColor("#999900")
+styles['darkblue'] = colors.HexColor("#0077b3")
+styles['lightblue'] = colors.HexColor("#cceeff")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
