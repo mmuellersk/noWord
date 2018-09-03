@@ -63,6 +63,14 @@ You can define your own block types using the plugin mecanism.
 ### Templates
 For maximum flexibility, you can write you own templates using python.
 
+## Testing
+
+### Functional Testing
+For each plugin a functional test was implemented. The following document
+describes the functional test:
+
+[Functional Test Protocol](/doc/FTP_noWord_1.pdf)
+
 ## Built With / Credits
 
 * [ReportLab](http://www.reportlab.com/opensource/) - ReportLab is the time-proven,
