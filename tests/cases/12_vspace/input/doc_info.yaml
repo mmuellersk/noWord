@@ -1,0 +1,12 @@
+
+mainSubject : vspace_test
+author    : Test Author
+revision  : 1
+date      : 11.07.2018
+description: Test vspace block
+
+docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'

@@ -1,0 +1,12 @@
+
+mainSubject : toc_test
+author    : Test Author
+revision  : 1
+date      : 31.08.2018
+description: Test TOC block with some text in sub section
+
+docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'

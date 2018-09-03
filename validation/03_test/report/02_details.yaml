@@ -23,8 +23,12 @@
     - type         : table
       displayHeader: False
       keys         : [label, value]
-      widths       : [6,11]
+      widths       : [4,13]
       halign       : LEFT
+      bgcolor  :
+        - from  : [0,0]
+          to    : [0,3]
+          color : '#cceeff'
       rows         :
         - label    : <b>Test name:</b>
           value    : '{{current:testname}}'

@@ -8,8 +8,30 @@
     Test summary
 
 - type: table
-  header: [Test, Description, Result]
-  keys: [testname, testdesc, passedStr]
+  displayHeader: False
+  keys: [testname, testdesc, result]
   widths: [4,9,4]
   halign: LEFT
-  rows: report
+  bgcolor  :
+    - from  : [0,0]
+      to    : [3,0]
+      color : '#cceeff'
+  rows:
+    - testname: <b>Test</b>
+      testdesc: <b>Description</b>
+      result: <b>Result</b>
+
+
+- type: foreach
+  resource: report
+  content:
+
+    - type         : table
+      displayHeader: False
+      keys: [testname, testdesc, result]
+      widths: [4,9,4]
+      halign       : LEFT
+      rows         :
+        - testname: '{{current:testname}}'
+          testdesc: '{{current:testdesc}}'
+          result: '{{current:passedStr}}'

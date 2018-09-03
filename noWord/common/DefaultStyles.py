@@ -10,12 +10,24 @@ from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 
 assetsDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+arimoDir = os.path.join(assetsDir, "Arimo")
 
 # Choosing font
 pdfmetrics.registerFont(
     TTFont('FontAwesome', os.path.join(assetsDir, "FontAwesome.ttf")))
 
+pdfmetrics.registerFont(
+    TTFont('Arimo', os.path.join(arimoDir, "Arimo-Regular.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoBold', os.path.join(arimoDir, "Arimo-Bold.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoItalic', os.path.join(arimoDir, "Arimo-Italic.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoBoldItalic', os.path.join(arimoDir, "Arimo-BoldItalic.ttf")))
 
+
+pdfmetrics.registerFontFamily("Arimo", normal="Arimo",
+                          bold="ArimoBold", italic="ArimoItalic", boldItalic="ArimoBoldItalic")
 styles = {}
 
 # margins
@@ -61,7 +73,7 @@ styles["highlightBackground"] = colors.HexColor("#ffff00")
 
 # paragraph styles
 styles['default'] = ParagraphStyle(name="default",
-                                   fontName='Times-Roman',
+                                   fontName='Arimo',
                                    fontSize=10,
                                    leading=12,
                                    leftIndent=0,
@@ -89,7 +101,7 @@ styles['default'] = ParagraphStyle(name="default",
 styles['BodyText'] = ParagraphStyle(name="BodyText",
                                     parent=styles['default'],
                                     alignment=TA_JUSTIFY,
-                                    fontSize=12,
+                                    fontSize=10,
                                     spaceBefore=6,
                                     spaceAfter=6)
 

@@ -128,7 +128,7 @@ class NWTestCase:
     def finaliseTest(self):
         if not self.context['passed']:
             print("Test FAILED: " + self.context['testname'])
-            print(self.context['error'])
+            
             self.context['passedStr'] = 'FAILED'
         else:
             print("Test passed: " + self.context['testname'])

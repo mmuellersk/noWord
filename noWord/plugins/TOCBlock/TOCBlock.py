@@ -63,5 +63,4 @@ class TOCBlock(PluginInterface):
 
         content = []
         content.append(toc)
-        content.append(PageBreak())
         return content

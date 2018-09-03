@@ -1,6 +1,7 @@
 [   noWord.TriggerFlowable (
 callback: buildBegins,
 ) noWord.#TriggerFlowable ,
+    <reportlab.platypus.tableofcontents.TableOfContents object at 0x109f90518>,
     KeepTogether(
   CondPageBreak(56.69291338582677)
   noWord.TocEntry (
@@ -115,9 +116,9 @@ callback: buildBegins,
   ) #Paragraph
   Spacer(1, 12),maxHeight=None),
     noWord.Metadata (
-title: chapter_test,
+title: toc_test,
 author: Test Author,
-subject: chapter_test,
+subject: toc_test,
 keywords: ,
 creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
 producer: ReportLab PDF Library - www.reportlab.com

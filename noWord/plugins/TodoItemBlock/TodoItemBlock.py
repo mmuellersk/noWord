@@ -7,6 +7,7 @@ from reportlab.platypus import Paragraph, Table, TableStyle
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
 from reportlab.lib.units import cm
+from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from noWord.common.PluginInterface import PluginInterface
 
@@ -62,7 +63,6 @@ class TodoItemBlock(PluginInterface):
         pass
 
     def process(self, block, context):
-
         # title element
         title = block['title']
 
