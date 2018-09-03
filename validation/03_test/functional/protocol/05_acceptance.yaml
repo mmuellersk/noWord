@@ -1,0 +1,11 @@
+- type   : newpage
+
+- type  : chapter
+  level : 1
+  title : Acceptance criteria
+
+- type    : text
+  content : >
+     All functional test should pass. The generated document should identical to the reference document
+     of the corresponding test case from point of view of content. The detailed rendering of a given page
+     might be slightly different between the output document and the reference document.

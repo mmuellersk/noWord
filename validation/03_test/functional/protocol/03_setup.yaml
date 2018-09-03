@@ -11,3 +11,14 @@
   style   : Code
   content : >
      $> git clone https://github.com/mmuellersk/noWord.git
+
+- type    : text
+  content : >
+     Setup virtual env:
+
+- type    : text
+  style   : Code
+  content : >
+     $> python3 -m virtualenv venv --python=python3<br/>
+     $> source venv/bin/activate<br/>
+     $> pip install requirement.txt

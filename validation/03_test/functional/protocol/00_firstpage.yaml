@@ -18,7 +18,7 @@
 - type      : line
 
 - type     : vspace
-  height   : 10
+  height   : 11
 
 # Disclaimer
 
@@ -32,14 +32,10 @@
   rows         :
     - label    : <b>Author</b>
       value    : '{{res:meta/author}}'
-    - label    : <b>Software</b>
-      value    : '{{res:noWordInfo/name}}'
-    - label    : <b>Version</b>
-      value    : '{{res:noWordInfo/version}}'
-    - label    : <b>Build timestamp</b>
-      value    : '{{res:buildInfo/timestamp}}'
-    - label    : <b>Builder</b>
-      value    : '{{res:buildInfo/builder}}'
+    - label    : <b>Date</b>
+      value    : '{{res:meta/date}}'
+    - label    : <b>Revision</b>
+      value    : '{{res:meta/revision}}'
 
 # Revision history
 - type      : newpage

@@ -11,3 +11,8 @@
 - type     : image
   width    : 11
   filename : overview.jpg
+
+- type    : text
+  content : >
+    The comparison function will compare the content of the generated document and the reference
+    document. The detailed rendering is not included in the comparison function.
