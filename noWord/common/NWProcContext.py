@@ -98,10 +98,20 @@ class NWProcContext:
     def processTextCmds(self, txt):
         txt = str(txt)
         regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._\/\[\]]*)?}}")
-        cmds = regex.findall(txt)
-        for cmd in cmds:
+
+        while True:
+            cmds = regex.findall(txt)
+            if not len(cmds):
+                break
+
+            cmd = cmds[0]
+
+            originalTxt = txt
             txt = txt.replace("{{%s:%s}}" %
                               cmd, self.processTextCmd(cmd[0], cmd[1]))
+            if txt == originalTxt:
+                break
+
         return txt
 
     def process(self):
