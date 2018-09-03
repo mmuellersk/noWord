@@ -14,7 +14,7 @@ callback: buildBegins,
   'caseSensitive': 1
   'encoding': 'utf8'
   'text': '<a name="356a192b7913b04c54574d18c28d46e6395428ab"/>1. Chapter 1'
-  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='356a192b7913b04c54574d18c28d46e6395428ab'), fontName='Arimo', fontSize=18, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=18, greek=0, italic=0, link=[], rise=0, text='1. Chapter 1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='356a192b7913b04c54574d18c28d46e6395428ab'), fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='1. Chapter 1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
   'style': <ParagraphStyle 'Heading0'>
   'bulletText': None
   'debug': 0
@@ -33,7 +33,7 @@ callback: buildBegins,
   'caseSensitive': 1
   'encoding': 'utf8'
   'text': '<a name="da4b9237bacccdf19c0760cab7aec4a8359010b0"/>1.1. Section 1.1'
-  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='da4b9237bacccdf19c0760cab7aec4a8359010b0'), fontName='Arimo', fontSize=16, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=16, greek=0, italic=0, link=[], rise=0, text='1.1. Section 1.1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='da4b9237bacccdf19c0760cab7aec4a8359010b0'), fontName='Arimo', fontSize=12, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=12, greek=0, italic=0, link=[], rise=0, text='1.1. Section 1.1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
   'style': <ParagraphStyle 'Heading1'>
   'bulletText': None
   'debug': 0
@@ -61,7 +61,7 @@ callback: buildBegins,
   'caseSensitive': 1
   'encoding': 'utf8'
   'text': '<a name="77de68daecd823babbb58edb1c8e14d7106e83bb"/>1.2. Section 1.2'
-  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='77de68daecd823babbb58edb1c8e14d7106e83bb'), fontName='Arimo', fontSize=16, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=16, greek=0, italic=0, link=[], rise=0, text='1.2. Section 1.2', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='77de68daecd823babbb58edb1c8e14d7106e83bb'), fontName='Arimo', fontSize=12, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=12, greek=0, italic=0, link=[], rise=0, text='1.2. Section 1.2', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
   'style': <ParagraphStyle 'Heading1'>
   'bulletText': None
   'debug': 0
@@ -89,7 +89,7 @@ callback: buildBegins,
   'caseSensitive': 1
   'encoding': 'utf8'
   'text': '<a name="1b6453892473a467d07372d45eb05abc2031647a"/>1.2.1. Section 1.2.1'
-  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='1b6453892473a467d07372d45eb05abc2031647a'), fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='1.2.1. Section 1.2.1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='1b6453892473a467d07372d45eb05abc2031647a'), fontName='Arimo', fontSize=11, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=11, greek=0, italic=0, link=[], rise=0, text='1.2.1. Section 1.2.1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
   'style': <ParagraphStyle 'Heading2'>
   'bulletText': None
   'debug': 0
@@ -108,7 +108,7 @@ callback: buildBegins,
   'caseSensitive': 1
   'encoding': 'utf8'
   'text': '<a name="ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4"/>2. Chapter 2'
-  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4'), fontName='Arimo', fontSize=18, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=18, greek=0, italic=0, link=[], rise=0, text='2. Chapter 2', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'frags': [ParaFrag(__tag__='a', bold=0, cbDefn=ABag(kind='anchor', label='anchor', name='ac3478d69a3c81fa62e60f5c3696165a4e5e6ac4'), fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='', textColor=Color(.133333,.133333,.133333,1), us_lines=[]), ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=14, greek=0, italic=0, link=[], rise=0, text='2. Chapter 2', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
   'style': <ParagraphStyle 'Heading0'>
   'bulletText': None
   'debug': 0
