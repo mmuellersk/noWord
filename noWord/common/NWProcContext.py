@@ -74,8 +74,10 @@ class NWProcContext:
                 (key, index) = result[0]
                 resource = resource[key][int(index)]
             else:
-                try: resource = resource[child]
-                except: return None
+                try:
+                    resource = resource[child]
+                except:
+                    return None
         return resource
 
     def resourceProcessor(self, ref):

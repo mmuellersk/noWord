@@ -1,6 +1,19 @@
 
+#- type    : text
+#  content : >
+#     <font name="Symbols">&#xf096;</font>
 
-#- type    : todoitem
-#  title   : Item1 ers
-#  width   : 6
-#  status  : Open
+- type    : todoitem
+  title   : Define Item1
+  width   : 6
+  status  : Open
+
+- type    : todoitem
+  title   : Implementing Item1
+  width   : 6
+  status  : InProgress
+
+- type    : todoitem
+  title   : Release Item2
+  width   : 6
+  status  : Done

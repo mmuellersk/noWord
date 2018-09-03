@@ -33,7 +33,13 @@
         - label    : <b>Test name:</b>
           value    : '{{current:testname}}'
         - label    : <b>Result:</b>
-          value    : '{{current:passedStr}}'
+          value    :
+
+              - type    : text
+                style   : '{{current:passedStyle}}'
+                content : >
+                   <b>{{current:passedStr}}</b>
+                   
         - label    : <b>Generated pdf file:</b>
           value    : '{{current:outputPdfFile}}'
 

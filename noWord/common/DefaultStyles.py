@@ -14,7 +14,7 @@ arimoDir = os.path.join(assetsDir, "Arimo")
 
 # Choosing font
 pdfmetrics.registerFont(
-    TTFont('FontAwesome', os.path.join(assetsDir, "FontAwesome.ttf")))
+    TTFont('Symbols', os.path.join(assetsDir, "FontAwesome.ttf")))
 
 pdfmetrics.registerFont(
     TTFont('Arimo', os.path.join(arimoDir, "Arimo-Regular.ttf")))
@@ -25,9 +25,8 @@ pdfmetrics.registerFont(
 pdfmetrics.registerFont(
     TTFont('ArimoBoldItalic', os.path.join(arimoDir, "Arimo-BoldItalic.ttf")))
 
-
 pdfmetrics.registerFontFamily("Arimo", normal="Arimo",
-                          bold="ArimoBold", italic="ArimoItalic", boldItalic="ArimoBoldItalic")
+                              bold="ArimoBold", italic="ArimoItalic", boldItalic="ArimoBoldItalic")
 styles = {}
 
 # margins
@@ -44,6 +43,8 @@ styles['green'] = colors.HexColor("#00aa00")
 styles['darkyellow'] = colors.HexColor("#999900")
 styles['darkblue'] = colors.HexColor("#0077b3")
 styles['lightblue'] = colors.HexColor("#cceeff")
+styles['red'] = colors.HexColor("#AA0000")
+styles['green'] = colors.HexColor("#00AA00")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -118,3 +119,11 @@ styles["FooterRight"] = ParagraphStyle(name="FooterRight",
                                        parent=styles['default'],
                                        fontSize=8,
                                        alignment=TA_RIGHT)
+
+styles['GreenText'] = ParagraphStyle(name="GreenText",
+                                     parent=styles['default'],
+                                     textColor=styles["green"])
+
+styles['RedText'] = ParagraphStyle(name="RedText",
+                                   parent=styles['default'],
+                                   textColor=styles["red"])

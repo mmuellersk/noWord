@@ -31,6 +31,7 @@ def parserCommandLine(additionalArgs=[]):
 
     return parser.parse_args()
 
+
 def collectMetaInfo(outputfolder):
     metaInfo = {}
 
@@ -51,12 +52,13 @@ def collectMetaInfo(outputfolder):
 
 def cleanupOutputfolder(folder):
 
-    if os.path.exists(folder) :
+    if os.path.exists(folder):
         files = glob.glob(os.path.join(folder, '*'))
         for f in files:
             os.remove(f)
-    else :
+    else:
         os.mkdir(folder)
+
 
 def scanInputRoot(path):
     for item in sorted(os.listdir(path)):
@@ -90,7 +92,7 @@ def main():
     results = []
 
     for casefolder in scanInputRoot(inputroot):
-        testcase = NWTestCase(casefolder,outputfolder)
+        testcase = NWTestCase(casefolder, outputfolder)
 
         testcase.run()
 

@@ -24,7 +24,8 @@ class TextBlock(PluginInterface):
     def process(self, block, context):
 
         # style element, default 'BodyText'
-        styleName = self.getElemValue(block, 'style', 'BodyText')
+        styleName = context.processTextCmds(
+            self.getElemValue(block, 'style', 'BodyText'))
 
         # content element
         content = block['content']

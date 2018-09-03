@@ -1,6 +1,72 @@
 [   noWord.TriggerFlowable (
 callback: buildBegins,
 ) noWord.#TriggerFlowable ,
+    Table(
+ rowHeights=[None],
+ colWidths=[14.173228346456693, 155.90551181102362],
+[[Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<font name="Symbols">&#xf096;</font>'
+  'frags': [ParaFrag(__tag__='font', bold=1, fontName='Symbols', fontSize=10, greek=0, italic=1, link=[], rise=0, text='\uf096', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': 'Define Item1'
+  'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Define Item1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'TODOText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph]]
+) # end table,
+    Table(
+ rowHeights=[None],
+ colWidths=[14.173228346456693, 155.90551181102362],
+[[Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<font name="Symbols">&#xf096;</font>'
+  'frags': [ParaFrag(__tag__='font', bold=1, fontName='Symbols', fontSize=10, greek=0, italic=1, link=[], rise=0, text='\uf096', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<b>Implementing Item1</b>'
+  'frags': [ParaFrag(__tag__='b', bold=1, fontName='ArimoBold', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Implementing Item1', textColor=Color(0,.666667,0,1), us_lines=[])]
+  'style': <ParagraphStyle 'TODOTextProgress'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph]]
+) # end table,
+    Table(
+ rowHeights=[None],
+ colWidths=[14.173228346456693, 155.90551181102362],
+[[Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<font name="Symbols">&#xf046;</font>'
+  'frags': [ParaFrag(__tag__='font', bold=1, fontName='Symbols', fontSize=10, greek=0, italic=1, link=[], rise=0, text='\uf046', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<strike>Release Item2</strike>'
+  'frags': [ParaFrag(__tag__='strike', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, strike=1, text='Release Item2', textColor=Color(.733333,.733333,.733333,1), us_lines=[(0, 'strike', None, '', '0.25*F', 0, 1, '1')])]
+  'style': <ParagraphStyle 'TODOTextDone'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph]]
+) # end table,
     noWord.Metadata (
 title: todo_test,
 author: Test Author,

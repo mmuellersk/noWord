@@ -52,7 +52,7 @@ class NWTestCase:
 
         outputPdfFile = self.doc_info['mainSubject'] + '.pdf'
 
-        if not os.path.exists(os.path.join(self.outputfolder, self.doc_info['mainSubject'] + '.pdf')) :
+        if not os.path.exists(os.path.join(self.outputfolder, self.doc_info['mainSubject'] + '.pdf')):
             self.context['error'] = 'pdf file was not generated'
             return False
 
@@ -80,40 +80,38 @@ class NWTestCase:
         # Loop if either file1 or file2 has not reached EOF
         while f1_line != '' or f2_line != '':
 
-             # Strip the leading whitespaces
-             f1_line = f1_line.rstrip()
-             f2_line = f2_line.rstrip()
+            # Strip the leading whitespaces
+            f1_line = f1_line.rstrip()
+            f2_line = f2_line.rstrip()
 
-             # Compare the lines from both file
-             if f1_line != f2_line:
+            # Compare the lines from both file
+            if f1_line != f2_line:
 
-                 prefix = "Line-%d" % line_no
+                prefix = "Line-%d" % line_no
 
-                 # If a line does not exist on file2 then mark the output with + sign
-                 if f2_line == '' and f1_line != '':
-                     passed = False
-                     error += html.escape(">+ " + prefix + f1_line) + '<br/>'
-                 # otherwise output the line on file1 and mark it with > sign
-                 elif f1_line != '':
-                     passed = False
-                     error += html.escape("<  " + prefix + f1_line) + '<br/>'
-                 # If a line does not exist on file1 then mark the output with + sign
-                 if f1_line == '' and f2_line != '':
-                     passed = False
-                     error += html.escape("<+ " + prefix + f2_line) + '<br/>'
-                 # otherwise output the line on file2 and mark it with < sign
-                 elif f2_line != '':
-                     passed = False
-                     error += html.escape("<  " + prefix + f2_line) + '<br/>'
+                # If a line does not exist on file2 then mark the output with + sign
+                if f2_line == '' and f1_line != '':
+                    passed = False
+                    error += html.escape(">+ " + prefix + f1_line) + '<br/>'
+                # otherwise output the line on file1 and mark it with > sign
+                elif f1_line != '':
+                    passed = False
+                    error += html.escape("<  " + prefix + f1_line) + '<br/>'
+                # If a line does not exist on file1 then mark the output with + sign
+                if f1_line == '' and f2_line != '':
+                    passed = False
+                    error += html.escape("<+ " + prefix + f2_line) + '<br/>'
+                # otherwise output the line on file2 and mark it with < sign
+                elif f2_line != '':
+                    passed = False
+                    error += html.escape("<  " + prefix + f2_line) + '<br/>'
 
+            # Read the next line from the file
+            f1_line = f1.readline()
+            f2_line = f2.readline()
 
-             #Read the next line from the file
-             f1_line = f1.readline()
-             f2_line = f2.readline()
-
-
-             #Increment line counter
-             line_no += 1
+            # Increment line counter
+            line_no += 1
 
         # Close the files
         f1.close()
@@ -124,19 +122,19 @@ class NWTestCase:
 
         return self.context['passed']
 
-
     def finaliseTest(self):
         if not self.context['passed']:
             print("Test FAILED: " + self.context['testname'])
-            
+
             self.context['passedStr'] = 'FAILED'
+            self.context['passedStyle'] = 'RedText'
         else:
             print("Test passed: " + self.context['testname'])
-            self.context['passedStr'] = 'Passed'
+            self.context['passedStr'] = 'PASSED'
+            self.context['passedStyle'] = 'GreenText'
 
         if self.context['error'] == '':
             self.context['error'] = 'Non'
-
 
     def run(self):
         if not self.verifyDocInfo():

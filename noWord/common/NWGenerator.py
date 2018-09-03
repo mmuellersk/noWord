@@ -73,7 +73,7 @@ class NWGenerator:
         if 'decorations' in self.context.docInfo:
             decorations = self.context.docInfo['decorations']
             for decoration in decorations:
-                if hasattr(NoWordDecoration, decoration) :
+                if hasattr(NoWordDecoration, decoration):
                     self.addDecoration(getattr(NoWordDecoration, decoration))
 
     def overrideValues(self, strkey, dicTraget, dicSource):
@@ -122,7 +122,8 @@ class NWGenerator:
             if 'content' in block:
                 for blockContent in block['content']:
                     if 'type' in blockContent:
-                        plugin = self.pluginMng.findPlugin(blockContent['type'])
+                        plugin = self.pluginMng.findPlugin(
+                            blockContent['type'])
                         if plugin is not None:
                             pluginset.add(plugin)
                             continue
@@ -196,6 +197,6 @@ class NWGenerator:
             self.context.outputPath,
             self.context.docInfo["outputFileTemplate"] + '.txt')
 
-        with open(dumpoutputfile,'w',encoding = 'utf-8') as f:
-            prettyPrinter = pprint.PrettyPrinter(indent=4, stream = f)
+        with open(dumpoutputfile, 'w', encoding='utf-8') as f:
+            prettyPrinter = pprint.PrettyPrinter(indent=4, stream=f)
             prettyPrinter.pprint(content)

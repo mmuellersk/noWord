@@ -34,4 +34,8 @@
       rows         :
         - testname: '{{current:testname}}'
           testdesc: '{{current:testdesc}}'
-          result: '{{current:passedStr}}'
+          result:
+            - type    : text
+              style   : '{{current:passedStyle}}'
+              content : >
+                 <b>{{current:passedStr}}</b>
