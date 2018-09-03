@@ -39,7 +39,7 @@
                 style   : '{{current:passedStyle}}'
                 content : >
                    <b>{{current:passedStr}}</b>
-                   
+
         - label    : <b>Generated pdf file:</b>
           value    : '{{current:outputPdfFile}}'
 
@@ -56,7 +56,7 @@
 
     - type    : pdf
       width   : 14
-      filename: "../data/{{current:outputPdfFile}}"
+      filename: "../../data/{{current:outputPdfFile}}"
 
     - type    : text
       style   : HeaderRight

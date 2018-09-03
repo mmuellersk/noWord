@@ -1,7 +1,7 @@
 
 - type: resource
   alias: metainfo
-  filename: ../data/meta.yaml
+  filename: ../../data/meta.yaml
 
 - type      : title
   level     : 0

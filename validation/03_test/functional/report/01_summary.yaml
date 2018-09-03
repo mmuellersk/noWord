@@ -1,6 +1,6 @@
 - type: resource
   alias: report
-  filename: ../data/report.yaml
+  filename: ../../data/report.yaml
 
 - type      : title
   level     : 1
