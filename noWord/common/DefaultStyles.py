@@ -108,11 +108,11 @@ styles['BodyText'] = ParagraphStyle(name="BodyText",
 
 styles["HeaderRight"] = ParagraphStyle(name="HeaderRight",
                                        parent=styles['default'],
-                                       fontSize=10,
+                                       fontSize=8,
                                        alignment=TA_RIGHT)
 
 
 styles["FooterRight"] = ParagraphStyle(name="FooterRight",
                                        parent=styles['default'],
-                                       fontSize=10,
+                                       fontSize=8,
                                        alignment=TA_RIGHT)

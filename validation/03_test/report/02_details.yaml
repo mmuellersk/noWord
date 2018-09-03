@@ -1,4 +1,4 @@
-- type    : newpage
+#- type    : newpage
 
 - type   : title
   level  : 1
@@ -42,6 +42,18 @@
          <b>Errrors</b><br/>
          {{current:error}}
 
+    - type    : text
+      style   : HeaderRight
+      content : Begin pdf output
+
+    - type    : line
+
     - type    : pdf
       width   : 14
       filename: "../data/{{current:outputPdfFile}}"
+
+    - type    : text
+      style   : HeaderRight
+      content : End pdf output
+
+    - type    : line
