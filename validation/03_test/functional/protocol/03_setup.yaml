@@ -1,0 +1,13 @@
+- type  : chapter
+  level : 1
+  title : Test setup
+
+
+- type    : text
+  content : >
+     The first step is to clone source repository:
+
+- type    : text
+  style   : Code
+  content : >
+     $> git clone https://github.com/mmuellersk/noWord.git

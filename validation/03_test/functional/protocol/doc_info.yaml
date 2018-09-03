@@ -1,13 +1,13 @@
-docId     : ftrp
-documentType: Functional Test Report
+docId     : ftp
+documentType: Functional Test Protocol
 mainSubject : noWord
-shortDocumentType: FTRP
+shortDocumentType: FTP
 author    : Matthias Müller
 
 revision: '1'
 revisions:
   - revision  : '1'
-    date      : '29.08.2018'
+    date      : '03.09.2018'
     author    : Matthias Müller
     reviewer  : Community
     comment   : Creation of the document
@@ -15,8 +15,8 @@ revisions:
 
 
 glossary:
-  - short: IU
-    desc : Intended use
+  - short: FTP
+    desc : Functional Test Protocol
   - short: CLI
     desc : Command Line Interface
   - short: IDE
@@ -31,7 +31,7 @@ docStyle:
   outputFileTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
   documentIdentifierTemplate: '{shortDocumentType}_{mainSubject}_{revision}.pdf'
   documentMetaTitleTemplate: '{documentType} {mainSubject}'
-  revisionTemplate: "trp_r_{revision}"
+  revisionTemplate: "iu_r_{revision}"
 
 decorations:
   - drawGraphicSignature
@@ -39,9 +39,8 @@ decorations:
   - drawFooter
 
 styles :
-  marginT: 60
-  marginL: 50
-  marginR: 50
-  marginB: 20
-  headerMargin: 50
+  marginT: 120
+  marginL: 70
+  marginR: 70
+  headerMargin: 20
   watermarkPadding: 100

@@ -42,7 +42,7 @@ class ChapterBlock(PluginInterface):
                                                             alignment=TA_LEFT,
                                                             fontSize=14,
                                                             spaceBefore=10,
-                                                            spaceAfter=10)
+                                                            spaceAfter=8)
 
         if not 'Heading1' in context.styleSheet:
             context.styleSheet['Heading1'] = ParagraphStyle(name="Heading1",
@@ -50,7 +50,7 @@ class ChapterBlock(PluginInterface):
                                                             alignment=TA_LEFT,
                                                             fontSize=12,
                                                             spaceBefore=9,
-                                                            spaceAfter=9)
+                                                            spaceAfter=6)
 
         if not 'Heading2' in context.styleSheet:
             context.styleSheet['Heading2'] = ParagraphStyle(name="Heading2",
@@ -58,7 +58,7 @@ class ChapterBlock(PluginInterface):
                                                             alignment=TA_LEFT,
                                                             fontSize=11,
                                                             spaceBefore=8,
-                                                            spaceAfter=8)
+                                                            spaceAfter=4)
 
         if not 'Heading3' in context.styleSheet:
             context.styleSheet['Heading3'] = ParagraphStyle(name="Heading3",
@@ -66,7 +66,7 @@ class ChapterBlock(PluginInterface):
                                                             alignment=TA_LEFT,
                                                             fontSize=10,
                                                             spaceBefore=8,
-                                                            spaceAfter=8)
+                                                            spaceAfter=4)
 
     def prepare(self, block, context):
 

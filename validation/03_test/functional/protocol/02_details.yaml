@@ -1,0 +1,83 @@
+- type   : newpage
+
+- type  : chapter
+  title : Detailed test description
+
+- type  : chapter
+  level : 1
+  title : Test environment
+
+- type    : text
+  content : >
+     The functional tests are executed inside the repository folder.
+     In the following the root folder of the local git repository is
+     referenced as RepositoryFolder.
+
+- type    : text
+  content : >
+     The following files implements the execution of all functional test:
+
+- type    : table
+  header  : [Index, Name]
+  widths  : [0.6,14]
+  border  : 0
+  displayHeader: false
+  rows :
+    - Index: <font name="Symbols">&#xF115;</font>
+      Name : >
+         &lt;RepositoryFolder&gt;
+    - Index: ""
+      Name :
+        - type    : table
+          header  : [Index, Name]
+          widths  : [0.6,14]
+          border  : 0
+          displayHeader: false
+          rows :
+            - Index: <font name="Symbols">&#xF115;</font>
+              Name : tests
+            - Index: ""
+              Name :
+                - type    : table
+                  header  : [Index, Name]
+                  widths  : [0.6,14]
+                  border  : 0
+                  displayHeader: false
+                  rows :
+                    - Index: <font name="Symbols">&#xF1c9;</font>
+                      Name : <b>run_test.py</b>
+
+
+- type    : text
+  content : >
+     The input files for each test case are stored in the following folder:
+
+- type    : table
+  header  : [Index, Name]
+  widths  : [0.6,14]
+  border  : 0
+  displayHeader: false
+  rows :
+    - Index: <font name="Symbols">&#xF115;</font>
+      Name : >
+         &lt;RepositoryFolder&gt;
+    - Index: ""
+      Name :
+        - type    : table
+          header  : [Index, Name]
+          widths  : [0.6,14]
+          border  : 0
+          displayHeader: false
+          rows :
+            - Index: <font name="Symbols">&#xF115;</font>
+              Name : tests
+            - Index: ""
+              Name :
+                - type    : table
+                  header  : [Index, Name]
+                  widths  : [0.6,14]
+                  border  : 0
+                  displayHeader: false
+                  rows :
+                    - Index: <font name="Symbols">&#xF114;</font>
+                      Name : cases

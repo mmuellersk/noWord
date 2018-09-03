@@ -7,7 +7,12 @@
 - type      : title
   level     : 0
   title     : >
-    {{res:meta/documentType}} - {{res:noWordInfo/name}}
+    {{res:meta/documentType}}
+
+- type      : title
+  level     : 0
+  title     : >
+    {{res:noWordInfo/name}}
 
 
 - type      : line
@@ -67,3 +72,5 @@
   title: Table of Content
 
 - type: toc
+
+- type   : newpage
