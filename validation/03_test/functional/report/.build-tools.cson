@@ -4,8 +4,6 @@ providers: [
     config:
       commands: [
         {
-          project: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord/validation/03_test/functional/report"
-          source: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord/validation/03_test/functional/report/.build-tools.cson"
           name: "Build Test Report"
           command: "python3 noWord/nw_proc.py validation/03_test/functional/report build/03_test"
           wd: "../../../../"

@@ -103,3 +103,5 @@ ENV/
 *.pdf
 03_test/data
 validation/03_test/data
+~*
+*~
