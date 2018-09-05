@@ -1,0 +1,12 @@
+
+mainSubject : todo_test
+author    : Test Author
+revision  : 1
+date      : 31.08.2018
+description: Test todo block
+
+docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'

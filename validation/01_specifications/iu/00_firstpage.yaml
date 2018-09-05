@@ -7,7 +7,7 @@
 - type      : title
   level     : 0
   title     : >
-    <b>{{res:meta/documentType}} - {{res:noWordInfo/name}}</b>
+    {{res:meta/documentType}} - {{res:noWordInfo/name}}
 
 
 - type      : line

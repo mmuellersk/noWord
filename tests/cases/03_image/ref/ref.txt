@@ -1,0 +1,88 @@
+[   noWord.TriggerFlowable (
+callback: buildBegins,
+) noWord.#TriggerFlowable ,
+    Table(
+ rowHeights=[None],
+ colWidths=[85.03937007874015, 141.73228346456693, 198.4251968503937],
+[[[Table(
+   rowHeights=[None, None],
+   colWidths=[None],
+  [[noWord.DummyFlowable (
+    temp: <class 'reportlab.platypus.flowables.Spacer'>,
+    final: <class 'reportlab.platypus.flowables.Image'>,
+    ) noWord.#DummyFlowable ],
+     [Paragraph(
+    'caseSensitive': 1
+    'encoding': 'utf8'
+    'text': ''
+    'frags': []
+    'style': <ParagraphStyle 'ImageCaption'>
+    'bulletText': None
+    'debug': 0
+    ) #Paragraph]]
+  ) # end table],
+    [Table(
+   rowHeights=[None, None],
+   colWidths=[None],
+  [[noWord.DummyFlowable (
+    temp: <class 'reportlab.platypus.flowables.Spacer'>,
+    final: <class 'reportlab.platypus.flowables.Image'>,
+    ) noWord.#DummyFlowable ],
+     [Paragraph(
+    'caseSensitive': 1
+    'encoding': 'utf8'
+    'text': ''
+    'frags': []
+    'style': <ParagraphStyle 'ImageCaption'>
+    'bulletText': None
+    'debug': 0
+    ) #Paragraph]]
+  ) # end table],
+    [Table(
+   rowHeights=[None, None],
+   colWidths=[None],
+  [[noWord.DummyFlowable (
+    temp: <class 'reportlab.platypus.flowables.Spacer'>,
+    final: <class 'reportlab.platypus.flowables.Image'>,
+    ) noWord.#DummyFlowable ],
+     [Paragraph(
+    'caseSensitive': 1
+    'encoding': 'utf8'
+    'text': ''
+    'frags': []
+    'style': <ParagraphStyle 'ImageCaption'>
+    'bulletText': None
+    'debug': 0
+    ) #Paragraph]]
+  ) # end table]]]
+) # end table,
+    Table(
+ rowHeights=[None, None],
+ colWidths=[None],
+[[noWord.DummyFlowable (
+  temp: <class 'reportlab.platypus.flowables.Spacer'>,
+  final: <class 'reportlab.platypus.flowables.Image'>,
+  ) noWord.#DummyFlowable ],
+   [Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': ''
+  'frags': []
+  'style': <ParagraphStyle 'ImageCaption'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph]]
+) # end table,
+    noWord.Metadata (
+title: image_test,
+author: Test Author,
+subject: image_test,
+keywords: ,
+creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
+producer: ReportLab PDF Library - www.reportlab.com
+) noWord.#Metadata ,
+    noWord.PageCountBlocker (
+pageCount: 0,
+width: 0,
+firstRun: True,
+) noWord.#PageCountBlocker ]

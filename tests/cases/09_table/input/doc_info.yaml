@@ -1,0 +1,19 @@
+
+mainSubject : table_test
+author    : Test Author
+revision  : 1
+date      : 30.08.2018
+description: Test table block with all parameters
+
+docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'
+
+styles :
+  marginT: 30
+  marginL: 40
+  marginR: 40
+  marginB: 30
+  headerMargin: 20

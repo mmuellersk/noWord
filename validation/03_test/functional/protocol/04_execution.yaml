@@ -1,0 +1,22 @@
+
+- type  : chapter
+  level : 1
+  title : Test execution
+
+- type    : text
+  content : >
+     Run all functional tests:
+
+- type    : text
+  style   : Code
+  content : >
+     $> python3 ./tests/run_tests.py  ./tests/cases/ ./validation/03_test/data/
+
+- type    : text
+  content : >
+     The functional test report can be generated with the following command:
+
+- type    : text
+  style   : Code
+  content : >
+     $> python3 noWord/nw_proc.py validation/03_test/functional/protocol build/03_test

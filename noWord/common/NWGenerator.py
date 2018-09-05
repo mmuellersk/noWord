@@ -6,6 +6,7 @@ import reportlab.lib.enums
 import copy
 import sys
 import datetime
+import pprint
 
 noWordDir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "../..")
@@ -29,7 +30,10 @@ import noWord.common.DefaultDecoration as NoWordDecoration
 
 
 class NWGenerator:
-    def __init__(self, aSourcePath, aOutputPath, extPluginFolders=[]):
+    def __init__(self, aSourcePath, aOutputPath, extPluginFolders=[], dumpContent=False):
+
+        self.dumpContentFlag = dumpContent
+
         self.pluginMng = PluginManager()
 
         self.pluginMng.addPluginFolder(
@@ -69,7 +73,7 @@ class NWGenerator:
         if 'decorations' in self.context.docInfo:
             decorations = self.context.docInfo['decorations']
             for decoration in decorations:
-                if hasattr(NoWordDecoration, decoration) :
+                if hasattr(NoWordDecoration, decoration):
                     self.addDecoration(getattr(NoWordDecoration, decoration))
 
     def overrideValues(self, strkey, dicTraget, dicSource):
@@ -118,7 +122,8 @@ class NWGenerator:
             if 'content' in block:
                 for blockContent in block['content']:
                     if 'type' in blockContent:
-                        plugin = self.pluginMng.findPlugin(blockContent['type'])
+                        plugin = self.pluginMng.findPlugin(
+                            blockContent['type'])
                         if plugin is not None:
                             pluginset.add(plugin)
                             continue
@@ -156,6 +161,10 @@ class NWGenerator:
         outputfile = os.path.join(
             self.context.outputPath,
             self.context.docInfo["outputFileTemplate"])
+
+        if self.dumpContentFlag:
+            self.dumpContent(content)
+
         self.doc.build(outputfile, self.context, content)
 
         return self.context.pageCounter.pageCount
@@ -181,3 +190,13 @@ class NWGenerator:
                     part['_path'] = path
 
                     yield part
+
+    def dumpContent(self, content):
+
+        dumpoutputfile = os.path.join(
+            self.context.outputPath,
+            self.context.docInfo["outputFileTemplate"] + '.txt')
+
+        with open(dumpoutputfile, 'w', encoding='utf-8') as f:
+            prettyPrinter = pprint.PrettyPrinter(indent=4, stream=f)
+            prettyPrinter.pprint(content)

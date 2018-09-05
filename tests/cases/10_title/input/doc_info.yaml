@@ -1,0 +1,12 @@
+
+mainSubject : title_test
+author    : Test Author
+revision  : 1
+date      : 11.07.2018
+description: Test title block with some text in sub section
+
+docStyle:
+  documentMetaSubjectTemplate: "{mainSubject}"
+  documentMetaTitleTemplate: "{mainSubject}"
+  documentMetaAuthorTemplate: "{author}"
+  outputFileTemplate: '{mainSubject}.pdf'

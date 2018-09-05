@@ -46,19 +46,19 @@ class ForeachBlock(PluginInterface):
         resourceData = context.getResource(context.resources, resource)
 
         if keys is not None:
-            keysData = context.getResource(context.resources,keys)
+            keysData = context.getResource(context.resources, keys)
         else:
             keysData = []
 
         content = []
-        
+
         index = 0
         for item in resourceData:
             if keysData:
                 if "id" in item:
                     if item["id"] not in keysData:
                         continue
-                        
+
             index += 1
             context.textCmdProcessors[name] = lambda res: context.getResource(
                 item, res)

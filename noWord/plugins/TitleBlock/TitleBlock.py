@@ -22,7 +22,7 @@ class TitleBlock(PluginInterface):
             context.styleSheet['Title0'] = ParagraphStyle(name="Title0",
                                                           parent=context.styleSheet['default'],
                                                           alignment=TA_LEFT,
-                                                          fontSize=24,
+                                                          fontSize=18,
                                                           spaceBefore=16,
                                                           spaceAfter=24)
 
@@ -32,7 +32,7 @@ class TitleBlock(PluginInterface):
                                                           alignment=TA_LEFT,
                                                           fontSize=16,
                                                           spaceBefore=10,
-                                                          spaceAfter=10)
+                                                          spaceAfter=18)
 
         if not 'Title2' in context.styleSheet:
             context.styleSheet['Title2'] = ParagraphStyle(name="Title2",
@@ -40,7 +40,7 @@ class TitleBlock(PluginInterface):
                                                           alignment=TA_LEFT,
                                                           fontSize=14,
                                                           spaceBefore=10,
-                                                          spaceAfter=10)
+                                                          spaceAfter=16)
 
         if not 'Title3' in context.styleSheet:
             context.styleSheet['Title3'] = ParagraphStyle(name="Title3",
@@ -48,7 +48,7 @@ class TitleBlock(PluginInterface):
                                                           alignment=TA_LEFT,
                                                           fontSize=12,
                                                           spaceBefore=10,
-                                                          spaceAfter=10)
+                                                          spaceAfter=14)
 
     def prepare(self, block, context):
         pass

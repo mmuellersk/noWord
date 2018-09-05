@@ -10,12 +10,23 @@ from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 
 assetsDir = os.path.join(os.path.dirname(os.path.abspath(__file__)), "assets")
+arimoDir = os.path.join(assetsDir, "Arimo")
 
 # Choosing font
 pdfmetrics.registerFont(
-    TTFont('FontAwesome', os.path.join(assetsDir, "FontAwesome.ttf")))
+    TTFont('Symbols', os.path.join(assetsDir, "FontAwesome.ttf")))
 
+pdfmetrics.registerFont(
+    TTFont('Arimo', os.path.join(arimoDir, "Arimo-Regular.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoBold', os.path.join(arimoDir, "Arimo-Bold.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoItalic', os.path.join(arimoDir, "Arimo-Italic.ttf")))
+pdfmetrics.registerFont(
+    TTFont('ArimoBoldItalic', os.path.join(arimoDir, "Arimo-BoldItalic.ttf")))
 
+pdfmetrics.registerFontFamily("Arimo", normal="Arimo",
+                              bold="ArimoBold", italic="ArimoItalic", boldItalic="ArimoBoldItalic")
 styles = {}
 
 # margins
@@ -30,6 +41,10 @@ styles["footerMargin"] = 1.2 * cm
 styles['darkgray'] = colors.HexColor("#222222")
 styles['green'] = colors.HexColor("#00aa00")
 styles['darkyellow'] = colors.HexColor("#999900")
+styles['darkblue'] = colors.HexColor("#0077b3")
+styles['lightblue'] = colors.HexColor("#cceeff")
+styles['red'] = colors.HexColor("#AA0000")
+styles['green'] = colors.HexColor("#00AA00")
 
 # Some characters usable as list bullets
 longdash = u"\u2014"
@@ -61,7 +76,7 @@ styles["highlightBackground"] = colors.HexColor("#ffff00")
 
 # paragraph styles
 styles['default'] = ParagraphStyle(name="default",
-                                   fontName='Times-Roman',
+                                   fontName='Arimo',
                                    fontSize=10,
                                    leading=12,
                                    leftIndent=0,
@@ -89,18 +104,36 @@ styles['default'] = ParagraphStyle(name="default",
 styles['BodyText'] = ParagraphStyle(name="BodyText",
                                     parent=styles['default'],
                                     alignment=TA_JUSTIFY,
-                                    fontSize=12,
+                                    fontSize=10,
                                     spaceBefore=6,
                                     spaceAfter=6)
 
 
 styles["HeaderRight"] = ParagraphStyle(name="HeaderRight",
                                        parent=styles['default'],
-                                       fontSize=10,
+                                       fontSize=8,
                                        alignment=TA_RIGHT)
 
 
 styles["FooterRight"] = ParagraphStyle(name="FooterRight",
                                        parent=styles['default'],
-                                       fontSize=10,
+                                       fontSize=8,
                                        alignment=TA_RIGHT)
+
+styles['GreenText'] = ParagraphStyle(name="GreenText",
+                                     parent=styles['default'],
+                                     textColor=styles["green"])
+
+styles['RedText'] = ParagraphStyle(name="RedText",
+                                   parent=styles['default'],
+                                   textColor=styles["red"])
+
+styles['Code'] = ParagraphStyle(name="Code",
+                                parent=styles['default'],
+                                fontName='Courier',
+                                fontSize=10,
+                                textColor=colors.white,
+                                backColor=colors.black,
+                                spaceBefore=6,
+                                spaceAfter=6,
+                                borderPadding=3)

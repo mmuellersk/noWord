@@ -1,0 +1,33 @@
+providers: [
+  {
+    key: "bt"
+    config:
+      commands: [
+        {
+          name: "Build FTP"
+          command: "python3 noWord/nw_proc.py validation/03_test/functional/protocol build/03_test"
+          wd: "../../../../"
+          env: {}
+          modifier:
+            shell:
+              command: "bash -c"
+            save_all: {}
+          environment:
+            name: "child_process"
+            config:
+              stdoe: "both"
+          stdout:
+            pipeline: []
+          stderr:
+            pipeline: []
+          output:
+            console:
+              close_success: true
+              queue_in_buffer: true
+              colors: false
+              stdin: false
+          version: 2
+        }
+      ]
+  }
+]

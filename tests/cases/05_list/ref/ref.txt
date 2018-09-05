@@ -1,0 +1,21 @@
+[   noWord.TriggerFlowable (
+callback: buildBegins,
+) noWord.#TriggerFlowable ,
+    <reportlab.platypus.flowables.ListFlowable object at 0x108831908>,
+    Spacer(1, 12),
+    <reportlab.platypus.flowables.ListFlowable object at 0x108827390>,
+    Spacer(1, 12),
+    <reportlab.platypus.flowables.ListFlowable object at 0x108827f60>,
+    noWord.Metadata (
+title: list_test,
+author: Test Author,
+subject: list_test,
+keywords: ,
+creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
+producer: ReportLab PDF Library - www.reportlab.com
+) noWord.#Metadata ,
+    noWord.PageCountBlocker (
+pageCount: 0,
+width: 0,
+firstRun: True,
+) noWord.#PageCountBlocker ]

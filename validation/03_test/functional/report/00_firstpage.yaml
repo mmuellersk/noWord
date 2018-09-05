@@ -1,0 +1,29 @@
+
+- type: resource
+  alias: metainfo
+  filename: ../../data/meta.yaml
+
+- type      : title
+  level     : 0
+  title     : >
+    {{res:meta/documentType}} - {{res:noWordInfo/name}}
+
+
+- type      : vspace
+
+# Meta Info
+
+- type         : table
+  displayHeader: False
+  keys         : [label, value]
+  widths       : [6,11]
+  halign       : LEFT
+  rows         :
+    - label    : <b>Test executer</b>
+      value    : '{{res:metainfo/buildInfo/builder}}'
+    - label    : <b>Tested software</b>
+      value    : '{{res:metainfo/noWordInfo/name}}'
+    - label    : <b>Tested Version</b>
+      value    : '{{res:metainfo/noWordInfo/version}}'
+    - label    : <b>Test date</b>
+      value    : '{{res:metainfo/buildInfo/timestamp}}'

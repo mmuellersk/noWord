@@ -1,0 +1,18 @@
+- type  : chapter
+  title : Test overview
+
+- type    : text
+  content : >
+    The main functional elements in noWord are the plugins implementing each
+    a given text block. The objective of the function tests s to provide a functional test
+    for each plugin covering all aspects of this given plugin. The following illustration outlines
+    functional test procedure.
+
+- type     : image
+  width    : 11
+  filename : overview.jpg
+
+- type    : text
+  content : >
+    The comparison function will compare the content of the generated document and the reference
+    document. The detailed rendering is not included in the comparison function.

@@ -56,8 +56,8 @@ def makeTable(context, path, headers, lines, widths=[],
     if not lines:
         nbCols = len(headers)
     else:
-        nbCols = max(len(headers), len(lines[0])) 
-    
+        nbCols = max(len(headers), len(lines[0]))
+
     nbLines = len(lines) + 1 if len(headers) > 0 else 0
 
     tableData = []
@@ -189,6 +189,17 @@ class DummyFlowable(Flowable):
 
     def isIndexing(self): return self.current.isIndexing()
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'DummyFlowable'
+        str += 'temp: %s,\n' % self.temp.__class__
+        str += 'final: %s,\n' % self.final.__class__
+        str += ') noWord.#%s ' % 'DummyFlowable'
+
+        return str
+
 # Open a PDF file and return an array of xobjects
 
 
@@ -221,6 +232,17 @@ class PDFPage(Flowable):
         self.canv.doForm(makerl(self.canv, self.page))
         self.canv.restoreState()
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'PDFPage'
+        str += 'width: %s,\n' % self.width
+        str += 'height: %s,\n' % self.height
+        str += ') noWord.#%s ' % 'PDFPage'
+
+        return str
+
 # This empty flowable is provides a trigger that will call a function when it is rendered.
 
 
@@ -235,6 +257,16 @@ class TriggerFlowable(Flowable):
     def draw(self):
         self.callback()
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'TriggerFlowable'
+        str += 'callback: %s,\n' % self.callback.__name__
+        str += ') noWord.#%s ' % 'TriggerFlowable'
+
+        return str
+
 # This flowable creates a table of content entry where it is placed.
 
 
@@ -248,6 +280,20 @@ class TocEntry(Flowable):
 
     def draw(unused):
         return
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'TocEntry'
+        str += '_level: %s,\n' % self._level
+        str += '_text: %s,\n' % self._text
+        str += '_link: %s,\n' % self._link
+        str += 'width: %s,\n' % self.width
+        str += 'height: %s,\n' % self.height
+        str += ') noWord.#%s ' % 'TocEntry'
+
+        return str
 
 # Doc Template with table of contents
 
@@ -293,6 +339,21 @@ class Metadata(Flowable):
         infos.producer = self.producer
         return
 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'Metadata'
+        str += 'title: %s,\n' % self.title
+        str += 'author: %s,\n' % self.author
+        str += 'subject: %s,\n' % self.subject
+        str += 'keywords: %s,\n' % self.keywords
+        str += 'creator: %s,\n' % self.creator
+        str += 'producer: %s\n' % self.producer
+        str += ') noWord.#%s ' % 'Metadata'
+
+        return str
+
 # This class is a trick to count the total number of pages. This class must be included at
 # the end of the report and ask for one more generation to include the correct page count.
 
@@ -327,8 +388,20 @@ class PageCountBlocker(Flowable):
     def notify(unused1, unused2, unused3):
         return
 
-# This class is a workaround to be able to draw vertical text. It will directly draw on 
-# the canvas, getting its content and style from the provided paragraph, so the width and 
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'PageCountBlocker'
+        str += 'pageCount: %s,\n' % self.pageCount
+        str += 'width: %s,\n' % self.width
+        str += 'firstRun: %s,\n' % self.firstRun
+        str += ') noWord.#%s ' % 'PageCountBlocker'
+
+        return str
+
+# This class is a workaround to be able to draw vertical text. It will directly draw on
+# the canvas, getting its content and style from the provided paragraph, so the width and
 # height it will use is NOT dynamic, ensure you have enough space when you use it.
 
 
@@ -354,10 +427,10 @@ class VerticalText(Flowable):
     self.paragraph.drawOn(self.canv, 0, 0)
     self.canv.restoreState()
 
-# Draw a text inside a colored circle, the hoffset can be used to fix the vertical 
-# alignment of the text inside the circle, as paragraph object seems so report wrong 
+# Draw a text inside a colored circle, the hoffset can be used to fix the vertical
+# alignment of the text inside the circle, as paragraph object seems so report wrong
 # height when it uses custom fonts.
- 
+
 
 class Sticker(Flowable):
     def __init__(self, paragraph, backColor, padding=0.1*cm, hoffset=0):
@@ -403,3 +476,17 @@ class Hline(Flowable):
         self.canv.setDash(*self.dashes)
         self.canv.line(0, 0, self.width, 0)
         self.canv.restoreState()
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'Hline'
+        str += 'width: %s,\n' % self.width
+        str += 'color: %s,\n' % self.color
+        str += 'thickness: %s,\n' % self.thickness
+        str += 'cap: %s,\n' % self.cap
+        str += 'dashes: %s,\n' % self.dashes
+        str += ') noWord.#%s ' % 'Hline'
+
+        return str

@@ -1,0 +1,49 @@
+
+- type     : line
+  width    : 10
+
+- type    : vspace
+  height  : 2
+
+- type     : line
+  dashes   : True
+  width    : 12
+
+- type    : vspace
+  height  : 2
+
+- type     : line
+  dashes   : [2,7]
+  width    : 14
+
+- type    : vspace
+  height  : 2
+
+- type      : line
+  color     : green
+  thickness : 4
+  rounded   : True
+
+- type    : vspace
+  height  : 2
+
+- type      : line
+  thickness : 5
+  color     : darkyellow
+  rounded   : False
+
+- type    : vspace
+  height  : 2
+
+- type      : line
+  thickness : 8
+  width     : 14
+  rounded   : True
+
+- type    : vspace
+  height  : 2
+
+- type      : line
+  thickness : 8
+  width     : 14
+  rounded   : False

@@ -1,0 +1,20 @@
+[   noWord.TriggerFlowable (
+callback: buildBegins,
+) noWord.#TriggerFlowable ,
+    noWord.PDFPage (
+width: 340.1574803149606,
+height: 440.2037980546549,
+) noWord.#PDFPage ,
+    noWord.Metadata (
+title: pdf_test,
+author: Test Author,
+subject: pdf_test,
+keywords: ,
+creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
+producer: ReportLab PDF Library - www.reportlab.com
+) noWord.#Metadata ,
+    noWord.PageCountBlocker (
+pageCount: 0,
+width: 0,
+firstRun: True,
+) noWord.#PageCountBlocker ]

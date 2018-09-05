@@ -1,8 +1,10 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
 
 
 __name__ = 'noWord'
 
-__version__ = '1.0.0-alpha.1'
+__version__ = '1.0.0-beta.1'
 
 __description__ = 'non-WYSIWYG document generator'
 

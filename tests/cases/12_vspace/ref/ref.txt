@@ -1,0 +1,75 @@
+[   noWord.TriggerFlowable (
+callback: buildBegins,
+) noWord.#TriggerFlowable ,
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Author: Test Author'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Author: Test Author', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 12),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Revision: 1'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Revision: 1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 56.69291338582677),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Date: 11.07.2018'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Date: 11.07.2018', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 85.03937007874015),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': '<b>Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC</b>'
+'frags': [ParaFrag(__tag__='b', bold=1, fontName='ArimoBold', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Section 1.10.32 of "de Finibus Bonorum et Malorum", written by Cicero in 45 BC', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 68.03149606299212),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae icta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, ed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae icta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, ed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'default'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    Spacer(1, 113.38582677165354),
+    Paragraph(
+'caseSensitive': 1
+'encoding': 'utf8'
+'text': 'Source: https://www.lipsum.com'
+'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Source: https://www.lipsum.com', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+'style': <ParagraphStyle 'BodyText'>
+'bulletText': None
+'debug': 0
+) #Paragraph,
+    noWord.Metadata (
+title: vspace_test,
+author: Test Author,
+subject: vspace_test,
+keywords: ,
+creator: noWord - non-WYSIWYG document generator - github.com/mmuellersk/noWord,
+producer: ReportLab PDF Library - www.reportlab.com
+) noWord.#Metadata ,
+    noWord.PageCountBlocker (
+pageCount: 0,
+width: 0,
+firstRun: True,
+) noWord.#PageCountBlocker ]
