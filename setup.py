@@ -45,5 +45,8 @@ if __name__ == '__main__':
         install_requires=requirements(os.path.join(
             os.path.dirname(__file__), 'requirements.txt')),
         include_package_data=True,
-        packages=[meta.__name__]
+        packages=[meta.__name__],
+        entry_points={
+            "console_scripts": ['noWord = noWord.nw_proc:main']
+        }
     )
