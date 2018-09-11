@@ -42,11 +42,7 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
 
     context.lastListCounter = start + len(items)
 
-    content = []
-    content.append(ListFlowable([[item, Spacer(1, itemSpace)]
-                                 for item in items[:-1]] + [items[-1]], **kwargs))
-
-    return content
+    return [ListFlowable([[item, Spacer(1, itemSpace)] for item in items[:-1]] + [items[-1]], **kwargs)]
 
 
 def makeTable(context, path, headers, lines, widths=[],
@@ -89,13 +85,12 @@ def makeTable(context, path, headers, lines, widths=[],
     for line in lines:
         lineData = []
         for col in line:
-            if isinstance(col, str):
-                lineData.append(
-                    context.paragraph(col, context.styleSheet["BodyText"]))
-            elif isinstance(col, list):
-                content = []
-                content.extend(context.processFuncObj(col, context, path))
+            if isinstance(col, list):
+                content = context.processFuncObj(col, context, path)
                 lineData.append(content)
+            else:
+                lineData.append(
+                    context.paragraph(str(col), context.styleSheet["BodyText"]))
 
         tableData.append(lineData)
 
@@ -103,9 +98,7 @@ def makeTable(context, path, headers, lines, widths=[],
     table.setStyle(TableStyle(style))
     table.hAlign = halign
 
-    content = []
-    content.append(table)
-    return content
+    return [table]
 
 
 def getImage(filename, width, dummy=False):

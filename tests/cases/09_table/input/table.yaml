@@ -3,12 +3,26 @@
   alias: data
   filename: data.yaml
 
+- type: resource
+  alias: data_json
+  filename: data.json
+
 - type: table
   header: [ID, Text]
   keys: [id, field]
   widths: [4,12]
   halign: LEFT
   rows: data
+
+- type: vspace
+  height: 2
+
+- type: table
+  header: ["Int", "Boolean", "Dictionnary"]
+  keys: ["datas1", "datas2", "datas3"]
+  widths: [2, 4, 10]
+  halign: LEFT
+  rows: data_json
 
 - type   : vspace
   height : 3

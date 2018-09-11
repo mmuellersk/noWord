@@ -77,6 +77,65 @@ callback: buildBegins,
   'debug': 0
   ) #Paragraph]]
 ) # end table,
+    Spacer(1, 56.69291338582677),
+    Table(
+ rowHeights=[None, None],
+ colWidths=[56.69291338582677, 113.38582677165354, 283.46456692913387],
+[[Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<b>Int</b>'
+  'frags': [ParaFrag(__tag__='b', bold=1, fontName='ArimoBold', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Int', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<b>Boolean</b>'
+  'frags': [ParaFrag(__tag__='b', bold=1, fontName='ArimoBold', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Boolean', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '<b>Dictionnary</b>'
+  'frags': [ParaFrag(__tag__='b', bold=1, fontName='ArimoBold', fontSize=10, greek=0, italic=0, link=[], rise=0, text='Dictionnary', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph],
+   [Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': '1'
+  'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='1', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': 'True'
+  'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text='True', textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph,
+    Paragraph(
+  'caseSensitive': 1
+  'encoding': 'utf8'
+  'text': "{'key': 'value'}"
+  'frags': [ParaFrag(__tag__='para', bold=0, fontName='Arimo', fontSize=10, greek=0, italic=0, link=[], rise=0, text="{'key': 'value'}", textColor=Color(.133333,.133333,.133333,1), us_lines=[])]
+  'style': <ParagraphStyle 'BodyText'>
+  'bulletText': None
+  'debug': 0
+  ) #Paragraph]]
+) # end table,
     Spacer(1, 85.03937007874015),
     Table(
  rowHeights=[None],
