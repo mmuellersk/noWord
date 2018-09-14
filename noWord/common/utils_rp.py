@@ -1,6 +1,7 @@
 import os
 import re
 import mimetypes as mime
+from hashlib import sha1
 
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
 from reportlab.platypus import ListFlowable, Table, TableStyle
@@ -11,6 +12,7 @@ from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
+import noWord.common as cmn
 
 allowedImages = [
     "image/jpeg",
@@ -18,7 +20,6 @@ allowedImages = [
     "image/x-ms-bmp",
     "image/tiff",
     "image/gif"]
-
 
 def makeList(context, items, numbered=False, start=1, itemSpace=6):
     kwargs = {"bulletDedent": 15,
@@ -354,6 +355,24 @@ class Metadata(Flowable):
         str += ') noWord.#%s ' % 'Metadata'
 
         return str
+
+# This empty flowable inserts a bookmark in the canvas at its position, it is intended to
+# be used in conjunction with a KeepTogether flowable to ensure that the bookmark will be
+# inserted at the same position than the target flowable.
+class Bookmark(Flowable):
+  def __init__(self, name=None):
+    Flowable.__init__(self)
+    if name is None:
+      cmn.currentLink += 1
+      print("Create bookmark ", cmn.currentLink)
+      name = sha1(str(cmn.currentLink).encode("utf-8")).hexdigest()
+    self.link = name
+
+  def draw(self):
+    self.canv.bookmarkPage(self.link)
+    return
+
+
 
 # This class is a trick to count the total number of pages. This class must be included at
 # the end of the report and ask for one more generation to include the correct page count.
