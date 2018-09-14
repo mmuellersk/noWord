@@ -41,7 +41,6 @@ class TOCBuilder:
 
     def createTOCEntry(self, text, level):
         cmn.currentLink += 1
-        print("Creating tocentry ", cmn.currentLink)
         link = sha1(str(cmn.currentLink).encode("utf-8")).hexdigest()
         tocEntry = cmn_utils_rp.TocEntry(level, text, link)
         return tocEntry
