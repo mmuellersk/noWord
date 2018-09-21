@@ -48,15 +48,12 @@ class TableBlock(PluginInterface):
             if "filter" in block:
                 filters = context.getResource(
                     context.resources, block["filter"])
-                resourceData = block["rows"]
-                block["rows"] = []
+                resourceData = data
+                data = []
                 for item in resourceData:
                     if "id" in item:
                         if item["id"] in filters:
-                            block["rows"].append(item)
-
-        if block['rows'] is None:
-            block['rows'] = ''
+                            data.append(item)
 
         lines = cmn_utils_di.flattenDicts(data, keys)
 
