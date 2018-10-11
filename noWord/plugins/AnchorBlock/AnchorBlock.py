@@ -41,7 +41,10 @@ class AnchorBlock(PluginInterface):
         # lable element
         label = block['label']
 
+        # lable element
+        style = self.getElemValue(block, 'style', 'BodyText')
+
         content = [Paragraph('<a name=\"%s\" />%s' % (name, label),
-                             context.styleSheet['BodyText'])]
+                             context.styleSheet[style])]
 
         return content
