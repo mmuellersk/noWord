@@ -62,7 +62,8 @@ class NWDocument:
 
         self.doc.setDefaultTemplate(self.orientation)
 
-        self.decorationItems = []
+        self.enabledDecorations = []
+        self.availableDecorations = []
 
     def setStyleSheet(self, aStyleSheet):
         self.style = aStyleSheet
@@ -94,8 +95,9 @@ class NWDocument:
 
         self.doc.setDefaultTemplate(self.orientation)
 
-    def addDecoration(self, funcObj):
-        self.decorationItems.append(funcObj)
+    def addDecoration(self, funcObj, enabled=True):
+        self.availableDecorations.append(funcObj)
+        if enabled: self.enabledDecorations.append(funcObj)
 
     def currentHeight(self):
         return self.pageRect[1] - self.style["marginT"] - self.style["marginB"]
@@ -117,7 +119,7 @@ class NWDocument:
 
         # Call all page drawers
         [drawer(canvas, doc, self.docInfo, self.style)
-         for drawer in self.decorationItems]
+         for drawer in self.enabledDecorations]
 
         # Release the canvas
         canvas.restoreState()
