@@ -217,19 +217,37 @@ def PDFSinglePage(filename, width, index):
 
 
 class PDFPage(Flowable):
-    def __init__(self, page, width, border=0):
+    def __init__(self, page, width, border=0, xoffset=0, yoffset=0):
         self.page = page
         self.width = width
         self.height = width / (page.BBox[2] / page.BBox[3])
         self.border = border
+        self.xoffset = xoffset
+        self.yoffset = yoffset
+        self.overflow = False
 
-    def wrap(self, *args):
-        return (self.width, self.height)
+    def wrap(self, availWidth, availHeight):
+        frame = self._doctemplateAttr("frame")
+        if frame is not None and (self.width > frame._aW or self.height > frame._aH):
+            self.overflow = True
+            return (frame._aW, frame._aH)
+        return (min(self.width, availWidth), self.height)
 
     def draw(self):
         factor = 1 / (self.page.BBox[2] / self.width)
 
+        # Handle drawing position manually when the pdf overflows
+        x, y = self.canv.absolutePosition(0, 0)
+        if self.overflow:
+            x = (self.canv._pagesize[0] - self.width) / 2
+            y = (self.canv._pagesize[1] - self.height) / 2
+        x += self.xoffset
+        y += self.yoffset
+
+        # Use the canvas in absolute coordinates
         self.canv.saveState()
+        self.canv.resetTransforms()
+        self.canv.translate(x, y)
         self.canv.scale(factor, factor)
         self.canv.doForm(makerl(self.canv, self.page))
         self.canv.restoreState()
@@ -237,9 +255,10 @@ class PDFPage(Flowable):
         # Draw border if any
         if self.border > 0:
             self.canv.saveState()
+            self.canv.resetTransforms()
             self.canv.setLineWidth(self.border)
             self.canv.setStrokeColor(colors.black)
-            self.canv.rect(0, 0, self.width, factor*self.page.BBox[3], 1, 0)
+            self.canv.rect(x, y, self.width, factor*self.page.BBox[3], 1, 0)
             self.canv.restoreState()
 
     def __str__(self):
