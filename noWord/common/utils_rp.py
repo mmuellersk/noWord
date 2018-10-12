@@ -217,10 +217,11 @@ def PDFSinglePage(filename, width, index):
 
 
 class PDFPage(Flowable):
-    def __init__(self, page, width):
+    def __init__(self, page, width, border=0):
         self.page = page
         self.width = width
         self.height = width / (page.BBox[2] / page.BBox[3])
+        self.border = border
 
     def wrap(self, *args):
         return (self.width, self.height)
@@ -232,6 +233,14 @@ class PDFPage(Flowable):
         self.canv.scale(factor, factor)
         self.canv.doForm(makerl(self.canv, self.page))
         self.canv.restoreState()
+
+        # Draw border if any
+        if self.border > 0:
+            self.canv.saveState()
+            self.canv.setLineWidth(self.border)
+            self.canv.setStrokeColor(colors.black)
+            self.canv.rect(0, 0, self.width, factor*self.page.BBox[3], 1, 0)
+            self.canv.restoreState()
 
     def __str__(self):
         return self.__repr__(self)
