@@ -224,13 +224,16 @@ class PDFPage(Flowable):
         self.border = border
         self.xoffset = xoffset
         self.yoffset = yoffset
-        self.overflow = False
+        self.overflowX = False
+        self.overflowY = False
 
     def wrap(self, availWidth, availHeight):
         frame = self._doctemplateAttr("frame")
-        if frame is not None and (self.width > frame._aW or self.height > frame._aH):
-            self.overflow = True
-            return (frame._aW, frame._aH)
+
+        if frame is not None:
+            self.overflowX = self.width > frame._aW
+            self.overflowY = self.height > frame._aH
+            return (frame._aW, min(frame._aH, self.height))
         return (min(self.width, availWidth), self.height)
 
     def draw(self):
@@ -238,8 +241,9 @@ class PDFPage(Flowable):
 
         # Handle drawing position manually when the pdf overflows
         x, y = self.canv.absolutePosition(0, 0)
-        if self.overflow:
+        if self.overflowX or self.overflowY:
             x = (self.canv._pagesize[0] - self.width) / 2
+        if self.overflowY:
             y = (self.canv._pagesize[1] - self.height) / 2
         x += self.xoffset
         y += self.yoffset
