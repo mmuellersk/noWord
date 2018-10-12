@@ -30,6 +30,7 @@ class NWProcContext:
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
+        self.buildBeginsCallbacks = []
         self.currentImage = 1
         self.prepareFuncObj = aPrepareFuncObj
         self.processFuncObj = aProcessFuncObj
@@ -37,6 +38,7 @@ class NWProcContext:
         self.anchors = {}
 
     def buildBegins(self):
+        [f() for f in self.buildBeginsCallbacks]
         if not self.pageCounter.firstRun:
             for dummy in self.dummies:
                 dummy.enable(False)
