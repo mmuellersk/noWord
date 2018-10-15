@@ -26,7 +26,9 @@ class NWProcContext:
         self.resources = {"meta": self.docInfo}
         self.textCmdProcessors = {
             "res": self.resourceProcessor,
-            "link": self.processAnchor}
+            "link": self.processAnchor,
+            "ref": self.processRef,
+            "titleref": self.processTitleRef}
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
@@ -170,3 +172,19 @@ class NWProcContext:
         anchor = self.anchors[name]
 
         return str("<a href=\"#%s\">%s</a>" % (anchor['_name'], anchor['_label']))
+
+    def processRef(self, ref):
+        if ref not in self.anchors:
+            print("Reference " + ref + " not found!")
+            return False
+        bookmark = self.anchors[ref]
+        if "_name" in bookmark: return "<a href=\"#%s\">%s</a>" % (bookmark["_name"], bookmark["_label"])
+        else: return bookmark['_label']
+
+    def processTitleRef(self, ref):
+        if ref not in self.anchors:
+            print("Reference " + ref + " not found!")
+            return False
+        bookmark = self.anchors[ref]
+        if "_name" in bookmark: return "<a href=\"#%s\">%s</a>" % (bookmark["_name"], bookmark["_title"])
+        else: return bookmark['_title']
