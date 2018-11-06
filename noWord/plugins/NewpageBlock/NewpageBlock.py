@@ -47,7 +47,13 @@ class NewpageBlock(PluginInterface):
                 if "orientation" in pagedef and pagedef["orientation"] in ["portrait", "landscape"]:
                     size = getattr(pagesizes, pagedef["orientation"])(size)
 
-                template = PageTemplate(id=identifier, frames=Frame(style["marginL"], style["marginB"], size[0]-style["marginL"]-style["marginR"], size[1]-style["marginT"]-style["marginB"]), onPageEnd=context.doc.drawDecoration, pagesize=size)
+                template = PageTemplate(id=identifier,
+                                        frames=Frame(style["marginL"],
+                                        style["marginB"],
+                                        size[0] - style["marginL"] - style["marginR"],
+                                        size[1] - style["marginT"] - style["marginB"]),
+                                        onPageEnd=context.doc.drawDecoration,
+                                        pagesize=size)
                 context.doc.doc.addPageTemplates(template)
 
             context.doc.pageRect = template.pagesize
