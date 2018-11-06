@@ -51,6 +51,11 @@ class NewpageBlock(PluginInterface):
                 context.doc.doc.addPageTemplates(template)
 
             context.doc.pageRect = template.pagesize
-            return [cmn_utils_rp.Layout(template.id, context.doc.doc), PageBreak()]
+
+            # Force the page layout to change just after the previous flowable has been drawn
+            stick = "stickToPrevious" in block and block["stickToPrevious"]
+            blocks = [cmn_utils_rp.Layout(template.id, context.doc.doc, stick)]
+            if not stick: blocks.append(PageBreak())
+            return blocks
         else:
             return [CondPageBreak(0.9 * context.doc.currentHeight())]
