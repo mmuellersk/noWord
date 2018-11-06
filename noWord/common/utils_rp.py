@@ -545,3 +545,13 @@ class Hline(Flowable):
         str += ') noWord.#%s ' % 'Hline'
 
         return str
+
+class Layout(Flowable):
+  def __init__(self, template, builder):
+    Flowable.__init__(self)
+    self.template = template
+    self.builder = builder
+
+  def draw(self):
+    self.builder.handle_nextPageTemplate(self.template)
+    return
