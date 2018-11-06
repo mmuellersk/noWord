@@ -126,7 +126,7 @@ def getImage(filename, width, dummy=False):
     # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
     # vector graphics.
     elif imageType == "application/pdf":
-        pages = PDFSinglePage(filename, width=width, index=0)
+        img = PDFSinglePage(filename, width=width, index=0)
         height = img.height
 
     else:
