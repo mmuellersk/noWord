@@ -25,8 +25,8 @@ class NewpageBlock(PluginInterface):
         pass
 
     def process(self, block, context):
-        if "page" in block:
-            pagedef = block["page"]
+        if "layout" in block:
+            pagedef = block["layout"]
             if isinstance(pagedef, str):
                 for t in context.doc.doc.pageTemplates:
                     if t.id == pagedef:
