@@ -126,7 +126,7 @@ def getImage(filename, width, dummy=False):
     # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
     # vector graphics.
     elif imageType == "application/pdf":
-        pages = PDFSinglePage(filename, width=width, index=0)
+        img = PDFSinglePage(filename, width=width, index=0)
         height = img.height
 
     else:
@@ -281,15 +281,13 @@ class PDFPage(Flowable):
 
 
 class TriggerFlowable(Flowable):
-    def __init__(self, callback):
+    def __init__(self, drawCallback=None, afterPreviousCallback=None):
         Flowable.__init__(self)
-        self.callback = callback
-
-    def callback(self):
-        return
+        self.drawCallback = drawCallback
+        self.afterPreviousCallback = afterPreviousCallback
 
     def draw(self):
-        self.callback()
+        if self.drawCallback is not None: self.drawCallback()
 
     def __str__(self):
         return self.__repr__(self)
@@ -298,7 +296,6 @@ class TriggerFlowable(Flowable):
         str = 'noWord.%s (\n' % 'TriggerFlowable'
         str += 'callback: %s,\n' % self.callback.__name__
         str += ') noWord.#%s ' % 'TriggerFlowable'
-
         return str
 
 # This flowable creates a table of content entry where it is placed.
@@ -333,6 +330,10 @@ class TocEntry(Flowable):
 
 
 class DocTemplateWithToc(BaseDocTemplate):
+    def __init__(self, filename, **kw):
+        BaseDocTemplate.__init__(self, filename, **kw)
+        self.afterFlowableCallbacks = []
+
     def afterFlowable(self, flowable):
         if flowable.__class__.__name__ == 'TocEntry':
             level = flowable._level
@@ -341,6 +342,17 @@ class DocTemplateWithToc(BaseDocTemplate):
             self.notify('TOCEntry', (level, text, self.page, link))
             self.canv.bookmarkPage(link)
             self.canv.addOutlineEntry(re.sub("<[^>]*>", "", text), link, level)
+
+        for callback in self.afterFlowableCallbacks:
+            callback(self)
+        self.afterFlowableCallbacks = []
+
+    def filterFlowables(self, flowables):
+        followingFlowable = flowables[1] if len(flowables) > 1 else None
+        if isinstance(followingFlowable, TriggerFlowable) and followingFlowable.afterPreviousCallback:
+            self.afterFlowableCallbacks.append(followingFlowable.afterPreviousCallback)
+        elif isinstance(followingFlowable, Layout) and followingFlowable.stickToPrevious:
+            self.afterFlowableCallbacks.append(lambda doc: followingFlowable.changeLayout())
 
     def setDefaultTemplate(self, name):
         for idx, template in enumerate(self.pageTemplates):
@@ -385,13 +397,12 @@ class Metadata(Flowable):
         str += 'creator: %s,\n' % self.creator
         str += 'producer: %s\n' % self.producer
         str += ') noWord.#%s ' % 'Metadata'
-
         return str
 
 # This empty flowable inserts a bookmark in the canvas at its position, it is intended to
 # be used in conjunction with a KeepTogether flowable to ensure that the bookmark will be
 # inserted at the same position than the target flowable.
- 
+
 
 class Bookmark(Flowable):
   def __init__(self, name=None):
@@ -545,3 +556,16 @@ class Hline(Flowable):
         str += ') noWord.#%s ' % 'Hline'
 
         return str
+
+class Layout(Flowable):
+    def __init__(self, template, builder, stickToPrevious=False):
+        Flowable.__init__(self)
+        self.template = template
+        self.builder = builder
+        self.stickToPrevious = stickToPrevious
+
+    def changeLayout(self):
+        self.builder.handle_nextPageTemplate(self.template)
+
+    def draw(self):
+        if not self.stickToPrevious: self.changeLayout()
