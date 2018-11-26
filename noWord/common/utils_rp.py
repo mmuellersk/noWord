@@ -559,7 +559,7 @@ class Hline(Flowable):
 
 
 
-# Draw a horizontal line
+# Draw a progress bar
 class ProgressBar(Flowable):
     def __init__(self, width, height, ratio, color=colors.blue, thickness=0.5):
         self.width  = width
@@ -569,7 +569,7 @@ class ProgressBar(Flowable):
         self.thickness = thickness
 
     def wrap(self, *args):
-        return (self.width, self.thickness)
+        return (self.width, self.height)
 
     def draw(self):
         self.canv.saveState()
