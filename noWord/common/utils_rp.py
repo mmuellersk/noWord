@@ -576,8 +576,8 @@ class ProgressBar(Flowable):
         self.canv.setLineWidth(self.thickness)
         self.canv.setStrokeColor(self.color)
         self.canv.setFillColor(self.color)
-        self.canv.rect(0, 0, self.width, -self.height)
-        self.canv.rect(0, 0, self.width*self.ratio, -self.height, fill=1)
+        self.canv.rect(0, 0, self.width, self.height)
+        self.canv.rect(0, 0, self.width*self.ratio, self.height, fill=1)
         self.canv.restoreState()
 
     def __str__(self):
