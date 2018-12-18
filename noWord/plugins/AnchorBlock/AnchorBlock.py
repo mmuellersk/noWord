@@ -3,7 +3,7 @@
 import sys
 sys.path.insert(0, '...')
 
-from reportlab.platypus import Paragraph
+from reportlab.platypus import Paragraph, KeepTogether
 
 from noWord.common.PluginInterface import PluginInterface
 
@@ -34,14 +34,18 @@ class AnchorBlock(PluginInterface):
         context.anchors[anchor['_name']] = anchor
 
     def process(self, block, context):
-
         # name element
         name = block['name']
 
         # lable element
         label = block['label']
 
-        content = [Paragraph('<a name=\"%s\" />%s' % (name, label),
-                             context.styleSheet['BodyText'])]
+        # lable element
+        style = self.getElemValue(block, 'style', 'BodyText')
 
-        return content
+        visible = self.getElemValue(block, 'visible', True)
+        bookmark = cmn_utils_rp.Bookmark(name)
+        if visible:
+            return [KeepTogether([bookmark, Paragraph(label, context.styleSheet[style])])]
+        else:
+            return [bookmark]

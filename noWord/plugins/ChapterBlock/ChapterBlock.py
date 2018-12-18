@@ -26,11 +26,6 @@ class ChapterBlock(PluginInterface):
             raise Exception(
                 'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
-        # this TOC is used for the simulation of the construction
-        # during prepareing phase: It allos to calculate the link
-        # before actually creating the final TOC
-        context.prepare_toc = TOCBuilder()
-
         # this TOC is used for the final construction during processing
         # phase
         context.toc = TOCBuilder()
@@ -82,18 +77,6 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
-        tocEntry = context.prepare_toc.createTOCEntry(title, level)
-        numberLabel = context.prepare_toc.renderChapterCounter(
-            level, self.sepChar)
-
-        if label and numbered:
-            anchor = {}
-            anchor['_name'] = tocEntry._link
-            anchor['_label'] = numberLabel
-            if anchor['_name'] in context.anchors:
-                print("Warning: overwriting bookmark " + anchor['_name'])
-            context.anchors[label] = anchor
-
     def process(self, block, context):
 
         # level element, default 1
@@ -120,6 +103,8 @@ class ChapterBlock(PluginInterface):
 
         finalText = context.processTextCmds(text)
 
+        numberLabel = ''
+
         if numbered:
             numberLabel = context.toc.renderChapterCounter(level, sepChar)
             finalText = numberLabel + sepChar + ' ' + finalText
@@ -138,5 +123,14 @@ class ChapterBlock(PluginInterface):
         result.append(chapter)
         result.append(Spacer(1, 12 if level == 0 else 6))
         content.append(KeepTogether(result))
+
+        if label and numbered:
+            anchor = {}
+            anchor['_name'] = tocEntry._link
+            anchor['_label'] = numberLabel
+            anchor['_text'] = text
+            if anchor['_name'] in context.anchors:
+                print("Warning: overwriting bookmark " + anchor['_name'])
+            context.anchors[label] = anchor
 
         return content

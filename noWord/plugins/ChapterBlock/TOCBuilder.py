@@ -4,12 +4,13 @@ from hashlib import sha1
 
 import noWord.common.utils_rp as cmn_utils_rp
 
+import noWord.common as cmn
 
 class TOCBuilder:
     def __init__(self):
-        self.currentLink = 1
         self.chapterCounter = {}
         self.lastLevel = 0
+        cmn.initialize()
 
     def getCurrentChapterCounter(self, level):
         if not level in self.chapterCounter:
@@ -39,7 +40,7 @@ class TOCBuilder:
         return chapters
 
     def createTOCEntry(self, text, level):
-        link = sha1(str(self.currentLink).encode("utf-8")).hexdigest()
+        cmn.currentLink += 1
+        link = sha1(str(cmn.currentLink).encode("utf-8")).hexdigest()
         tocEntry = cmn_utils_rp.TocEntry(level, text, link)
-        self.currentLink = self.currentLink + 1
         return tocEntry

@@ -70,11 +70,13 @@ class NWGenerator:
         self.doc = NWDocument(self.context.docInfo, self.context.styleSheet)
         self.context.doc = self.doc
 
-        if 'decorations' in self.context.docInfo:
-            decorations = self.context.docInfo['decorations']
-            for decoration in decorations:
-                if hasattr(NoWordDecoration, decoration):
-                    self.addDecoration(getattr(NoWordDecoration, decoration))
+        enabledDecorations = self.context.docInfo["decorations"] if "decorations" in self.context.docInfo else []
+        additionalDecorations = self.context.docInfo["additionalDecorations"] if "additionalDecorations" in self.context.docInfo else []
+        availableDecorations = list(set(enabledDecorations).union(set(additionalDecorations)))
+
+        for deco in availableDecorations:
+            if hasattr(NoWordDecoration, deco):
+                self.doc.addDecoration(getattr(NoWordDecoration, deco), deco in enabledDecorations)
 
     def overrideValues(self, strkey, dicTraget, dicSource):
         if strkey in dicSource:
@@ -85,9 +87,6 @@ class NWGenerator:
         self.overrideValues(
             'styles', self.context.styleSheet, self.context.docInfo)
         self.doc.setStyleSheet(obj)
-
-    def addDecoration(self, funcObj):
-        self.doc.addDecoration(funcObj)
 
     def prepareBlocks(self, blocks, context, path):
         for block in blocks:

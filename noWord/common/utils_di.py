@@ -12,6 +12,12 @@ def splitDate(aDocInfo):
                 "year": dt.year,
                 "month": "{0:02d}".format(dt.month),
                 "day": "{0:02d}".format(dt.day)})
+        else:
+            dt = datetime.datetime.now()
+            aDocInfo.update({
+                "year": dt.year,
+                "month": "{0:02d}".format(dt.month),
+                "day": "{0:02d}".format(dt.day)})
 
     return aDocInfo
 

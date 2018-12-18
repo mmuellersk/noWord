@@ -1,6 +1,7 @@
 import os
 import re
 import mimetypes as mime
+from hashlib import sha1
 
 from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
 from reportlab.platypus import ListFlowable, Table, TableStyle
@@ -11,6 +12,7 @@ from pdfrw import PdfReader
 from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
+import noWord.common as cmn
 
 allowedImages = [
     "image/jpeg",
@@ -18,7 +20,6 @@ allowedImages = [
     "image/x-ms-bmp",
     "image/tiff",
     "image/gif"]
-
 
 def makeList(context, items, numbered=False, start=1, itemSpace=6):
     kwargs = {"bulletDedent": 15,
@@ -125,7 +126,7 @@ def getImage(filename, width, dummy=False):
     # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
     # vector graphics.
     elif imageType == "application/pdf":
-        pages = PDFSinglePage(filename, width=width, index=0)
+        img = PDFSinglePage(filename, width=width, index=0)
         height = img.height
 
     else:
@@ -217,21 +218,53 @@ def PDFSinglePage(filename, width, index):
 
 
 class PDFPage(Flowable):
-    def __init__(self, page, width):
+    def __init__(self, page, width, border=0, xoffset=0, yoffset=0):
         self.page = page
         self.width = width
         self.height = width / (page.BBox[2] / page.BBox[3])
+        self.border = border
+        self.xoffset = xoffset
+        self.yoffset = yoffset
+        self.overflowX = False
+        self.overflowY = False
 
-    def wrap(self, *args):
-        return (self.width, self.height)
+    def wrap(self, availWidth, availHeight):
+        frame = self._doctemplateAttr("frame")
+
+        if frame is not None:
+            self.overflowX = self.width > frame._aW
+            self.overflowY = self.height > frame._aH
+            return (frame._aW, min(frame._aH, self.height))
+        return (min(self.width, availWidth), self.height)
 
     def draw(self):
         factor = 1 / (self.page.BBox[2] / self.width)
 
+        # Handle drawing position manually when the pdf overflows
+        x, y = self.canv.absolutePosition(0, 0)
+        if self.overflowX or self.overflowY:
+            x = (self.canv._pagesize[0] - self.width) / 2
+        if self.overflowY:
+            y = (self.canv._pagesize[1] - self.height) / 2
+        x += self.xoffset
+        y += self.yoffset
+
+        # Use the canvas in absolute coordinates
         self.canv.saveState()
+        self.canv.resetTransforms()
+        self.canv.translate(x, y)
         self.canv.scale(factor, factor)
         self.canv.doForm(makerl(self.canv, self.page))
         self.canv.restoreState()
+
+        # Draw border if any
+        if self.border > 0:
+            self.canv.saveState()
+            self.canv.resetTransforms()
+            self.canv.setLineWidth(self.border)
+            self.canv.setStrokeColor(colors.black)
+            self.canv.rect(x, y, self.width, factor*self.page.BBox[3], 1, 0)
+            self.canv.restoreState()
 
     def __str__(self):
         return self.__repr__(self)
@@ -248,15 +281,13 @@ class PDFPage(Flowable):
 
 
 class TriggerFlowable(Flowable):
-    def __init__(self, callback):
+    def __init__(self, drawCallback=None, afterPreviousCallback=None):
         Flowable.__init__(self)
-        self.callback = callback
-
-    def callback(self):
-        return
+        self.drawCallback = drawCallback
+        self.afterPreviousCallback = afterPreviousCallback
 
     def draw(self):
-        self.callback()
+        if self.drawCallback is not None: self.drawCallback()
 
     def __str__(self):
         return self.__repr__(self)
@@ -265,7 +296,6 @@ class TriggerFlowable(Flowable):
         str = 'noWord.%s (\n' % 'TriggerFlowable'
         str += 'callback: %s,\n' % self.callback.__name__
         str += ') noWord.#%s ' % 'TriggerFlowable'
-
         return str
 
 # This flowable creates a table of content entry where it is placed.
@@ -300,6 +330,10 @@ class TocEntry(Flowable):
 
 
 class DocTemplateWithToc(BaseDocTemplate):
+    def __init__(self, filename, **kw):
+        BaseDocTemplate.__init__(self, filename, **kw)
+        self.afterFlowableCallbacks = []
+
     def afterFlowable(self, flowable):
         if flowable.__class__.__name__ == 'TocEntry':
             level = flowable._level
@@ -308,6 +342,17 @@ class DocTemplateWithToc(BaseDocTemplate):
             self.notify('TOCEntry', (level, text, self.page, link))
             self.canv.bookmarkPage(link)
             self.canv.addOutlineEntry(re.sub("<[^>]*>", "", text), link, level)
+
+        for callback in self.afterFlowableCallbacks:
+            callback(self)
+        self.afterFlowableCallbacks = []
+
+    def filterFlowables(self, flowables):
+        followingFlowable = flowables[1] if len(flowables) > 1 else None
+        if isinstance(followingFlowable, TriggerFlowable) and followingFlowable.afterPreviousCallback:
+            self.afterFlowableCallbacks.append(followingFlowable.afterPreviousCallback)
+        elif isinstance(followingFlowable, Layout) and followingFlowable.stickToPrevious:
+            self.afterFlowableCallbacks.append(lambda doc: followingFlowable.changeLayout())
 
     def setDefaultTemplate(self, name):
         for idx, template in enumerate(self.pageTemplates):
@@ -352,8 +397,26 @@ class Metadata(Flowable):
         str += 'creator: %s,\n' % self.creator
         str += 'producer: %s\n' % self.producer
         str += ') noWord.#%s ' % 'Metadata'
-
         return str
+
+# This empty flowable inserts a bookmark in the canvas at its position, it is intended to
+# be used in conjunction with a KeepTogether flowable to ensure that the bookmark will be
+# inserted at the same position than the target flowable.
+
+
+class Bookmark(Flowable):
+  def __init__(self, name=None):
+    Flowable.__init__(self)
+    if name is None:
+      cmn.currentLink += 1
+      name = sha1(str(cmn.currentLink).encode("utf-8")).hexdigest()
+    self.link = name
+
+  def draw(self):
+    self.canv.bookmarkPage(self.link)
+    return
+
+
 
 # This class is a trick to count the total number of pages. This class must be included at
 # the end of the report and ask for one more generation to include the correct page count.
@@ -457,9 +520,9 @@ class Sticker(Flowable):
             self.canv, self.radius - self.pw / 2, self.radius - self.ph / 2 + self.hoffset)
         self.canv.restoreState()
 
+
+
 # Draw a horizontal line
-
-
 class Hline(Flowable):
     def __init__(self, width, color=colors.black, thickness=0.5, rounded=True, dashes=[1, 0]):
         self.width = width
@@ -493,3 +556,54 @@ class Hline(Flowable):
         str += ') noWord.#%s ' % 'Hline'
 
         return str
+
+
+
+# Draw a progress bar
+class ProgressBar(Flowable):
+    def __init__(self, width, height, ratio, color=colors.blue, thickness=0.5):
+        self.width  = width
+        self.height = height
+        self.ratio  = ratio
+        self.color  = color
+        self.thickness = thickness
+
+    def wrap(self, *args):
+        return (self.width, self.height)
+
+    def draw(self):
+        self.canv.saveState()
+        self.canv.setLineWidth(self.thickness)
+        self.canv.setStrokeColor(self.color)
+        self.canv.setFillColor(self.color)
+        self.canv.rect(0, 0, self.width, self.height)
+        self.canv.rect(0, 0, self.width*self.ratio, self.height, fill=1)
+        self.canv.restoreState()
+
+    def __str__(self):
+        return self.__repr__(self)
+
+    def __repr__(self):
+        str = 'noWord.%s (\n' % 'ProgressBar'
+        str += 'width: %s,\n' % self.width
+        str += 'height: %s,\n' % self.height
+        str += 'ratio: %s,\n' % self.ratio
+        str += 'color: %s,\n' % self.color
+        str += 'thickness: %s,\n' % self.thickness
+        str += ') noWord.#%s ' % 'Hline'
+
+        return str
+
+
+class Layout(Flowable):
+    def __init__(self, template, builder, stickToPrevious=False):
+        Flowable.__init__(self)
+        self.template = template
+        self.builder = builder
+        self.stickToPrevious = stickToPrevious
+
+    def changeLayout(self):
+        self.builder.handle_nextPageTemplate(self.template)
+
+    def draw(self):
+        if not self.stickToPrevious: self.changeLayout()

@@ -38,10 +38,19 @@ class PDFBlock(PluginInterface):
 
         self.pages = cmn_utils_rp.PDFPages(pdfFilename)
 
-        widths = len(self.pages) * [width]
+        # Range
+        indices = self.getElemValue(block, "range", [1, len(self.pages)])
+        if len(indices) < 2: indices.append(len(self.pages))
 
-        for i in range(0, len(self.pages)):
-            pdfPage = cmn_utils_rp.PDFPage(self.pages[i], widths[i])
+        # Border
+        border = self.getElemValue(block, "border", 0)
+
+        # Offsets
+        xoffset = self.getElemValue(block, "xoffset", 0)*cm
+        yoffset = self.getElemValue(block, "yoffset", 0)*cm
+
+        for i in range(indices[0] - 1, indices[1]):
+            pdfPage = cmn_utils_rp.PDFPage(self.pages[i], width, border, xoffset, yoffset)
             pdfPage.hAlign = "CENTER"
             content.append(pdfPage)
 
