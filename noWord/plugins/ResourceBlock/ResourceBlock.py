@@ -27,17 +27,19 @@ class ResourceBlock(PluginInterface):
         pass
 
     def process(self, block, context):
-        # filename element
-        filename = block['filename']
+        # filename or content element
+        if 'filename' in block:
+            data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
+        elif 'content' in block:
+            data = block['content']
+        else:
+            return []
 
         # alias element
         alias = block['alias']
 
         # level element, default 1
         setGlobal = self.getElemValue(block, 'global', False)
-
-        data = cmn_utils_fs.deserialize(
-            os.path.join(block['_path'], filename))
 
         if alias in context.resources:
             context.resources[alias].update(data)
