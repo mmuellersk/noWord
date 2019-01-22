@@ -66,14 +66,12 @@ class TableBlock(PluginInterface):
         else:
             nbCols = max(len(headers), len(lines[0]))
 
+        unit = context.doc.currentWidth() if 'unit' in block and block['unit'] == "percent" else cm
+
         if "widths" in block:
-            widths = [w * cm for w in block["widths"]]
+            widths = [w * unit for w in block["widths"]]
         else:
             widths = nbCols * [context.doc.currentWidth() / nbCols]
-
-        # percent element, default []
-        unit = context.doc.currentWidth() if 'unit' in block and block['unit'] == "percent" else cm
-        widths = [w*unit for w in block["widths"]] if "widths" in block else []
 
         # repeatRows element, default 0
         repeatRows = self.getElemValue(block, 'repeatRows', 0)
