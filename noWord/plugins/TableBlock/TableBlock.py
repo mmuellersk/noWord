@@ -48,15 +48,12 @@ class TableBlock(PluginInterface):
             if "filter" in block:
                 filters = context.getResource(
                     context.resources, block["filter"])
-                resourceData = block["rows"]
-                block["rows"] = []
+                resourceData = data
+                data = []
                 for item in resourceData:
                     if "id" in item:
                         if item["id"] in filters:
-                            block["rows"].append(item)
-
-        if block['rows'] is None:
-            block['rows'] = ''
+                            data.append(item)
 
         lines = cmn_utils_di.flattenDicts(data, keys)
 
@@ -69,8 +66,10 @@ class TableBlock(PluginInterface):
         else:
             nbCols = max(len(headers), len(lines[0]))
 
+        unit = context.doc.currentWidth() if 'unit' in block and block['unit'] == "percent" else cm
+
         if "widths" in block:
-            widths = [w * cm for w in block["widths"]]
+            widths = [w * unit for w in block["widths"]]
         else:
             widths = nbCols * [context.doc.currentWidth() / nbCols]
 

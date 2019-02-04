@@ -6,7 +6,7 @@ from reportlab.platypus import Flowable, Table, TableStyle, Spacer, Frame
 from reportlab.lib import utils
 from reportlab.lib.units import cm, mm
 from reportlab.lib import colors
-from reportlab.lib.pagesizes import A4, portrait, landscape
+from reportlab.lib.pagesizes import A3, A4, portrait, landscape
 
 from noWord.common.utils_rp import DocTemplateWithToc
 
@@ -22,7 +22,7 @@ class NWDocument:
             self.orientation = "portrait"
 
         if "pageSize" in self.docInfo:
-            self.pageSize = self.docInfo["pageSize"]
+            self.pageSize = A3 if self.docInfo["pageSize"] == "A3" else A4
         else:
             self.pageSize = A4
 
