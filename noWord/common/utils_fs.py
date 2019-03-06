@@ -39,7 +39,7 @@ def isContentDir(path):
 def loadJson(filename):
     filename = os.path.normpath(filename)
     try:
-        with open(filename) as data_file:
+        with open(filename, encoding='utf-8') as data_file:
             data = json.load(data_file)
             return data
     except Exception as e:
@@ -50,7 +50,7 @@ def loadJson(filename):
 def loadYAML(filename):
     filename = os.path.normpath(filename)
     try:
-        with open(filename) as data_file:
+        with open(filename, encoding='utf-8') as data_file:
             data = yaml.load(data_file)
             return data
     except Exception as e:
@@ -61,7 +61,7 @@ def loadYAML(filename):
 def loadPList(filename):
     filename = os.path.normpath(filename)
     try:
-        with open(filename) as data_file:
+        with open(filename, encoding='utf-8') as data_file:
             data = plistlib.load(data_file)
             return data
     except Exception as e:
