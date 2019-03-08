@@ -186,5 +186,5 @@ class NWProcContext:
             print("Reference " + ref + " not found!")
             return False
         bookmark = self.anchors[ref]
-        if "_name" in bookmark: return "<a href=\"#%s\">%s</a>" % (bookmark["_name"], bookmark["_title"])
-        else: return bookmark['_title']
+        if "_name" in bookmark: return "<a href=\"#%s\">%s</a>" % (bookmark["_name"], bookmark["_text"])
+        else: return bookmark['_text']
