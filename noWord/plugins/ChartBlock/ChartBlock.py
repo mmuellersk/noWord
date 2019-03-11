@@ -123,9 +123,7 @@ class ChartBlock(PluginInterface):
         i = 0
         for color in linecolors :
             plot.lines[i].strokeColor = colors.HexColor(color)
-            i = i+1
-
-        plot.lines[0].name = 'test'
+            i+=1
 
         if xvalues :
             plot.xValueAxis.valueSteps = xvalues
