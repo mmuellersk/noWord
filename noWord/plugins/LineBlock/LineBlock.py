@@ -39,8 +39,14 @@ class LineBlock(PluginInterface):
             cm if "width" in block else context.doc.currentWidth()
 
         # color element, default black
-        color = context.styleSheet[block["color"]
-                                   ] if "color" in block else colors.black
+        color = colors.black
+        if "color" in block :
+            if block["color"] in context.styleSheet :
+                color = context.styleSheet[block["color"]]
+            else :
+                color = colors.HexColor(block["color"])
+
+
 
         # thickness element, default 0.5
         thickness = self.getElemValue(block, 'thickness', 0.5)
