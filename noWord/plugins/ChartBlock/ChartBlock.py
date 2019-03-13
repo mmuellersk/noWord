@@ -11,6 +11,7 @@ from reportlab.graphics.charts.barcharts import VerticalBarChart
 from reportlab.graphics.charts.lineplots import LinePlot
 from reportlab.graphics.widgets.markers import makeMarker
 from reportlab.lib.styles import ParagraphStyle
+from reportlab.lib import colors
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
@@ -57,12 +58,14 @@ class ChartBlock(PluginInterface):
             xvalues = context.getResource(
                 context.resources, block["xvalues"])
 
+        linecolors = self.getElemValue(block, 'linecolors', [])
+
         if mode == 'linechart':
             return self.makeLineChart(context, width, height, data)
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data)
         if mode == 'plotchart':
-            return self.makePlotChart(context, width, height, plotdata, xvalues)
+            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors)
         else:
             return []
 
@@ -103,7 +106,7 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makePlotChart(self, context, width, height, data, xvalues):
+    def makePlotChart(self, context, width, height, data, xvalues, linecolors):
         content = []
 
         drawing = Drawing(width, height)
@@ -116,6 +119,11 @@ class ChartBlock(PluginInterface):
         plot.data = data
         plot.joinedLines = 1
         plot.lineLabelFormat = '%2.0f'
+
+        i = 0
+        for color in linecolors :
+            plot.lines[i].strokeColor = colors.HexColor(color)
+            i+=1
 
         if xvalues :
             plot.xValueAxis.valueSteps = xvalues
