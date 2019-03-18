@@ -97,6 +97,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Benoist Wolleb**
 * **Sebastien Pasche**
 * **Cyril Sester**
+* **Daniel Fernandes**
+* **David Zéni**
 
 ## License
 
