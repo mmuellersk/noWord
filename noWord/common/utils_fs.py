@@ -61,7 +61,7 @@ def loadYAML(filename):
 def loadPList(filename):
     filename = os.path.normpath(filename)
     try:
-        with open(filename) as data_file:
+        with open(filename, 'rb') as data_file:
             data = plistlib.load(data_file)
             return data
     except Exception as e:
