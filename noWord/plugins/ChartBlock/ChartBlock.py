@@ -58,10 +58,39 @@ class ChartBlock(PluginInterface):
             xvalues = context.getResource(
                 context.resources, block["xvalues"])
 
-        linecolors = self.getElemValue(block, 'linecolors', [])
+        labelAngles = block["labelAngles"] if "labelAngles" in block else None
+        if isinstance(labelAngles, str):
+            labelAngles = context.getResource(
+                context.resources, block["labelAngles"])
+
+        labelXOffsets = block["labelXOffsets"] if "labelXOffsets" in block else None
+        if isinstance(labelXOffsets, str):
+            labelXOffsets = context.getResource(
+                context.resources, block["labelXOffsets"])
+
+        labelYOffsets = block["labelYOffsets"] if "labelYOffsets" in block else None
+        if isinstance(labelYOffsets, str):
+            labelYOffsets = context.getResource(
+                context.resources, block["labelYOffsets"])
+
+        linecolors = block["linecolors"] if "linecolors" in block else None
+
+        lineWidths = block["lineWidths"] if "lineWidths" in block else None
+        if isinstance(lineWidths, str):
+            lineWidths = context.getResource(
+                context.resources, block["lineWidths"])
+
+        backgroundColor = block["backgroundColor"] if "backgroundColor" in block else None
+        borderColor = block["borderColor"] if "borderColor" in block else None
+        lineLabelFormat = block["lineLabelFormat"] if "lineLabelFormat" in block else None
+        yAxisMin = block["yAxisMin"] if "yAxisMin" in block else None
+        yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
+        yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
 
         if mode == 'linechart':
-            return self.makeLineChart(context, width, height, data)
+            return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
+                                      labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
+                                      yAxisMax, yAxisStep)
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data)
         if mode == 'plotchart':
@@ -69,7 +98,9 @@ class ChartBlock(PluginInterface):
         else:
             return []
 
-    def makeLineChart(self, context, width, height, data):
+    def makeLineChart(self, context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
+                      labelXOffsets, labelYOffsets, lineColors, lineWidths, lineLabelFormat, yAxisMin, yAxisMax,
+                      yAxisStep):
         content = []
 
         drawing = Drawing(width, height)
@@ -81,6 +112,50 @@ class ChartBlock(PluginInterface):
         lp.width = width
         lp.data = data
         lp.joinedLines = 1
+
+        if backgroundColor:
+            lp.fillColor = colors.HexColor(backgroundColor)
+
+        if borderColor:
+            lp.strokeColor = colors.HexColor(borderColor)
+
+        if yAxisMin:
+            lp.valueAxis.valueMin = yAxisMin
+
+        if yAxisMax:
+            lp.valueAxis.valueMax = yAxisMax
+
+        if yAxisStep:
+            lp.valueAxis.valueStep = yAxisStep
+
+        if xvalues:
+            lp.categoryAxis.categoryNames = xvalues
+
+        def handleSingleOrList(targetObject, value, propertyName, defaultLength, mapFunc=None):
+            if isinstance(value, list):
+                for i in range(0, len(value)):
+                    setattr(targetObject[i], propertyName, value[i] if not mapFunc else mapFunc(value[i]))
+            else:
+                for i in range(0, defaultLength):
+                    setattr(targetObject[i], propertyName, value if not mapFunc else mapFunc(value))
+
+        if labelAngles:
+            handleSingleOrList(lp.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
+
+        if labelXOffsets:
+            handleSingleOrList(lp.categoryAxis.labels, labelXOffsets, 'dx', len(data[0]))
+
+        if labelYOffsets:
+            handleSingleOrList(lp.categoryAxis.labels, labelYOffsets, 'dy', len(data[0]))
+
+        if lineLabelFormat:
+            lp.lineLabelFormat = lineLabelFormat
+
+        if lineColors:
+            handleSingleOrList(lp.lines, lineColors, 'strokeColor', len(data), colors.HexColor)
+
+        if lineWidths:
+            handleSingleOrList(lp.lines, lineWidths, 'strokeWidth', len(data))
 
         drawing.add(lp)
 
