@@ -35,7 +35,8 @@ class ImageBlock(PluginInterface):
     def process(self, block, context):
 
         # filename element
-        filename = context.processTextCmds(block['filename'])
+        filename = context.processTextCmds(block['filename']).strip()
+
         imageFilename = os.path.join(block['_path'], filename)
 
         # caption element, default ''
