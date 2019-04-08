@@ -48,7 +48,6 @@ class ProgressBarBlock(PluginInterface):
         if "criticality" in block :
             criticality = float(block["criticality"])
             if ratio > criticality :
-                print(color)
                 color = colors.red
 
 
