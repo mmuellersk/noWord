@@ -44,6 +44,14 @@ class ProgressBarBlock(PluginInterface):
         # ratio element, default 0.5
         ratio = float(context.processTextCmds(block["ratio"]))
 
+        # criticality
+        if "criticality" in block :
+            criticality = float(block["criticality"])
+            if ratio > criticality :
+                print(color)
+                color = colors.red
+
+
         progressbar = cmn_utils_rp.ProgressBar(width, height*cm, ratio, color, thickness)
 
         content = []
