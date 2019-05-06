@@ -120,7 +120,7 @@ class NWGenerator:
         for block in blocks:
             if 'content' in block:
                 for blockContent in block['content']:
-                    if 'type' in blockContent:
+                    if isinstance(blockContent, dict) and 'type' in blockContent.keys():
                         plugin = self.pluginMng.findPlugin(
                             blockContent['type'])
                         if plugin is not None:
