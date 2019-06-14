@@ -94,7 +94,6 @@ class NWProcContext:
         if cmd not in self.textCmdProcessors:
             print("Unknown text command: " + cmd)
         else:
-            print("processTextCmd: " + cmd)
             ret = self.textCmdProcessors[cmd](data)
 
         if ret is False:
