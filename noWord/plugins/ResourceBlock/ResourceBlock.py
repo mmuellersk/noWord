@@ -29,7 +29,8 @@ class ResourceBlock(PluginInterface):
     def process(self, block, context):
         # filename or content element
         if 'filename' in block:
-            data = cmn_utils_fs.deserialize(os.path.join(block['_path'], block['filename']))
+            filename = context.processTextCmds(block['filename']).strip()
+            data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
         elif 'content' in block:
             data = block['content']
         else:
