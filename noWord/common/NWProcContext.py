@@ -192,7 +192,6 @@ class NWProcContext:
         else: return bookmark['_text']
 
     def processIncrement(self, label):
-        print("processIncrement: " + label)
         if label not in self.incs:
             self.incs[label] = 1
         else:
