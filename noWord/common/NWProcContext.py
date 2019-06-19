@@ -28,7 +28,8 @@ class NWProcContext:
             "res": self.resourceProcessor,
             "link": self.processAnchor,
             "ref": self.processRef,
-            "titleref": self.processTitleRef}
+            "titleref": self.processTitleRef,
+            "inc": self.processIncrement}
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
@@ -38,6 +39,7 @@ class NWProcContext:
         self.processFuncObj = aProcessFuncObj
 
         self.anchors = {}
+        self.incs = {}
 
     def buildBegins(self):
         [f() for f in self.buildBeginsCallbacks]
@@ -188,3 +190,11 @@ class NWProcContext:
         bookmark = self.anchors[ref]
         if "_name" in bookmark: return "<a href=\"#%s\">%s</a>" % (bookmark["_name"], bookmark["_text"])
         else: return bookmark['_text']
+
+    def processIncrement(self, label):
+        if label not in self.incs:
+            self.incs[label] = 1
+        else:
+            self.incs[label] = self.incs[label] + 1
+
+        return str(self.incs[label])
