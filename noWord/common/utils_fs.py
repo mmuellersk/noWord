@@ -76,7 +76,7 @@ def loadXML(filename):
             data = xmltodict.parse(data_file)
             return data
     except Exception as e:
-        print("Could not read plist file: " + str(e))
+        print("Could not read xml file: " + str(e))
         raise
 
 
