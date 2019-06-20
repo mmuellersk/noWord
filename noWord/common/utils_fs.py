@@ -5,6 +5,7 @@ import argparse
 import json
 import yaml
 import plistlib
+import xmltodict
 
 noWordDir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "../..")
@@ -68,6 +69,16 @@ def loadPList(filename):
         print("Could not read plist file: " + str(e))
         raise
 
+def loadXML(filename):
+    filename = os.path.normpath(filename)
+    try:
+        with open(filename, 'rb') as data_file:
+            data = xmltodict.parse(data_file)
+            return data
+    except Exception as e:
+        print("Could not read xml file: " + str(e))
+        raise
+
 
 def deserialize(path):
     try:
@@ -84,6 +95,8 @@ def deserialize(path):
             data = loadYAML(path)
         elif ext == "plist":
             data = loadPList(path)
+        elif ext == "xml":
+            data = loadXML(path)
         else:
             print("Could not deserialize file " + path)
 
