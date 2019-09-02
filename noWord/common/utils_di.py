@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+import re
 import datetime
 
 
@@ -28,3 +28,19 @@ def flattenDicts(dictList, keys=[]):
     if len(keys) == 0:
         keys = dictList[0].keys()
     return [[d[k] for k in keys] for d in dictList]
+
+def selectSubset( resource, query):
+    tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
+    path = query.split("/")
+
+    for child in path:
+        result = tableRegex.findall(child)
+        if len(result) > 0:
+            (key, index) = result[0]
+            resource = resource[key][int(index)]
+        else:
+            try:
+                resource = resource[child]
+            except:
+                return None
+    return resource
