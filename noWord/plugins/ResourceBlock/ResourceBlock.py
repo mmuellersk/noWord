@@ -8,6 +8,7 @@ from reportlab.lib import colors
 from reportlab.lib.units import cm
 
 import noWord.common.utils_rp as cmn_utils_rp
+import noWord.common.utils_di as cmn_utils_di
 
 from noWord.common.PluginInterface import PluginInterface
 import noWord.common.utils_fs as cmn_utils_fs
@@ -35,6 +36,10 @@ class ResourceBlock(PluginInterface):
             data = block['content']
         else:
             return []
+
+        if 'select' in block:
+            selectCmd = context.processTextCmds(block['select']).strip()
+            data = cmn_utils_di.selectSubset(data, selectCmd)
 
         # alias element
         alias = block['alias']
