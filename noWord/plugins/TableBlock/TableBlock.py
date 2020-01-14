@@ -38,6 +38,8 @@ class TableBlock(PluginInterface):
 
         # keys element, default block['header']
         keys = block["keys"] if "keys" in block else block["header"]
+        if isinstance(keys, str):
+            keys = context.getResource(context.resources, keys)
 
         # rows element
         data = block["rows"]
@@ -59,6 +61,8 @@ class TableBlock(PluginInterface):
 
         # displayHeader element
         headers = block["header"] if "displayHeader" not in block or block["displayHeader"] else []
+        if isinstance(headers, str):
+            headers = context.getResource(context.resources, headers)
 
         # width element, default []
         if not lines:
@@ -69,7 +73,12 @@ class TableBlock(PluginInterface):
         unit = context.doc.currentWidth() if 'unit' in block and block['unit'] == "percent" else cm
 
         if "widths" in block:
-            widths = [w * unit for w in block["widths"]]
+            widths = block["widths"]
+
+            if isinstance(widths, str):
+                widths = context.getResource(context.resources, widths)
+
+            widths = [w * unit for w in widths]
         else:
             widths = nbCols * [context.doc.currentWidth() / nbCols]
 
