@@ -9,6 +9,7 @@ from reportlab.graphics.shapes import Drawing
 from reportlab.graphics.charts.linecharts import HorizontalLineChart
 from reportlab.graphics.charts.barcharts import VerticalBarChart
 from reportlab.graphics.charts.lineplots import LinePlot
+from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.widgets.markers import makeMarker
 from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib import colors
@@ -86,6 +87,7 @@ class ChartBlock(PluginInterface):
         yAxisMin = block["yAxisMin"] if "yAxisMin" in block else None
         yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
         yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
+        legends = block["legends"] if "legends" in block else None
 
         if mode == 'linechart':
             return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
@@ -95,8 +97,32 @@ class ChartBlock(PluginInterface):
             return self.makeBarChart(context, width, height, data)
         if mode == 'plotchart':
             return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors)
+        if mode == 'piechart':
+            return self.makePieChart(context, width, height, data, backgroundColor)
+
         else:
             return []
+
+    def makePieChart(self, context, width, height, data, backColors):
+        content=[]
+        drawing = Drawing(width, height)
+        pie=Pie()
+        pie.data = data
+        pie.x = 0
+        pie.y = 0
+        pie.width = width
+        pie.height = height
+
+        if len(data) == len(backColors):
+            for i in range(len(data)) :
+                pie.slices[i].fillColor = colors.HexColor(backColors[i])
+
+
+        drawing.add(pie)
+
+        content.append( drawing )
+
+        return content
 
     def makeLineChart(self, context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
                       labelXOffsets, labelYOffsets, lineColors, lineWidths, lineLabelFormat, yAxisMin, yAxisMax,
