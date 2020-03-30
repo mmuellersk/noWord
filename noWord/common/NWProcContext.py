@@ -103,7 +103,7 @@ class NWProcContext:
 
     def processTextCmds(self, txt):
         txt = str(txt)
-        regex = re.compile("{{(.[a-z]*):(.[a-zA-Z0-9._\/\[\]]*)?}}")
+        regex = re.compile("{{(.[a-z]*):(.[-a-zA-Z0-9._\/\[\]]*)?}}")
 
         while True:
             cmds = regex.findall(txt)
