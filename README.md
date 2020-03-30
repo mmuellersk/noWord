@@ -99,6 +99,8 @@ We use [SemVer](http://semver.org/) for versioning. For the versions available, 
 * **Cyril Sester**
 * **Daniel Fernandes**
 * **David Zéni**
+* **Cédric Monard**
+
 
 ## License
 
