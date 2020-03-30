@@ -49,6 +49,10 @@ class ChartBlock(PluginInterface):
             data = context.getResource(
                 context.resources, block["data"])
 
+        for i in range(len(data)):
+            if isinstance(data[i], str):
+                data[i] = float(context.processTextCmds(data[i]))
+
         plotdata = block["plotdata"] if "plotdata" in block else None
         if isinstance(plotdata, str):
             plotdata = context.getResource(
