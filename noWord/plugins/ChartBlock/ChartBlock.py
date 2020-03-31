@@ -91,7 +91,6 @@ class ChartBlock(PluginInterface):
         yAxisMin = block["yAxisMin"] if "yAxisMin" in block else None
         yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
         yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
-        legends = block["legends"] if "legends" in block else None
 
         if mode == 'linechart':
             return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
@@ -120,7 +119,6 @@ class ChartBlock(PluginInterface):
         if len(data) == len(backColors):
             for i in range(len(data)) :
                 pie.slices[i].fillColor = colors.HexColor(backColors[i])
-
 
         drawing.add(pie)
 
