@@ -44,14 +44,14 @@ class AnchorBlock(PluginInterface):
         style = self.getElemValue(block, 'style', 'BodyText')
 
         visible = self.getElemValue(block, 'visible', True)
-        keeptogether = self.getElemValue(block, 'keeptogether', False)
+        keeptogether = self.getElemValue(block, 'keeptogether', True)
 
         bookmark = cmn_utils_rp.Bookmark(name)
 
         if visible:
             if keeptogether:
                 return [KeepTogether([bookmark, Paragraph(label, context.styleSheet[style])])]
-            else: 
+            else:
                 return [bookmark, Paragraph(label, context.styleSheet[style])]
         else:
             return [bookmark]
