@@ -32,7 +32,7 @@ class ProgressBarBlock(PluginInterface):
             cm if "width" in block else context.doc.currentWidth()
 
         # color element, default black
-        color = context.styleSheet[block["color"]
+        color = context.styleSheet[context.processTextCmds(block["color"])
                                    ] if "color" in block else colors.blue
 
         # height element, default 0.5
