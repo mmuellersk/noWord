@@ -81,6 +81,12 @@ class ChartBlock(PluginInterface):
 
         linecolors = block["linecolors"] if "linecolors" in block else None
 
+        barColors = block["barColors"] if "barColors" in block else None
+
+        strokeWidth = block["strokeWidth"] if "strokeWidth" in block else None
+
+        displayBarLabels = block["displayBarLabels"] if "displayBarLabels" in block else True
+
         lineWidths = block["lineWidths"] if "lineWidths" in block else None
         if isinstance(lineWidths, str):
             lineWidths = context.getResource(
@@ -98,7 +104,7 @@ class ChartBlock(PluginInterface):
                                       labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
                                       yAxisMax, yAxisStep)
         if mode == 'barchart':
-            return self.makeBarChart(context, width, height, data)
+            return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles)
         if mode == 'plotchart':
             return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors)
         if mode == 'piechart':
@@ -160,31 +166,23 @@ class ChartBlock(PluginInterface):
         if xvalues:
             lp.categoryAxis.categoryNames = xvalues
 
-        def handleSingleOrList(targetObject, value, propertyName, defaultLength, mapFunc=None):
-            if isinstance(value, list):
-                for i in range(0, len(value)):
-                    setattr(targetObject[i], propertyName, value[i] if not mapFunc else mapFunc(value[i]))
-            else:
-                for i in range(0, defaultLength):
-                    setattr(targetObject[i], propertyName, value if not mapFunc else mapFunc(value))
-
         if labelAngles:
-            handleSingleOrList(lp.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
+            self.handleSingleOrList(lp.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
 
         if labelXOffsets:
-            handleSingleOrList(lp.categoryAxis.labels, labelXOffsets, 'dx', len(data[0]))
+            self.handleSingleOrList(lp.categoryAxis.labels, labelXOffsets, 'dx', len(data[0]))
 
         if labelYOffsets:
-            handleSingleOrList(lp.categoryAxis.labels, labelYOffsets, 'dy', len(data[0]))
+            self.handleSingleOrList(lp.categoryAxis.labels, labelYOffsets, 'dy', len(data[0]))
 
         if lineLabelFormat:
             lp.lineLabelFormat = lineLabelFormat
 
         if lineColors:
-            handleSingleOrList(lp.lines, lineColors, 'strokeColor', len(data), colors.HexColor)
+            self.handleSingleOrList(lp.lines, lineColors, 'strokeColor', len(data), colors.HexColor)
 
         if lineWidths:
-            handleSingleOrList(lp.lines, lineWidths, 'strokeWidth', len(data))
+            self.handleSingleOrList(lp.lines, lineWidths, 'strokeWidth', len(data))
 
         drawing.add(lp)
 
@@ -192,19 +190,37 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makeBarChart(self, context, width, height, data):
+    def makeBarChart(self, context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles):
         content = []
 
         drawing = Drawing(width, height)
 
-        lp = VerticalBarChart()
-        lp.x = 0
-        lp.y = 0
-        lp.height = height
-        lp.width = width
-        lp.data = data
+        chart = VerticalBarChart()
+        chart.x = 0
+        chart.y = 0
+        chart.height = height
+        chart.width = width
+        chart.data = data
 
-        drawing.add(lp)
+        if displayBarLabels:
+            chart.barLabelFormat = '%2.0f'
+            chart.barLabels.dy = 6
+        else:
+            chart.barLabelFormat = None
+
+        if xvalues:
+            chart.categoryAxis.categoryNames = xvalues
+
+        if strokeWidth:
+            self.handleSingleOrList(chart.bars, strokeWidth, 'strokeWidth', len(data))
+
+        if barColors:
+            self.handleSingleOrList(chart.bars, barColors, 'fillColor', len(data), colors.HexColor)
+
+        if labelAngles:
+            self.handleSingleOrList(chart.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
+
+        drawing.add(chart)
 
         content.append( drawing )
 
@@ -237,3 +253,11 @@ class ChartBlock(PluginInterface):
         content.append( drawing )
 
         return content
+
+    def handleSingleOrList(self, targetObject, value, propertyName, defaultLength, mapFunc=None):
+        if isinstance(value, list):
+            for i in range(0, len(value)):
+                setattr(targetObject[i], propertyName, value[i] if not mapFunc else mapFunc(value[i]))
+        else:
+            for i in range(0, defaultLength):
+                setattr(targetObject[i], propertyName, value if not mapFunc else mapFunc(value))
