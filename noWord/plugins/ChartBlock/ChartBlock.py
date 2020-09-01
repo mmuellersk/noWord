@@ -154,10 +154,10 @@ class ChartBlock(PluginInterface):
         if borderColor:
             lp.strokeColor = colors.HexColor(borderColor)
 
-        if yAxisMin:
+        if yAxisMin is not None:
             lp.valueAxis.valueMin = yAxisMin
 
-        if yAxisMax:
+        if yAxisMax is not None:
             lp.valueAxis.valueMax = yAxisMax
 
         if yAxisStep:
@@ -166,13 +166,13 @@ class ChartBlock(PluginInterface):
         if xvalues:
             lp.categoryAxis.categoryNames = xvalues
 
-        if labelAngles:
+        if labelAngles is not None:
             self.handleSingleOrList(lp.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
 
-        if labelXOffsets:
+        if labelXOffsets is not None:
             self.handleSingleOrList(lp.categoryAxis.labels, labelXOffsets, 'dx', len(data[0]))
 
-        if labelYOffsets:
+        if labelYOffsets is not None:
             self.handleSingleOrList(lp.categoryAxis.labels, labelYOffsets, 'dy', len(data[0]))
 
         if lineLabelFormat:
@@ -217,7 +217,7 @@ class ChartBlock(PluginInterface):
         if barColors:
             self.handleSingleOrList(chart.bars, barColors, 'fillColor', len(data), colors.HexColor)
 
-        if labelAngles:
+        if labelAngles is not None:
             self.handleSingleOrList(chart.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
 
         drawing.add(chart)
