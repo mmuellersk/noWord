@@ -29,7 +29,8 @@ class NWProcContext:
             "link": self.processAnchor,
             "ref": self.processRef,
             "titleref": self.processTitleRef,
-            "inc": self.processIncrement}
+            "inc": self.processIncrement,
+            "incval": self.processIncrementValue}
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
@@ -198,3 +199,10 @@ class NWProcContext:
             self.incs[label] = self.incs[label] + 1
 
         return str(self.incs[label])
+
+    def processIncrementValue(self, label):
+        result = 'not found'
+        if label in self.incs:
+            result = self.incs[label]
+
+        return str(result)
