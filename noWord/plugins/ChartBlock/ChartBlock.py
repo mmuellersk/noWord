@@ -104,7 +104,7 @@ class ChartBlock(PluginInterface):
                                       labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
                                       yAxisMax, yAxisStep)
         if mode == 'barchart':
-            return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles)
+            return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
         if mode == 'plotchart':
             return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors)
         if mode == 'piechart':
@@ -190,7 +190,7 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makeBarChart(self, context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles):
+    def makeBarChart(self, context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax):
         content = []
 
         drawing = Drawing(width, height)
@@ -210,6 +210,12 @@ class ChartBlock(PluginInterface):
 
         if xvalues:
             chart.categoryAxis.categoryNames = xvalues
+
+        if yAxisMin is not None:
+            chart.valueAxis.valueMin = yAxisMin
+
+        if yAxisMax is not None:
+            chart.valueAxis.valueMax = yAxisMax
 
         if strokeWidth:
             self.handleSingleOrList(chart.bars, strokeWidth, 'strokeWidth', len(data))
