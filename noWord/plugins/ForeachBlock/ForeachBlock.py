@@ -46,7 +46,12 @@ class ForeachBlock(PluginInterface):
         resourceData = context.getResource(context.resources, resource)
 
         if keys is not None:
-            keysData = context.getResource(context.resources, keys)
+            if isinstance(keys, str):
+                keysData = context.getResource(context.resources, keys)
+            elif isinstance(keys, list):
+                keysData = keys
+            else:
+                keysData = []
         else:
             keysData = []
 
