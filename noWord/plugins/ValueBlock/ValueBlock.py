@@ -28,4 +28,4 @@ class ValueBlock(PluginInterface):
         pass
 
     def process(self, block, context):
-        return context.processFuncObj(context.getResource(context.resources, block['resource']), context, block['_path'])
+        return context.processFuncObj(context.getResource(context.resources, context.processTextCmds(block['resource'])), context, block['_path'])
