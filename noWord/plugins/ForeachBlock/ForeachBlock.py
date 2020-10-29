@@ -34,15 +34,17 @@ class ForeachBlock(PluginInterface):
         # content element
         name = self.getElemValue(block, 'name', 'current')
 
+        keepContentTogether = self.getElemValue(block, 'keeptogether', True)
+
         # keys element
         keys = None
 
         if "keys" in block:
             keys = block["keys"]
 
-        return self.makeForeach(context, block['_path'], resource, keys, name, content)
+        return self.makeForeach(context, block['_path'], resource, keys, name, content, keepContentTogether)
 
-    def makeForeach(self, context, path, resource, keys, name, subblocks):
+    def makeForeach(self, context, path, resource, keys, name, subblocks, keepContentTogether):
         resourceData = context.getResource(context.resources, resource)
 
         if keys is not None:
@@ -74,7 +76,10 @@ class ForeachBlock(PluginInterface):
             subcontent = []
             subcontent.extend(context.processFuncObj(subblocks, context, path))
 
-            content.extend(subcontent)
+            if keepContentTogether:
+                content.extend([KeepTogether(subcontent)])
+            else:
+                content.extend(subcontent)
 
         if name in context.textCmdProcessors:
             context.textCmdProcessors.pop(name)

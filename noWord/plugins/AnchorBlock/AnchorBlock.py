@@ -35,10 +35,20 @@ class AnchorBlock(PluginInterface):
 
     def process(self, block, context):
         # name element
-        name = block['name']
+        name = context.processTextCmds(block['name'])
 
         # lable element
-        label = str( block['label'] )
+        label = context.processTextCmds(str(block['label']))
+
+        if not name in context.anchors:
+            anchor = {}
+            # name element
+            anchor['_name'] = name
+
+            # lable element
+            anchor['_label'] = label
+
+            context.anchors[name] = anchor
 
         # lable element
         style = self.getElemValue(block, 'style', 'BodyText')
