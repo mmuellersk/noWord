@@ -37,6 +37,21 @@ class ResourceBlock(PluginInterface):
         else:
             return []
 
+        if 'sort' in block:
+            sortKey=block['sort']
+            if type(sortKey) == list:
+                if len(sortKey)==1:
+                    data = sorted(data, key=lambda k: k[sortKey[0]])
+                if len(sortKey)==2:
+                    data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]]))
+                if len(sortKey)==3:
+                    data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[3]]))
+                else:
+                    print('Sort with more than 3 fields not supported')
+            if type(sortKey) == str:
+                data = sorted(data, key=lambda k: k[sortKey])
+
+
         if 'select' in block:
             selectCmd = context.processTextCmds(block['select']).strip()
             data = cmn_utils_di.selectSubset(data, selectCmd)
