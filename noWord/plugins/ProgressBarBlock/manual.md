@@ -23,4 +23,4 @@ Example:
 
 ```
 
-Back to [Documentation](../../../doc/block_types.md#data)
+Back to [Documentation](../../../README.md#block_data)

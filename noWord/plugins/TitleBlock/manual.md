@@ -17,4 +17,4 @@ Example:
   title   : Some Title
 ```
 
-Back to [Documentation](../../../doc/block_types.md#top)
+Back to [Documentation](../../../README.md#block_basic)

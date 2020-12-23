@@ -20,4 +20,4 @@ Example:
 - type     : toc
 ```
 
-Back to [Documentation](../../../doc/block_types.md#structure)
+Back to [Documentation](../../../README.md#block_structure)

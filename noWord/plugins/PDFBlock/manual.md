@@ -21,4 +21,4 @@ Example:
   filename : /docs/test.pdf
 ```
 
-Back to [Documentation](../../../doc/block_types.md#external)
+Back to [Documentation](../../../README.md#block_external)
