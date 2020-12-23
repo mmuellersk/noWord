@@ -103,9 +103,7 @@ Back to [Top](#top)
 
 ### Functional Testing
 For each plugin a functional test was implemented. The following document
-describes the functional test:
-
-[Functional Test Protocol](/doc/FTP_noWord_1.pdf)
+describes the functional test: [tests.md](test/tests.md)
 
 Back to [Top](#top)
 
