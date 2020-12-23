@@ -103,7 +103,7 @@ Back to [Top](#top)
 
 ### Functional Testing
 For each plugin a functional test was implemented. The following document
-describes the functional test: [tests.md](test/tests.md)
+describes the functional test: [tests.md](tests/tests.md)
 
 Back to [Top](#top)
 
