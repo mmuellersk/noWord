@@ -1,4 +1,4 @@
-# <a name="documentMetaAuthorTemplate"></a> noWord
+# <a name="top"></a> noWord
 non-WYSIWYG document generator.
 * [Introduction](#intro)
 * [Input files](#input)
@@ -97,9 +97,9 @@ You can define your own block types using the plugin mecanism.
 ### Templates
 For maximum flexibility, you can write you own templates using python.
 
-## <a name="tests"></a> Testing
-
 Back to [Top](#top)
+
+## <a name="tests"></a> Testing
 
 ### Functional Testing
 For each plugin a functional test was implemented. The following document
