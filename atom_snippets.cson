@@ -1,3 +1,6 @@
+# Copy text below in Atom's snippet file:
+# ~/.atom/snippets.cson
+
 '.source.yaml':
 
   'text block':
