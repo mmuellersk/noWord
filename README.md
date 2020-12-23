@@ -1,4 +1,4 @@
-# noWord
+# <a name="documentMetaAuthorTemplate"></a> noWord
 non-WYSIWYG document generator.
 * [Introduction](#intro)
 * [Input files](#input)
@@ -23,6 +23,8 @@ makes it very convinent for software developers.
 The following illustration outlines the main components of the noWord system.
 
 <img src="./images/overview.png" width="600" />
+
+Back to [Top](#top)
 
 ## <a name="input"></a> Input files
 
@@ -51,6 +53,9 @@ at least one entry: type. All other entries are block type specific.
     - Item 1
     - Item 2
 ```
+
+Back to [Top](#top)
+
 ## <a name="blocks"></a> Build-in block types
 
 ### <a name="block_basic"></a> Basic text elements
@@ -82,6 +87,7 @@ at least one entry: type. All other entries are block type specific.
 * [Progressbar block](noWord/plugins/ProgressBarBlock/manual.md#manual)
 * [TodoItem block](noWord/plugins/TodoItemBlock/manual.md#manual)
 
+Back to [Top](#top)
 
 ## <a name="modules"></a> Application modules
 
@@ -93,11 +99,15 @@ For maximum flexibility, you can write you own templates using python.
 
 ## <a name="tests"></a> Testing
 
+Back to [Top](#top)
+
 ### Functional Testing
 For each plugin a functional test was implemented. The following document
 describes the functional test:
 
 [Functional Test Protocol](/doc/FTP_noWord_1.pdf)
+
+Back to [Top](#top)
 
 ## <a name="dev"></a> Developer
 
@@ -141,3 +151,5 @@ This project is licensed under the GPL License - see the [LICENSE](LICENSE) file
 * Hat tip to anyone who's code was used
 * Inspiration
 * etc
+
+Back to [Top](#top)
