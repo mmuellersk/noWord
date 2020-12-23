@@ -15,6 +15,7 @@ either one file containing one list or several files in a specified folder.
 | sort      |  sorts data by specified column (max 3 fields for sorting)              |
 | filter    |  applies filter to loaded data            |
 | global    |  loads resource as global resource           | False |
+| global    |  loads resource as global resource           | False |
 
 
 Example:
