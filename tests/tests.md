@@ -5,6 +5,8 @@
 * [Test execution](#exec)
 * [Acceptance criteria](#accept)
 
+Back to [Documentation](../README.md#tests)
+
 ## <a name="intro"></a> Introduction
 
 The main functional elements in noWord are the plugins implementing each a given text block. The objective of the function tests s to provide a functional test for each plugin covering all aspects of this given plugin. The following illustration outlines functional test procedure.
