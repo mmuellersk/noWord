@@ -1,0 +1,77 @@
+'.source.yaml':
+
+  'text block':
+    'prefix': 'bte'
+    'body':"""
+    - type    : text
+      content : >
+        .
+    """
+
+  'table block':
+    'prefix': 'bta'
+    'body':"""
+    - type    : table
+      header  : ['#', Action]
+      keys    : [col1, col2]
+      widths  : [1,15]
+      halign  : LEFT
+      rows    :
+        - col1: >
+
+          col2: >
+    """
+
+  'list block':
+    'prefix': 'bls'
+    'body':"""
+    - type    : list
+      content :
+        - .
+    """
+
+  'chapter 0 block':
+    'prefix': 'bc0'
+    'body':"""
+    - type  : chapter
+      title : >
+          .
+    """
+
+  'chapter 1 block':
+    'prefix': 'bc1'
+    'body':"""
+    - type  : chapter
+      level : 1
+      title : >
+          .
+    """
+
+  'chapter 2 block':
+    'prefix': 'bc2'
+    'body':"""
+    - type  : chapter
+      level : 2
+      title : >
+          .
+    """
+
+  'image block':
+    'prefix': 'bim'
+    'body':"""
+    - type     : image
+      width    : 12
+      filename : .
+    """
+
+  'newpage block':
+    'prefix': 'bnp'
+    'body':"""
+    - type : newpage
+    """
+
+  'vspace block':
+    'prefix': 'bvs'
+    'body':"""
+    - type : vspace
+    """
