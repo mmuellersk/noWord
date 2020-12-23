@@ -51,6 +51,8 @@ class ResourceBlock(PluginInterface):
 
         if 'sort' in block:
             sortKey=block['sort']
+            if isinstance(sortKey,str):
+                data = sorted(data, key=lambda k: k[sortKey])
             if type(sortKey) == list:
                 if len(sortKey)==1:
                     data = sorted(data, key=lambda k: k[sortKey[0]])
@@ -60,8 +62,6 @@ class ResourceBlock(PluginInterface):
                     data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[3]]))
                 else:
                     print('Sort with more than 3 fields not supported')
-            if type(sortKey) == str:
-                data = sorted(data, key=lambda k: k[sortKey])
 
 
         if 'select' in block:
