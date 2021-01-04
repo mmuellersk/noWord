@@ -30,7 +30,8 @@ class NWProcContext:
             "ref": self.processRef,
             "titleref": self.processTitleRef,
             "inc": self.processIncrement,
-            "incval": self.processIncrementValue}
+            "incval": self.processIncrementValue,
+            "count": self.processCount}
 
         self.pageCounter = cmn_utils_rp.PageCountBlocker()
         self.dummies = []
@@ -204,5 +205,14 @@ class NWProcContext:
         result = 'not found'
         if label in self.incs:
             result = self.incs[label]
+
+        return str(result)
+
+    def processCount(self, label):
+        result=-1;
+        if label in self.resources:
+            result = len(self.resources[label])
+        else:
+            print('Resource not found')
 
         return str(result)
