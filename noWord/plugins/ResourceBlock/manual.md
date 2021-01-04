@@ -1,4 +1,4 @@
-### <a name="manual"></a> Resources block
+### <a name="manual"></a> Resource block
 
 Loads an external data from yaml, json, plist or xml files. Can load
 either one file containing one list or several files in a specified folder.
@@ -26,4 +26,4 @@ Example:
 
 ```
 
-Back to [Documentation](../../../doc/block_types.md#top)
+Back to [Documentation](../../../README.md#block_data)

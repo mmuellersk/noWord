@@ -53,7 +53,7 @@ class ResourceBlock(PluginInterface):
             sortKey=block['sort']
             if isinstance(sortKey,str):
                 data = sorted(data, key=lambda k: k[sortKey])
-            if type(sortKey) == list:
+            elif type(sortKey) == list:
                 if len(sortKey)==1:
                     data = sorted(data, key=lambda k: k[sortKey[0]])
                 if len(sortKey)==2:
