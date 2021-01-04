@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import os
 import sys
+import glob
 sys.path.insert(0, '...')
 
 
@@ -28,12 +29,23 @@ class ResourceBlock(PluginInterface):
         pass
 
     def process(self, block, context):
+        file_types = ('*.yaml','*.json','*.plist','*.xml');
         # filename or content element
         if 'filename' in block:
             filename = context.processTextCmds(block['filename']).strip()
             data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
+        elif 'folder' in block:
+            folder = os.path.join( block['_path'], block['folder'])
+            recursive = self.getElemValue(block, 'recursive', False)
+            files = []
+            for type in file_types:
+                files.extend(glob.glob(os.path.join(folder, type),recursive=recursive))
+            data=[]
+            for file in files:
+                data.append( cmn_utils_fs.deserialize(file))
         elif 'content' in block:
             data = block['content']
+
         else:
             return []
 

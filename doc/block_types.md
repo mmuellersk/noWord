@@ -10,6 +10,7 @@
 * [PDF block](#pdf)
 * [Tabel of Content block](#toc)
 * [Line block](#line)
+* [Resouce block](../noWord/plugins/ResourceBlock/manual.md#manual)
 
 ### <a name="chapter"></a> Chapter block
 
