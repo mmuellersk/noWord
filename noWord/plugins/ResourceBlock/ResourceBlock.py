@@ -68,6 +68,13 @@ class ResourceBlock(PluginInterface):
             selectCmd = context.processTextCmds(block['select']).strip()
             data = cmn_utils_di.selectSubset(data, selectCmd)
 
+        # autonumbering
+        autonumber = self.getElemValue(block, 'autonumber', False)
+        if autonumber:
+            for x, entry in enumerate(data):
+                data[x]['number']=str(x+1)
+
+
         # alias element
         alias = block['alias']
 

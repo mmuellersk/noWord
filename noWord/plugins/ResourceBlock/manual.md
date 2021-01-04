@@ -14,6 +14,7 @@ either one file containing one list or several files in a specified folder.
 | content   |  load data directly from text in source file        |
 | sort      |  sorts data by specified column (max 3 fields for sorting)              |
 | filter    |  applies filter to loaded data            |
+| autonumber    |  adds number to each entry in resources data           | False |
 | global    |  loads resource as global resource           | False |
 
 
