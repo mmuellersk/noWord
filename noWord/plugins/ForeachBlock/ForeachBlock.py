@@ -49,7 +49,13 @@ class ForeachBlock(PluginInterface):
 
         if keys is not None:
             if isinstance(keys, str):
-                keysData = context.getResource(context.resources, keys)
+                text = context.processTextCmds(keys)
+                if isinstance(text, str):
+                    keysData = context.getResource(context.resources, text)
+                elif isinstance(text, list):
+                    keysData = text
+                else:
+                    keysData = []
             elif isinstance(keys, list):
                 keysData = keys
             else:
