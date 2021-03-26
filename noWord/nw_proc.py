@@ -4,8 +4,6 @@ import os
 import datetime
 import re
 
-from timeit import default_timer as timer
-
 import noWord.common.utils_fs as cmn_utils_fs
 
 from noWord.common.NWGenerator import NWGenerator
