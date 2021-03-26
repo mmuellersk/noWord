@@ -8,6 +8,10 @@ import sys
 import datetime
 import pprint
 
+import noWord as meta
+
+from timeit import default_timer as timer
+
 noWordDir = os.path.join(os.path.dirname(
     os.path.abspath(__file__)), "../..")
 
@@ -31,6 +35,8 @@ import noWord.common.DefaultDecoration as NoWordDecoration
 
 class NWGenerator:
     def __init__(self, aSourcePath, aOutputPath, extPluginFolders=[], dumpContent=False):
+
+        self.chrono = timer()
 
         self.dumpContentFlag = dumpContent
 
@@ -109,7 +115,20 @@ class NWGenerator:
 
         return content
 
+    def printVersionInfo(self):
+        print( __name__ )
+        print( "Version: " + meta.__version__ )
+        print( meta.__description__ )
+
+    def printExecutionSuccess(self, pagecount):
+        print( meta.__name__ +
+                ' processing finished (%d page(s) rendered): %.5f seconds' %
+                (pagecount, (timer() - self.chrono)))
+
+
     def process(self):
+        self.printVersionInfo()
+
         # load block list
         blocks = []
         for block in self.processFolder(self.context.sourcePath):
@@ -166,7 +185,7 @@ class NWGenerator:
 
         self.doc.build(outputfile, self.context, content)
 
-        return self.context.pageCounter.pageCount
+        self.printExecutionSuccess(self.context.pageCounter.pageCount)
 
     def processFolder(self, path):
         for item in sorted(os.listdir(path)):

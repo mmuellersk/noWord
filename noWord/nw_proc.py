@@ -13,8 +13,6 @@ from noWord.common.NWGenerator import NWGenerator
 
 def main():
 
-    start = timer()
-
     args = cmn_utils_fs.parserCommandLine()
 
     generator = NWGenerator(
@@ -22,9 +20,6 @@ def main():
         aOutputPath=args.dest)
 
     nbPages = generator.process()
-
-    print('noWord processing finished (%d page(s) rendered): %.5f seconds' %
-          (nbPages, (timer() - start)))
 
 
 if __name__ == "__main__":
