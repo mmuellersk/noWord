@@ -75,6 +75,8 @@ class NWProcContext:
         parts = ref.split("/")
         alias = parts[0]
         path = parts[1:]
+        if alias not in source:
+            return None
         resource = source[alias]
         for child in path:
             result = tableRegex.findall(child)
@@ -115,8 +117,15 @@ class NWProcContext:
             cmd = cmds[0]
 
             originalTxt = txt
-            txt = txt.replace("{{%s:%s}}" %
-                              cmd, self.processTextCmd(cmd[0], cmd[1]))
+
+            textProcessed = self.processTextCmd(cmd[0], cmd[1])
+
+            if isinstance(textProcessed, str):
+                txt = txt.replace("{{%s:%s}}" %
+                                  cmd, textProcessed)
+            elif isinstance(textProcessed, list):
+                return textProcessed
+            
             if txt == originalTxt:
                 break
 
