@@ -4,6 +4,11 @@ import os
 import datetime
 import re
 
+noWordDir = os.path.join(os.path.dirname(
+    os.path.abspath(__file__)), '..')
+
+sys.path.insert(0, noWordDir)
+
 import noWord.common.utils_fs as cmn_utils_fs
 
 from noWord.common.NWGenerator import NWGenerator

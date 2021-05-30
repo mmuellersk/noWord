@@ -43,6 +43,13 @@ class ResourceBlock(PluginInterface):
             data=[]
             for file in files:
                 data.append( cmn_utils_fs.deserialize(file))
+        elif 'fileselector' in block:
+            fileselector = os.path.join( block['_path'], block['fileselector'])
+            files = []
+            files.extend(glob.glob(fileselector,recursive=True))
+            data=[]
+            for file in files:
+                data.append( cmn_utils_fs.deserialize(file))
         elif 'content' in block:
             data = block['content']
 
@@ -53,13 +60,13 @@ class ResourceBlock(PluginInterface):
             sortKey=block['sort']
             if isinstance(sortKey,str):
                 data = sorted(data, key=lambda k: k[sortKey])
-            elif type(sortKey) == list:
+            elif isinstance(sortKey,list):
                 if len(sortKey)==1:
                     data = sorted(data, key=lambda k: k[sortKey[0]])
                 if len(sortKey)==2:
                     data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]]))
                 if len(sortKey)==3:
-                    data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[3]]))
+                    data = sorted(data, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[2]]))
                 else:
                     print('Sort with more than 3 fields not supported')
 
