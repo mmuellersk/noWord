@@ -4,7 +4,7 @@
 
 ### <a name="manual"></a> Line block
 
-Inserts vertical line.
+Inserts a horizontal line.
 
 | Key       |      Description      | Default |
 |:----------|:--------------------- | :---- |

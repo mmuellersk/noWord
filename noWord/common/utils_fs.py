@@ -52,7 +52,7 @@ def loadYAML(filename):
     filename = os.path.normpath(filename)
     try:
         with open(filename, encoding='utf-8') as data_file:
-            data = yaml.load(data_file)
+            data = yaml.load(data_file, Loader=yaml.FullLoader)
             return data
     except Exception as e:
         print("Could not read yaml file: " + str(e))
