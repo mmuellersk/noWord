@@ -4,6 +4,8 @@ providers: [
     config:
       commands: [
         {
+          project: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord"
+          source: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord/.build-tools.cson"
           name: "Build IU: Intended Use"
           command: "python3 ./noWord/nw_proc.py ./validation/01_specifications/iu ./build/01_specifications"
           wd: "."
@@ -29,8 +31,8 @@ providers: [
           version: 2
         }
         {
-          project: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord"
-          source: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord/.build-tools.cson"
+          project: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord"
+          source: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord/.build-tools.cson"
           name: "Build SDP: Software Development Plan"
           command: "python3 ./noWord/nw_proc.py ./validation/01_specifications/sdp ./build/01_specifications"
           wd: "."
@@ -56,8 +58,8 @@ providers: [
           version: 2
         }
         {
-          project: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord"
-          source: "/Users/matthias.mueller/WorkSymbios/Doc/SoftwareLifecycle/HipPlan/tools/sbo_docgen/noWord/.build-tools.cson"
+          project: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord"
+          source: "/Volumes/WorkVault01/WorkMatthias/Documents/myProc/noWord/.build-tools.cson"
           name: "Build tests"
           command: "python3 ./tests/run_tests.py"
           wd: "."

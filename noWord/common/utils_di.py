@@ -27,7 +27,7 @@ def flattenDicts(dictList, keys=[]):
         return []
     if len(keys) == 0:
         keys = dictList[0].keys()
-    return [[d[k] for k in keys] for d in dictList]
+    return [[d[k] if (k in d) else ' ' for k in keys] for d in dictList]
 
 def selectSubset( resource, query):
     tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
