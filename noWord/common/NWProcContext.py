@@ -125,7 +125,7 @@ class NWProcContext:
                                   cmd, textProcessed)
             elif isinstance(textProcessed, list):
                 return textProcessed
-            
+
             if txt == originalTxt:
                 break
 
@@ -219,8 +219,10 @@ class NWProcContext:
 
     def processCount(self, label):
         result=-1;
-        if label in self.resources:
-            result = len(self.resources[label])
+        listres = self.getResource(
+            self.resources, label)
+        if label:
+            result = len(listres)
         else:
             print('Resource not found')
 
