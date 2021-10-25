@@ -72,8 +72,6 @@ class ForeachBlock(PluginInterface):
                     if item["id"] not in keysData:
                         continue
 
-            print(name)
-
             index += 1
             context.textCmdProcessors[name] = lambda res: context.getResource(
                 item, res)
