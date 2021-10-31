@@ -57,7 +57,7 @@ def makeTable(context, path, headers, lines, widths=[],
     # If no lines and no header
     if not lines and not headers :
         return[]
-        
+
     # It is possible to render a table without headers
     if not lines:
         nbCols = len(headers)
@@ -99,13 +99,13 @@ def makeTable(context, path, headers, lines, widths=[],
     for line in lines:
         lineData = []
         for col in line:
-            if isinstance(col, str):
-                lineData.append(
-                    context.paragraph(col, context.styleSheet["BodyText"]))
-            elif isinstance(col, list):
+            if isinstance(col, list):
                 content = []
                 content.extend(context.processFuncObj(col, context, path))
                 lineData.append(content)
+            else:
+                lineData.append(
+                    context.paragraph(col, context.styleSheet["BodyText"]))
 
         tableData.append(lineData)
 

@@ -1,4 +1,4 @@
-reportlab==3.5.6
+reportlab==3.6.1
 pyyaml==5.4
 pdfrw==0.4
 xmltodict==0.12.0
