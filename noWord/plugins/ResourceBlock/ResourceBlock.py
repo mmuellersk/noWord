@@ -33,7 +33,6 @@ class ResourceBlock(PluginInterface):
         # filename or content element
         if 'filename' in block:
             filename = context.processTextCmds(block['filename']).strip()
-            print(filename)
             data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
         elif 'folder' in block:
             folder = os.path.join( block['_path'], block['folder'])
