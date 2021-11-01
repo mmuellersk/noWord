@@ -28,9 +28,9 @@ class PDFBlock(PluginInterface):
         content = []
 
         # filename element
-        rawPdfFilename = os.path.join(block['_path'], block['filename'])
+        filename = context.processTextCmds(block['filename']).strip()
 
-        pdfFilename = context.processTextCmds(rawPdfFilename)
+        pdfFilename = os.path.join(block['_path'], filename)
 
         # width element
         width = block["width"] * \
