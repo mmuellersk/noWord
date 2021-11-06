@@ -1,6 +1,6 @@
 
 
-def flattenFirstToken( input, params, context):
+def distinctFirstToken( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
 

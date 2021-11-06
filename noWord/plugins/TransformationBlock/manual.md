@@ -28,4 +28,14 @@ Example:
 
 ```
 
+Available transfomration shall be declared in the docInfo.yaml file of
+each project.
+
+Example:
+```YAML
+transformations:
+  - distinctFirstToken
+
+```
+  
 Back to [Documentation](../../../README.md#block_data)
