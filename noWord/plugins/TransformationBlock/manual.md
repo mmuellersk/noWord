@@ -21,10 +21,19 @@ Example:
 - type   : transformation
   input  : consumer_data
   output : consumer_short
-  transformation: flattenFirstToken
+  transformation: distinctFirstToken
   params:
     key      : Url
     seperator: '/'
+
+
+- type     : transformation
+  input    : memo_data
+  output   : memo_data_10
+  transformation :  slice
+  params:
+    start: 0
+    end  : 10
 
 ```
 
@@ -35,7 +44,8 @@ Example:
 ```YAML
 transformations:
   - distinctFirstToken
+  - slice
 
 ```
-  
+
 Back to [Documentation](../../../README.md#block_data)
