@@ -2,6 +2,11 @@
 
 Transforms one or up to 3 resources to new resources using the specified transformation algorithm.
 
+Default transformation are defined in the following file:
+[DefaultTransformation](noWord/common/DefaultTransformation.py)
+
+Custom transformation can be injected in sub project as decoartions.
+
 
 | Key       |      Description      | Default |
 |:----------|:--------------------- |:-------------- |

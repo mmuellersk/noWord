@@ -18,5 +18,4 @@ def flattenFirstToken( input, params, context):
                     entry[params['key']] = token
                     outputRes.append(entry)
 
-    print( outputRes)
     return outputRes
