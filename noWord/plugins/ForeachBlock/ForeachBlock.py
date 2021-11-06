@@ -66,6 +66,7 @@ class ForeachBlock(PluginInterface):
         content = []
 
         index = 0
+
         for item in resourceData:
             if keysData:
                 if "id" in item:

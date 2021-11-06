@@ -22,7 +22,15 @@ Example:
   content     :
     - type    : text
       content : >
-        {{current/field01}}
+        {{current:field01}}
+
+    - type        : foreach
+      resource    : current_res/array
+      Name        : subcurr
+      content     :
+        - type    : text
+          content : >
+            {{subcurr:fieldXX}}
 
 ```
 
