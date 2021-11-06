@@ -19,3 +19,15 @@ def distinctFirstToken( input, params, context):
                     outputRes.append(entry)
 
     return outputRes
+
+
+def merge( input, params, context ):
+
+    targetResource = {}
+
+    if isinstance( input, list):
+        for resourceName in block['resources']:
+            data = context.getResource(context.resources, resourceName)
+            targetResource.update(deepcopy(data))
+
+    return targetResource
