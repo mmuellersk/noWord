@@ -31,3 +31,12 @@ def merge( input, params, context):
             targetResource.update(deepcopy(data))
 
     return targetResource
+
+def slice( input, params, context):
+    print(params)
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputList = inputRes[params['start']:params['end']]
+
+    return outputList
