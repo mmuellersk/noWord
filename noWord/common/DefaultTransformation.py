@@ -21,7 +21,7 @@ def distinctFirstToken( input, params, context):
     return outputRes
 
 
-def merge( input, params, context ):
+def merge( input, params, context):
 
     targetResource = {}
 
