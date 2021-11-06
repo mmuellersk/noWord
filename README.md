@@ -81,6 +81,7 @@ Back to [Top](#top)
 
 ### <a name="block_data"></a> External data processing
 * [Resource block](noWord/plugins/ResourceBlock/manual.md#manual)
+* [Merge block](noWord/plugins/MergeBlock/manual.md#manual)
 * [Foreach block](noWord/plugins/ForeachBlock/manual.md#manual)
 * [Value block](noWord/plugins/ValueBlock/manual.md#manual)
 * [Chart block](noWord/plugins/ChartBlock/manual.md#manual)
