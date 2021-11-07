@@ -39,6 +39,20 @@ def distinct( input, params, context):
     return outputRes
 
 
+def autonumber( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = []
+    index = 0
+
+    for item in inputRes :
+        index += 1
+        item['number'] = index
+        outputRes.append(item)
+
+    return outputRes
+
 def distinctFirstToken( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
