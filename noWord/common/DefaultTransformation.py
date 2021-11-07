@@ -1,5 +1,44 @@
 
 
+def merge( input, params, context):
+
+    targetResource = {}
+
+    if isinstance( input, list):
+        for resourceName in block['resources']:
+            data = context.getResource(context.resources, resourceName)
+            targetResource.update(deepcopy(data))
+
+    return targetResource
+
+def slice( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputList = inputRes[params['start']:params['end']]
+
+    return outputList
+
+
+def distinct( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = []
+    outputResList = []
+
+    for item in inputRes :
+        if params['key'] in item :
+            token = item[params['key']]
+            if not token in outputResList :
+                outputResList.append(token)
+                entry = {}
+                entry[params['key']] = token
+                outputRes.append(entry)
+
+    return outputRes
+
+
 def distinctFirstToken( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
@@ -19,23 +58,3 @@ def distinctFirstToken( input, params, context):
                     outputRes.append(entry)
 
     return outputRes
-
-
-def merge( input, params, context):
-
-    targetResource = {}
-
-    if isinstance( input, list):
-        for resourceName in block['resources']:
-            data = context.getResource(context.resources, resourceName)
-            targetResource.update(deepcopy(data))
-
-    return targetResource
-
-def slice( input, params, context):
-
-    inputRes = context.getResource(context.resources, input)
-
-    outputList = inputRes[params['start']:params['end']]
-
-    return outputList
