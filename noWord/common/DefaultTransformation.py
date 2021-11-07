@@ -33,7 +33,6 @@ def merge( input, params, context):
     return targetResource
 
 def slice( input, params, context):
-    print(params)
 
     inputRes = context.getResource(context.resources, input)
 
