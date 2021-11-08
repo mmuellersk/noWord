@@ -49,8 +49,9 @@ def autonumber( input, params, context):
 
     for item in inputRes :
         index += 1
-        item['number'] = index
-        outputRes.append(item)
+        newitem = deepcopy(item)
+        newitem['number'] = index
+        outputRes.append(newitem)
 
     return outputRes
 
