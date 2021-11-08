@@ -16,7 +16,7 @@ def slice( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
 
-    outputList = inputRes[params['start']:params['end']]
+    outputList = deepcopy(inputRes[params['start']:params['end']])
 
     return outputList
 
