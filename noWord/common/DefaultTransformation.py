@@ -1,4 +1,5 @@
 
+from copy import deepcopy
 
 def merge( input, params, context):
 
