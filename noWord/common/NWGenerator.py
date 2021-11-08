@@ -85,9 +85,8 @@ class NWGenerator:
             if hasattr(NoWordDecoration, deco):
                 self.doc.addDecoration(getattr(NoWordDecoration, deco), deco in enabledDecorations)
 
-        enabledTransformations = self.context.docInfo["transformations"] if "transformations" in self.context.docInfo else []
-        additionalTransformations = self.context.docInfo["additionalTransformations"] if "additionalTransformations" in self.context.docInfo else []
-        availableTransformations = list(set(enabledTransformations).union(set(additionalTransformations)))
+        # Load transformations from DefaultTransformation
+        availableTransformations = NoWordTransformation.avaliableTransfromations()
 
         for transfo in availableTransformations:
             if hasattr(NoWordTransformation, transfo):
@@ -108,12 +107,6 @@ class NWGenerator:
             decorations = self.context.docInfo['decorations']
             for decoration in decorations:
                 self.doc.addDecoration(getattr(obj, decoration))
-
-    def setTransformations(self, obj):
-        if 'transformations' in self.context.docInfo:
-            transformations = self.context.docInfo['transformations']
-            for transfo in transformations:
-                self.doc.addTransformation(getattr(obj, transfo), transfo)
 
     def prepareBlocks(self, blocks, context, path):
         for block in blocks:

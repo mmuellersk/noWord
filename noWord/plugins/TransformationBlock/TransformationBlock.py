@@ -28,9 +28,9 @@ class TransformationBlock(PluginInterface):
         transfo = block['transformation']
         params = block['params']
 
-        if transfo in context.doc.enabledTransformations :
+        if transfo in context.doc.availableTransformations :
 
-            outputRes = context.doc.enabledTransformations[transfo](input, params, context)
+            outputRes = context.doc.availableTransformations[transfo](input, params, context)
             context.addResource( outputName, outputRes)
 
 

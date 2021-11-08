@@ -1,6 +1,18 @@
 
 from copy import deepcopy
 
+def avaliableTransfromations():
+
+    transformations =  [
+        'merge',
+        'slice',
+        'distinct',
+        'autonumber',
+        'distinctFirstToken'
+    ]
+
+    return transformations
+
 def merge( input, params, context):
 
     targetResource = {}

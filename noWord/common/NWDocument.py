@@ -72,7 +72,6 @@ class NWDocument:
         self.enabledDecorations = []
         self.availableDecorations = []
 
-        self.enabledTransformations = {}
         self.availableTransformations = {}
 
     def setStyleSheet(self, aStyleSheet):
@@ -111,7 +110,6 @@ class NWDocument:
 
     def addTransformation(self, funcObj, name):
         self.availableTransformations[name]=funcObj
-        self.enabledTransformations[name]=funcObj
 
     def currentHeight(self):
         return self.pageRect[1] - self.style["marginT"] - self.style["marginB"]
