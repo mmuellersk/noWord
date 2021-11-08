@@ -31,7 +31,7 @@ class TransformationBlock(PluginInterface):
         if transfo in context.doc.enabledTransformations :
 
             outputRes = context.doc.enabledTransformations[transfo](input, params, context)
-            context.resources[outputName] = outputRes
+            context.addResource( outputName, outputRes)
 
 
         # return empty list
