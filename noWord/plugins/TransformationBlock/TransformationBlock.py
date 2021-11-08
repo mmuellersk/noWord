@@ -6,7 +6,6 @@ sys.path.insert(0, '...')
 
 
 from noWord.common.PluginInterface import PluginInterface
-import noWord.common.utils_fs as cmn_utils_fs
 
 
 class TransformationBlock(PluginInterface):
