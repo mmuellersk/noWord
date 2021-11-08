@@ -5,7 +5,7 @@ def merge( input, params, context):
     targetResource = {}
 
     if isinstance( input, list):
-        for resourceName in block['resources']:
+        for resourceName in input:
             data = context.getResource(context.resources, resourceName)
             targetResource.update(deepcopy(data))
 
