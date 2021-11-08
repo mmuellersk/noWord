@@ -5,10 +5,6 @@ import glob
 sys.path.insert(0, '...')
 
 
-
-import noWord.common.utils_rp as cmn_utils_rp
-import noWord.common.utils_di as cmn_utils_di
-
 from noWord.common.PluginInterface import PluginInterface
 import noWord.common.utils_fs as cmn_utils_fs
 
