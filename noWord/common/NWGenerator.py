@@ -86,7 +86,7 @@ class NWGenerator:
                 self.doc.addDecoration(getattr(NoWordDecoration, deco), deco in enabledDecorations)
 
         # Load transformations from DefaultTransformation
-        availableTransformations = NoWordTransformation.avaliableTransfromations()
+        availableTransformations = NoWordTransformation.avaliableTransformations()
 
         for transfo in availableTransformations:
             if hasattr(NoWordTransformation, transfo):

@@ -1,6 +1,6 @@
 ### <a name="manual"></a> Transformation block
 
-Transforms one or up to 3 resources to new resources using the specified transformation algorithm.
+Transforms one or multiple resources to new a resource using the specified transformation algorithm.
 
 Default transformation are defined in the following file:
 [DefaultTransformation](../../../noWord/common/DefaultTransformation.py)
