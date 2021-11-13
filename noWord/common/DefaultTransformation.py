@@ -1,7 +1,7 @@
 
 from copy import deepcopy
 
-def avaliableTransformations():
+def availableTransformations():
 
     transformations =  [
         'merge',
