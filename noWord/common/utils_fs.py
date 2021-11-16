@@ -91,7 +91,7 @@ def deserialize(path):
     if os.path.isfile(path):
         if ext == "json":
             data = loadJson(path)
-        elif ext == "yaml":
+        elif (ext == "yaml") or (ext == "yml") :
             data = loadYAML(path)
         elif ext == "plist":
             data = loadPList(path)

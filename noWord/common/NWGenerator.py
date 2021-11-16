@@ -31,6 +31,7 @@ import noWord.common.utils_rp as cmn_utils_rp
 import noWord as meta
 
 import noWord.common.DefaultDecoration as NoWordDecoration
+import noWord.common.DefaultTransformation as NoWordTransformation
 
 
 class NWGenerator:
@@ -83,6 +84,13 @@ class NWGenerator:
         for deco in availableDecorations:
             if hasattr(NoWordDecoration, deco):
                 self.doc.addDecoration(getattr(NoWordDecoration, deco), deco in enabledDecorations)
+
+        # Load transformations from DefaultTransformation
+        availableTransformations = NoWordTransformation.availableTransformations()
+
+        for transfo in availableTransformations:
+            if hasattr(NoWordTransformation, transfo):
+                self.doc.addTransformation(getattr(NoWordTransformation, transfo), transfo)
 
     def overrideValues(self, strkey, dicTraget, dicSource):
         if strkey in dicSource:
