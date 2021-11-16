@@ -7,6 +7,7 @@ def availableTransformations():
         'merge',
         'slice',
         'distinct',
+        'selectFirst',
         'autonumber',
         'distinctFirstToken'
     ]
@@ -52,6 +53,21 @@ def distinct( input, params, context):
     return outputRes
 
 
+def selectFirst( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = {}
+
+    for item in inputRes :
+        if params['key'] in item :
+            if item[params['key']] == params['value']:
+                outputRes = item
+
+    print(outputRes)
+
+    return outputRes
+
 def autonumber( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
@@ -59,11 +75,13 @@ def autonumber( input, params, context):
     outputRes = []
     index = 0
 
-    for item in inputRes :
-        index += 1
-        newitem = deepcopy(item)
-        newitem['number'] = index
-        outputRes.append(newitem)
+    if inputRes is not None:
+
+        for item in inputRes :
+            index += 1
+            newitem = deepcopy(item)
+            newitem['number'] = index
+            outputRes.append(newitem)
 
     return outputRes
 
