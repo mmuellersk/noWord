@@ -9,6 +9,7 @@ def availableTransformations():
         'distinct',
         'selectFirst',
         'autonumber',
+        'sort',
         'distinctFirstToken'
     ]
 
@@ -82,6 +83,16 @@ def autonumber( input, params, context):
             newitem = deepcopy(item)
             newitem['number'] = index
             outputRes.append(newitem)
+
+    return outputRes
+
+def sort( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = []
+
+    outputRes = sorted(inputRes, key=lambda k: k[params['key']], reverse = params['reverse'])
 
     return outputRes
 
