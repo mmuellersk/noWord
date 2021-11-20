@@ -90,16 +90,17 @@ def sort( input, params, context):
 
     outputRes = []
     sortKey = params['key']
+    reverseFlag = params['reverse'] if 'reverse' in params else False
 
     if isinstance(sortKey,str):
-        outputRes = sorted(inputRes, key=lambda k: k[sortKey])
+        outputRes = sorted(inputRes, key=lambda k: k[sortKey], reverse=reverseFlag)
     elif isinstance(sortKey,list):
         if len(sortKey)==1:
-            outputRes = sorted(inputRes, key=lambda k: k[sortKey[0]])
+            outputRes = sorted(inputRes, key=lambda k: k[sortKey[0]], reverse=reverseFlag)
         if len(sortKey)==2:
-            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]]))
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]]), reverse=reverseFlag)
         if len(sortKey)==3:
-            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[2]]))
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[2]]), reverse=reverseFlag)
         else:
             print('Sort with more than 3 fields not supported')
 
