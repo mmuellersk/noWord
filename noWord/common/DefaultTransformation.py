@@ -65,8 +65,6 @@ def selectFirst( input, params, context):
             if item[params['key']] == params['value']:
                 outputRes = item
 
-    print(outputRes)
-
     return outputRes
 
 def autonumber( input, params, context):
@@ -91,8 +89,19 @@ def sort( input, params, context):
     inputRes = context.getResource(context.resources, input)
 
     outputRes = []
+    sortKey = params['key']
 
-    outputRes = sorted(inputRes, key=lambda k: k[params['key']], reverse = params['reverse'])
+    if isinstance(sortKey,str):
+        outputRes = sorted(inputRes, key=lambda k: k[sortKey])
+    elif isinstance(sortKey,list):
+        if len(sortKey)==1:
+            outputRes = sorted(inputRes, key=lambda k: k[sortKey[0]])
+        if len(sortKey)==2:
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]]))
+        if len(sortKey)==3:
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[2]]))
+        else:
+            print('Sort with more than 3 fields not supported')
 
     return outputRes
 

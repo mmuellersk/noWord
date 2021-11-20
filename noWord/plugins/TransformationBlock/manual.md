@@ -35,6 +35,19 @@ Example:
     start: 0
     end  : 10
 
+- type           : transformation
+  input          : delays_verif_id_check/orders
+  output         : delays_verif_id_check_sort_20_number
+  transformation :
+    - sort
+    - slice
+    - autonumber
+  params         :
+    - key     : 'sub_waiting_sec'
+      reverse : True
+    - start : 0
+      end   : 20
+    - ''
 ```
 
 Available transfomration shall be declared in the docInfo.yaml file of
