@@ -13,7 +13,7 @@ Custom transformation can be injected in sub project as decoartions.
 | type      | transformation                |        |
 | input     | If this parameter is a string one resource is use as input for the transformation function. If this parameter is  list, all specified resources will be used for the transformation function.   |        |
 | output    |  Name of the produced output resources.     |        |
-| transformation    |  Name of the transformation function. A list of default transformations is implemented in the DefaultTransformation.py. Derived projects can add custom transformations.   |
+| transformation    |  The name (string) or a list of the transformation function(s). A list of default transformations is implemented in the DefaultTransformation.py. If a list of transfromation is given, these transformation are exeuted subsequently using the outout of the previous transfromation as input. Derived projects can add custom transformations.   |
 | params    |  A dictionary of parameters for the transformation function. The function shall use these parameters in its implementation.       |  |
 
 Example:

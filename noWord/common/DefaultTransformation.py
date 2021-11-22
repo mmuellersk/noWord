@@ -64,6 +64,7 @@ def selectFirst( input, params, context):
         if params['key'] in item :
             if item[params['key']] == params['value']:
                 outputRes = item
+                break
 
     return outputRes
 
