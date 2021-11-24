@@ -13,8 +13,8 @@ Custom transformation can be injected in sub project as decoartions.
 | type      | transformation                |        |
 | input     | If this parameter is a string one resource is use as input for the transformation function. If this parameter is  list, all specified resources will be used for the transformation function.   |        |
 | output    |  Name of the produced output resources.     |        |
-| transformation    |  Name of the transformation function. A list of default transformations is implemented in the DefaultTransformation.py. Derived projects can add custom transformations.   |
-| params    |  A dictionary of parameters for the transformation function. The function shall use these parameters in its implementation.       |  |
+| transformation    |  The name (string) or a list of the transformation function(s). A list of default transformations is implemented in the DefaultTransformation.py. If a list of transfromation is given, these transformation are exeuted subsequently using the outout of the previous transformation as input. Derived projects can add custom transformations.   |
+| params    |  A dictionary of parameters for the transformation function. The function shall use these parameters in its implementation. In case of multiple transformations, the params shall contain a list of dictionaries, one for each transformation. The order and number of this list shall match exactly the list of transformations.      |  |
 
 Example:
 ```YAML
@@ -35,6 +35,19 @@ Example:
     start: 0
     end  : 10
 
+- type           : transformation
+  input          : delays_verif_id_check/orders
+  output         : delays_verif_id_check_sort_20_number
+  transformation :
+    - sort
+    - slice
+    - autonumber
+  params         :
+    - key     : 'sub_waiting_sec'
+      reverse : True
+    - start : 0
+      end   : 20
+    - ''
 ```
 
 Available transfomration shall be declared in the docInfo.yaml file of

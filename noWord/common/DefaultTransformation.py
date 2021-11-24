@@ -7,7 +7,9 @@ def availableTransformations():
         'merge',
         'slice',
         'distinct',
+        'selectFirst',
         'autonumber',
+        'sort',
         'distinctFirstToken'
     ]
 
@@ -52,6 +54,20 @@ def distinct( input, params, context):
     return outputRes
 
 
+def selectFirst( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = {}
+
+    for item in inputRes :
+        if params['key'] in item :
+            if item[params['key']] == params['value']:
+                outputRes = item
+                break
+
+    return outputRes
+
 def autonumber( input, params, context):
 
     inputRes = context.getResource(context.resources, input)
@@ -59,11 +75,35 @@ def autonumber( input, params, context):
     outputRes = []
     index = 0
 
-    for item in inputRes :
-        index += 1
-        newitem = deepcopy(item)
-        newitem['number'] = index
-        outputRes.append(newitem)
+    if inputRes is not None:
+
+        for item in inputRes :
+            index += 1
+            newitem = deepcopy(item)
+            newitem['number'] = index
+            outputRes.append(newitem)
+
+    return outputRes
+
+def sort( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = []
+    sortKey = params['key']
+    reverseFlag = params['reverse'] if 'reverse' in params else False
+
+    if isinstance(sortKey,str):
+        outputRes = sorted(inputRes, key=lambda k: k[sortKey], reverse=reverseFlag)
+    elif isinstance(sortKey,list):
+        if len(sortKey)==1:
+            outputRes = sorted(inputRes, key=lambda k: k[sortKey[0]], reverse=reverseFlag)
+        if len(sortKey)==2:
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]]), reverse=reverseFlag)
+        if len(sortKey)==3:
+            outputRes = sorted(inputRes, key=lambda k: (k[sortKey[0]], k[sortKey[1]], k[sortKey[2]]), reverse=reverseFlag)
+        else:
+            print('Sort with more than 3 fields not supported')
 
     return outputRes
 
