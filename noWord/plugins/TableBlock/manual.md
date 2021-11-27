@@ -17,6 +17,7 @@ Inserts a table.
 | border    |  (optional) border of table       | 0.5 |
 | halign    |  (optional) horizontal alignment of table     | CENTER |
 | bgcolor    |  (optional) background color of table     |  |
+| bordercolor    |  (optional) border color of table     | black |
 | style    |  (optional) style name of style from stylesheet used for table     | BodyText |
 
 
