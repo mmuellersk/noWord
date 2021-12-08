@@ -5,6 +5,7 @@ sys.path.insert(0, '...')
 
 from reportlab.platypus import Table, TableStyle
 from reportlab.lib.units import cm, mm
+from reportlab.lib import colors
 
 from noWord.common.PluginInterface import PluginInterface
 import noWord.common.utils_di as cmn_utils_di
@@ -97,9 +98,16 @@ class TableBlock(PluginInterface):
         if "bgcolor" in block:
             bgcolor = block["bgcolor"]
 
+        bordercolor = colors.black
+        if "bordercolor" in block :
+            if block["bordercolor"] in context.styleSheet :
+                bordercolor = context.styleSheet[block["bordercolor"]]
+            else :
+                bordercolor = colors.HexColor(block["bordercolor"])
+
         if "style" in block:
             style = block["style"]
 
         return cmn_utils_rp.makeTable(context, block['_path'],
                                       headers, lines, widths, None,
-                                      halign, [], repeatRows, border, bgcolor, style)
+                                      halign, [], repeatRows, border, bgcolor, bordercolor, style)

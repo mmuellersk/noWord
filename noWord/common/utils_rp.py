@@ -52,7 +52,7 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
 
 def makeTable(context, path, headers, lines, widths=[],
               heights=None, halign="CENTER", highlights=[],
-              repeatRows=0, border=0.5, bgcolor=[], customStyle=[]):
+              repeatRows=0, border=0.5, bgcolor=[], bordercolor=colors.black, customStyle=[]):
 
     # If no lines and no header
     if not lines and not headers :
@@ -72,7 +72,7 @@ def makeTable(context, path, headers, lines, widths=[],
              ('VALIGN', (0, 0), (-1, -1), 'TOP')]
 
     if border > 0:
-        style.append(('GRID', (0, 0), (-1, -1), border, colors.black))
+        style.append(('GRID', (0, 0), (-1, -1), border, bordercolor))
 
     for col in headers:
         headersLine.append(
