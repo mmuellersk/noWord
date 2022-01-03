@@ -93,6 +93,9 @@ def sort( input, params, context):
     sortKey = params['key']
     reverseFlag = params['reverse'] if 'reverse' in params else False
 
+    if inputRes is None:
+        return outputRes
+
     if isinstance(sortKey,str):
         outputRes = sorted(inputRes, key=lambda k: k[sortKey], reverse=reverseFlag)
     elif isinstance(sortKey,list):
