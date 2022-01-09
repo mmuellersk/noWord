@@ -30,7 +30,10 @@ Example:
       content     :
         - type    : text
           content : >
-            {{subcurr:fieldXX}}
+            Some field value from resource: {{subcurr:fieldXX}}
+        - type    : text
+          content : >
+            Index of current object: {{subcurrindex:}}
 
 ```
 
