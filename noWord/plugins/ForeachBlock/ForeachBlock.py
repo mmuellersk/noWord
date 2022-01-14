@@ -84,9 +84,10 @@ class ForeachBlock(PluginInterface):
             subcontent.extend(context.processFuncObj(subblocks, context, path))
 
             if keepContentTogether:
-                content.extend([KeepTogether(subcontent)])
-            else:
-                content.extend(subcontent)
+                for index in range(0, len(subcontent)-2):
+                    subcontent[index].keepWithNext = True
+
+            content.extend(subcontent)
 
         if name in context.textCmdProcessors:
             context.textCmdProcessors.pop(name)
