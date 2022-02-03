@@ -57,7 +57,7 @@ class LineBlock(PluginInterface):
         # rounded element, default False
         valign = self.getElemValue(block, 'valign', "MIDDLE")
 
-        line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes)
+        line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes, valign)
 
         content = []
         content.append(line)
