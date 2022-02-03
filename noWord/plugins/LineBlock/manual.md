@@ -15,6 +15,7 @@ Inserts a horizontal line.
 | color      |  (optional) color of the line     |  black |
 | thickness      |  (optional) thickness of the line in cm   |  0.5 |
 | rounded      |  (optional) render line rounded    |  False
+| valign      |  (optional) vertical alignment (TOP, MIDDLE, BOTTOM)    |  MIDDLE
 
 Example:
 ```YAML
