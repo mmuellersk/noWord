@@ -540,13 +540,14 @@ class Hline(Flowable):
         self.cap = 1 if rounded else 2
         self.dashes = dashes
         self.hpos = 0
+        self.valign = valign
 
     def wrap(self, availWidth, availHeight):
-        if valign == "TOP":
+        if self.valign == "TOP":
             self.hpos = 0
-        if valign == "MIDDLE":
+        if self.valign == "MIDDLE":
             self.hpos = availHeight/2
-        if valign == "BOTTOM":
+        if self.valign == "BOTTOM":
             self.hpos = availHeight
         return (self.width, self.thickness)
 
