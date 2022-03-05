@@ -125,6 +125,9 @@ class NWProcContext:
                                   cmd, textProcessed)
             else:
                 return textProcessed
+            else:
+                txt = txt.replace("{{%s:%s}}" %
+                                  cmd, str(textProcessed))
 
             if txt == originalTxt:
                 break
