@@ -10,7 +10,8 @@ def availableTransformations():
         'selectFirst',
         'autonumber',
         'sort',
-        'distinctFirstToken'
+        'distinctFirstToken',
+        'replace'
     ]
 
     return transformations
@@ -127,5 +128,24 @@ def distinctFirstToken( input, params, context):
                     entry = {}
                     entry[params['key']] = token
                     outputRes.append(entry)
+
+    return outputRes
+
+def replace( input, params, context):
+
+    inputRes = context.getResource(context.resources, input)
+
+    outputRes = []
+
+    key = params["key"]
+    old = params["old"]
+    new = params["new"]
+
+    if inputRes is not None:
+
+        for item in inputRes :
+            newitem = deepcopy(item)
+            newitem[key] = item[key].replace(old, new)
+            outputRes.append(newitem)
 
     return outputRes
