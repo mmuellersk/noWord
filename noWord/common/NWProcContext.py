@@ -123,7 +123,7 @@ class NWProcContext:
             if isinstance(textProcessed, str):
                 txt = txt.replace("{{%s:%s}}" %
                                   cmd, textProcessed)
-            else:
+            elif isinstance(textProcessed, list):
                 return textProcessed
             else:
                 txt = txt.replace("{{%s:%s}}" %
