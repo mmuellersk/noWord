@@ -101,3 +101,9 @@ def deserialize(path):
             print("Could not deserialize file " + path)
 
     return data
+
+def saveJson(filename,data):
+    filename = os.path.normpath(filename)
+    
+    with open( filename, 'w') as outfile:
+        json.dump(data, outfile)

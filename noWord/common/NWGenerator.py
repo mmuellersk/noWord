@@ -199,6 +199,8 @@ class NWGenerator:
 
         self.doc.build(outputfile, self.context, content)
 
+        self.saveExecInfo()
+
         self.printExecutionSuccess(self.context.pageCounter.pageCount)
 
     def processFolder(self, path):
@@ -232,3 +234,17 @@ class NWGenerator:
         with open(dumpoutputfile, 'w', encoding='utf-8') as f:
             prettyPrinter = pprint.PrettyPrinter(indent=4, stream=f)
             prettyPrinter.pprint(content)
+
+    def saveExecInfo(self):
+
+        outputMetaFile = os.path.join(
+            self.context.outputPath,
+            "exec_info.json")
+
+        exec_info = {}
+        exec_info["timestamp"] = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+        exec_info["outputfilename"] = self.context.docInfo["outputFileTemplate"]
+        exec_info["outputfolder"] = self.context.outputPath
+        exec_info["generatedPages"] = self.context.pageCounter.pageCount
+
+        cmn_utils_fs.saveJson(outputMetaFile,exec_info)
