@@ -79,6 +79,16 @@
 		"description": "nword - insert image block"
 	},
 
+	"noword - resource": {
+    	"prefix": "bre",
+    	"body": [
+			"- type     : resource",
+			"  alias    : .",
+			"  filename : ."
+		],
+		"description": "nword - insert resource block"
+	},
+
 	"noword - newpage": {
     	"prefix": "bnp",
     	"body": [
