@@ -100,6 +100,20 @@
 		"description": "nword - insert foreach block"
 	},
 
+	"noword - transformation": {
+    	"prefix": "btr",
+    	"body": [
+			"- type     : transformation",
+			"  transformation : sort",
+			"  input    : . ",
+			"  output   : . ",
+			"  params   : ",
+			"    key      : .",
+			"    reverse  : True"
+		],
+		"description": "nword - insert transformation block"
+	},
+
 	"noword - newpage": {
     	"prefix": "bnp",
     	"body": [
