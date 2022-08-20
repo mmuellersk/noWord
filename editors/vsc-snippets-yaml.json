@@ -89,6 +89,17 @@
 		"description": "nword - insert resource block"
 	},
 
+	"noword - foreach": {
+    	"prefix": "bfr",
+    	"body": [
+			"- type     : foreach",
+			"  resource : .",
+			"  content  :",
+			"     "
+		],
+		"description": "nword - insert foreach block"
+	},
+
 	"noword - newpage": {
     	"prefix": "bnp",
     	"body": [
