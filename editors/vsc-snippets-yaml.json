@@ -1,0 +1,97 @@
+{
+	"nword - chapter": {
+	 	"prefix": "bc",
+	 	"body": [
+	 		"- type  : chapter",
+	 		"  title : >",
+			"     "
+	 	],
+	 	"description": "nword - insert chapter block"
+	},
+
+	"nword - chapter 1": {
+		"prefix": "bc1",
+		"body": [
+			"- type  : chapter",
+			"  level : 1",
+			"  title : >",
+		   "     "
+		],
+		"description": "nword - insert chapter 1 block"
+   },
+
+   "nword - chapter 2": {
+	   "prefix": "bc2",
+	   "body": [
+		   "- type  : chapter",
+		   "  level : 2",
+		   "  title : >",
+		  "     "
+	   ],
+	   "description": "nword - insert chapter 2 block"
+  },
+
+	"noword - text": {
+    	"prefix": "bte",
+    	"body": [
+			"- type    : text",
+			"  content : >",
+			"    "
+		],
+		"description": "nword - insert text block"
+	},
+
+	"noword - table": {
+    	"prefix": "bta",
+    	"body": [
+			"- type    : table",
+			"  header  : ['#', Action]",
+			"  keys    : [col1, col2]",
+			"  widths  : [1,15]",
+			"  halign  : LEFT",
+			"  rows    :",
+			"    - col1: .",
+			"             ",
+			"      col2: >",
+			"         "
+		],
+		"description": "nword - insert table block"
+	},
+
+	"noword - list": {
+    	"prefix": "bls",
+    	"body": [
+			"- type    : list",
+			"  content : ",
+			"    - >",
+			"      "
+		],
+		"description": "nword - insert list block"
+	},
+
+	"noword - image": {
+    	"prefix": "bim",
+    	"body": [
+			"- type     : image",
+			"  width    : 12",
+			"  filename : ."
+		],
+		"description": "nword - insert image block"
+	},
+
+	"noword - newpage": {
+    	"prefix": "bnp",
+    	"body": [
+			"- type     : newpage"
+		],
+		"description": "nword - insert newpage block"
+	},
+
+	"noword - nevspacewpage": {
+    	"prefix": "bvs",
+    	"body": [
+			"- type     : vspace"
+		],
+		"description": "nword - insert vspace block"
+	}
+}
