@@ -88,10 +88,11 @@ def makeTable(context, path, headers, lines, widths=[],
                       context.styleSheet["highlightBackground"]))
 
     for item in bgcolor:
+        print(context.processTextCmds(item["color"]))
         style.append(("BACKGROUND",
                       (item["from"][0], item["from"][1]),
                       (item["to"][0], item["to"][1]),
-                      item["color"]))
+                      context.processTextCmds(item["color"])))
 
     if len(customStyle) > 0:
         style = customStyle
