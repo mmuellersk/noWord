@@ -21,7 +21,7 @@ Allows render charts with loaded data.
 | lineWidths  |      |
 | backgroundColor  |      |
 | borderColor  |      |
-| lineLabelFormat  |      |
+| lineLabelFormat  |   Formats the line labels. These labels are drawn close to plotted lines. If this parameter is not defined - no labels are rendered.   |
 | yAxisMin  |      |
 | yAxisMax  |      |
 | yAxisStep  |      |

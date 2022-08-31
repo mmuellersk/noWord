@@ -106,7 +106,7 @@ class ChartBlock(PluginInterface):
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
         if mode == 'plotchart':
-            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors)
+            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, lineLabelFormat)
         if mode == 'piechart':
             return self.makePieChart(context, width, height, data, backgroundColor)
 
@@ -232,7 +232,7 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makePlotChart(self, context, width, height, data, xvalues, linecolors):
+    def makePlotChart(self, context, width, height, data, xvalues, linecolors, lineLabelFormat):
         content = []
 
         drawing = Drawing(width, height)
@@ -244,7 +244,8 @@ class ChartBlock(PluginInterface):
         plot.width = width
         plot.data = data
         plot.joinedLines = 1
-        plot.lineLabelFormat = '%2.0f'
+        if lineLabelFormat is not None :
+            plot.lineLabelFormat = lineLabelFormat
 
         i = 0
         for color in linecolors :
