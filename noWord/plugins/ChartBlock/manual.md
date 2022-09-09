@@ -25,6 +25,7 @@ Allows render charts with loaded data.
 | yAxisMin  |      |
 | yAxisMax  |      |
 | yAxisStep  |      |
+| yValueGrid | Display horizontal grid lines |
 
 
 Example:

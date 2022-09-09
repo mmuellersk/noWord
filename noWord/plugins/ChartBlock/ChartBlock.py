@@ -98,6 +98,7 @@ class ChartBlock(PluginInterface):
         yAxisMin = block["yAxisMin"] if "yAxisMin" in block else None
         yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
         yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
+        yValueGrid = block["yValueGrid"] if "yValueGrid" in block else None
 
         if mode == 'linechart':
             return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
@@ -106,7 +107,7 @@ class ChartBlock(PluginInterface):
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
         if mode == 'plotchart':
-            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, lineLabelFormat)
+            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, lineLabelFormat, yValueGrid)
         if mode == 'piechart':
             return self.makePieChart(context, width, height, data, backgroundColor)
 
@@ -232,7 +233,7 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makePlotChart(self, context, width, height, data, xvalues, linecolors, lineLabelFormat):
+    def makePlotChart(self, context, width, height, data, xvalues, linecolors, lineLabelFormat, yValueGrid):
         content = []
 
         drawing = Drawing(width, height)
@@ -244,6 +245,11 @@ class ChartBlock(PluginInterface):
         plot.width = width
         plot.data = data
         plot.joinedLines = 1
+
+        if yValueGrid is not None:
+            if yValueGrid == True :
+                plot.yValueAxis.visibleGrid=1
+
         if lineLabelFormat is not None :
             plot.lineLabelFormat = lineLabelFormat
 
