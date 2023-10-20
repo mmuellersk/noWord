@@ -3,7 +3,7 @@ import re
 import mimetypes as mime
 from hashlib import sha1
 
-from reportlab.platypus import Flowable, BaseDocTemplate, Image, Spacer
+from reportlab.platypus import Paragraph, Flowable, BaseDocTemplate, Image, Spacer
 from reportlab.platypus import ListFlowable, Table, TableStyle
 from reportlab.lib import utils, colors
 from reportlab.lib.units import cm, mm
@@ -20,6 +20,13 @@ allowedImages = [
     "image/x-ms-bmp",
     "image/tiff",
     "image/gif"]
+
+def resolveAllTokens(context, text, style=None):
+    if style is None:
+        style = context.styleSheet["BodyText"]
+    p = Paragraph(context.processTextCmds(text), style)
+    context.doc.paragraphs.append(p)
+    return p
 
 def makeList(context, items, numbered=False, start=1, itemSpace=6):
     kwargs = {"bulletDedent": 15,
@@ -76,7 +83,7 @@ def makeTable(context, path, headers, lines, widths=[],
 
     for col in headers:
         headersLine.append(
-            context.paragraph("<b>" + col + "</b>", context.styleSheet["BodyText"]))
+            resolveAllTokens(context, "<b>" + col + "</b>", context.styleSheet["BodyText"]))
     if len(headers) > 0:
         tableData.append(headersLine)
         style.append(("BACKGROUND", (0, 0), (-1, 0),
@@ -105,7 +112,7 @@ def makeTable(context, path, headers, lines, widths=[],
                 lineData.append(content)
             else:
                 lineData.append(
-                    context.paragraph(col, context.styleSheet["BodyText"]))
+                    resolveAllTokens( context, col, context.styleSheet["BodyText"]))
 
         tableData.append(lineData)
 

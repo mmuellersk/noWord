@@ -8,6 +8,7 @@ from reportlab.lib.styles import ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class TitleBlock(PluginInterface):
@@ -63,6 +64,6 @@ class TitleBlock(PluginInterface):
 
         content = []
         content.append(
-            context.paragraph('%s' % title,
+            cmn_utils_rp.resolveAllTokens( context,'%s' % title,
                               context.styleSheet['Title%d' % level]))
         return content

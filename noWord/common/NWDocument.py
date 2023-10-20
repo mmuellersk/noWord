@@ -8,13 +8,22 @@ from reportlab.lib.units import cm, mm
 from reportlab.lib import colors
 from reportlab.lib.pagesizes import A3, A4, A5, A6, portrait, landscape
 
-from noWord.common.utils_rp import DocTemplateWithToc
+
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class NWDocument:
     def __init__(self, aDocInfo, aStyleSheet):
         self.docInfo = aDocInfo
         self.style = aStyleSheet
+        
+        self.pageCounter = cmn_utils_rp.PageCountBlocker()
+
+        self.dummies = []
+        self.buildBeginsCallbacks = []
+        
+        self.paragraphs = []
+        
 
         if "pageOrientation" in self.docInfo:
             self.orientation = self.docInfo["pageOrientation"]
@@ -42,7 +51,7 @@ class NWDocument:
                 if self.orientation == "landscape" \
                 else portrait(self.pageSize)
 
-        self.doc = DocTemplateWithToc('',
+        self.doc = cmn_utils_rp.DocTemplateWithToc('',
                                       outputfilepagesize=self.pageRect,
                                       leftMargin=self.style["marginL"], rightMargin=self.style["marginR"],
                                       topMargin=self.style["marginT"], bottomMargin=self.style["marginB"])
@@ -77,7 +86,7 @@ class NWDocument:
     def setStyleSheet(self, aStyleSheet):
         self.style = aStyleSheet
 
-        self.doc = DocTemplateWithToc('',
+        self.doc = cmn_utils_rp.DocTemplateWithToc('',
                                       outputfilepagesize=self.pageRect,
                                       leftMargin=self.style["marginL"], rightMargin=self.style["marginR"],
                                       topMargin=self.style["marginT"], bottomMargin=self.style["marginB"])
@@ -104,6 +113,23 @@ class NWDocument:
 
         self.doc.setDefaultTemplate(self.orientation)
 
+    def buildBegins(self):
+        [f() for f in self.buildBeginsCallbacks]
+        if not self.pageCounter.firstRun:
+            for dummy in self.dummies:
+                dummy.enable(False)
+    
+    # Called at the beginning of each page, only used to show progression
+    def pageBegins(self, canvas):
+        # Printing progression
+        # Go to beginning of the line and erase it (does not work on sublime)
+        # sys.stdout.write("\r\033[K")
+        sys.stdout.write("%s build, " % (
+            "Temporary" if self.pageCounter.firstRun else "Final"))
+        sys.stdout.write("rendering page " + str(canvas.getPageNumber()) + " of " + (str(
+            self.pageCounter.pageCount) if self.pageCounter.pageCount > 0 else "unknown") + "\n")
+        sys.stdout.flush()
+
     def addDecoration(self, funcObj, enabled=True):
         self.availableDecorations.append(funcObj)
         if enabled: self.enabledDecorations.append(funcObj)
@@ -118,16 +144,20 @@ class NWDocument:
         return self.pageRect[0] - self.style["marginL"] - self.style["marginR"]
 
     def build(self, aFileName, context, content):
+        
         self.context = context
         self.doc.filename = aFileName
+        
+        content.append(self.pageCounter)
+        
         self.doc.multiBuild(content)
 
     def drawDecoration(self, canvas, doc):
         canvas.saveState()
-        self.context.pageBegins(canvas)
+        self.pageBegins(canvas)
 
         # Inject page count in documentData as it is needed to render the footer
-        self.docInfo["pageCount"] = self.context.pageCounter.pageCount
+        self.docInfo["pageCount"] = self.pageCounter.pageCount
 
         # Call all page drawers
         [drawer(canvas, doc, self.docInfo, self.style)

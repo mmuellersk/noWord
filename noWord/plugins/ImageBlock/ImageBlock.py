@@ -66,7 +66,7 @@ class ImageBlock(PluginInterface):
 
         image = cmn_utils_rp.getImage(path, width, dummy=True)
         context.dummies.append(image)
-        imgData = [[image], [context.paragraph(
+        imgData = [[image], [cmn_utils_rp.resolveAllTokens( context, 
             caption, context.styleSheet["ImageCaption"])]]
         imgTable = Table(imgData)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
