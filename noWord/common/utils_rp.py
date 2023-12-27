@@ -94,7 +94,7 @@ def makeTable(context, path, headers, lines, widths=[],
                       context.processTextCmds(item["color"])))
 
     if len(customStyle) > 0:
-        style = customStyle
+        style = context.styleSheet[customStyle]
 
     for line in lines:
         lineData = []
@@ -528,53 +528,6 @@ class Sticker(Flowable):
         self.paragraph.drawOn(
             self.canv, self.radius - self.pw / 2, self.radius - self.ph / 2 + self.hoffset)
         self.canv.restoreState()
-
-
-
-# Draw a horizontal line
-class Hline(Flowable):
-    def __init__(self, width, color=colors.black, thickness=0.5, rounded=True, dashes=[1, 0], valign="MIDDLE"):
-        self.width = width
-        self.color = color
-        self.thickness = thickness
-        self.cap = 1 if rounded else 2
-        self.dashes = dashes
-        self.hpos = 0
-        self.valign = valign
-
-    def wrap(self, availWidth, availHeight):
-        if self.valign == "TOP":
-            self.hpos = 0
-        if self.valign == "MIDDLE":
-            self.hpos = availHeight/2
-        if self.valign == "BOTTOM":
-            self.hpos = availHeight
-        return (self.width, self.thickness)
-
-    def draw(self):
-        self.canv.saveState()
-        self.canv.setLineWidth(self.thickness)
-        self.canv.setStrokeColor(self.color)
-        self.canv.setLineCap(self.cap)
-        self.canv.setDash(*self.dashes)
-        self.canv.line(-self.hpos, -self.hpos, self.width, -self.hpos)
-        self.canv.restoreState()
-
-    def __str__(self):
-        return self.__repr__(self)
-
-    def __repr__(self):
-        str = 'noWord.%s (\n' % 'Hline'
-        str += 'width: %s,\n' % self.width
-        str += 'color: %s,\n' % self.color
-        str += 'thickness: %s,\n' % self.thickness
-        str += 'cap: %s,\n' % self.cap
-        str += 'dashes: %s,\n' % self.dashes
-        str += 'valign: %s,\n' % self.valign
-        str += ') noWord.#%s ' % 'Hline'
-
-        return str
-
 
 
 # Draw a progress bar
