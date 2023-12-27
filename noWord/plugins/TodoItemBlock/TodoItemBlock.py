@@ -10,6 +10,7 @@ from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_rp as cmn_utils_rp
 
 
 class TodoItemBlock(PluginInterface):
@@ -104,8 +105,8 @@ class TodoItemBlock(PluginInterface):
 
         tableData = []
 
-        tableData.append([context.paragraph(icon),
-                          context.paragraph(text, textStyle)])
+        tableData.append([cmn_utils_rp.resolveAllTokens( context, icon),
+                          cmn_utils_rp.resolveAllTokens( context, text, textStyle)])
 
         todoTable = Table(tableData, [iconWidth, width - iconWidth])
         todoTable.hAlign = TA_LEFT

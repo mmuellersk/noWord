@@ -18,14 +18,30 @@ def availableTransformations():
 
 def merge( input, params, context):
 
-    targetResource = {}
+    if params['format'] == 'dict':
 
-    if isinstance( input, list):
-        for resourceName in input:
-            data = context.getResource(context.resources, resourceName)
-            targetResource.update(deepcopy(data))
+        targetResource = {}
 
-    return targetResource
+        if isinstance( input, list):
+            for resourceName in input:
+                data = context.getResource(context.resources, resourceName)
+                targetResource.update(deepcopy(data))
+
+        return targetResource
+
+    elif params['format'] == 'list':
+
+        targetResource = []
+
+        if isinstance( input, list):
+            for resourceName in input:
+                data = context.getResource(context.resources, resourceName)
+                targetResource.extend(deepcopy(data))
+
+        return targetResource
+    
+    else:
+        return ''
 
 def slice( input, params, context):
 

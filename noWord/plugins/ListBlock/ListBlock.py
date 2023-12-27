@@ -59,12 +59,12 @@ class ListBlock(PluginInterface):
                     items.append(KeepTogether(content))
                 else:
                     items.append(
-                        context.paragraph(item, style))
+                        cmn_utils_rp.resolveAllTokens( context, item, style))
         elif isinstance(block["content"], str):
             resourceData = context.getResource(
                 context.resources, block["content"])
             for item in resourceData:
                 items.append(
-                    context.paragraph(item, style))
+                    cmn_utils_rp.resolveAllTokens( context, item, style))
 
         return cmn_utils_rp.makeList(context, items, numbered, start, itemSpace)

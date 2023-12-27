@@ -10,6 +10,7 @@ from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
 from noWord.common.PluginInterface import PluginInterface
+import noWord.common.utils_rp as cmn_utils_rp
 
 from TOCBuilder import TOCBuilder
 
@@ -111,10 +112,10 @@ class ChapterBlock(PluginInterface):
 
         tocEntry = context.toc.createTOCEntry(finalText, level)
 
-        chapter = context.paragraph("<a name=\"%s\"/>%s" %
+        chapter = cmn_utils_rp.resolveAllTokens( context, "<a name=\"%s\"/>%s" %
                                     (tocEntry._link, finalText), style)
-        context.paragraphs.append(tocEntry)
-        context.paragraphs.append(chapter)
+        context.doc.paragraphs.append(tocEntry)
+        context.doc.paragraphs.append(chapter)
 
         result = [CondPageBreak(2 * cm)]
         if toc:

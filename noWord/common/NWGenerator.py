@@ -2,7 +2,6 @@
 import os
 import sys
 import getpass
-import reportlab.lib.enums
 import copy
 import sys
 import datetime
@@ -176,7 +175,7 @@ class NWGenerator:
 
         # process blocks
         content = []
-        content.append(cmn_utils_rp.TriggerFlowable(self.context.buildBegins))
+        content.append(cmn_utils_rp.TriggerFlowable(self.doc.buildBegins))
 
         for block in blocks:
             plugin = self.pluginMng.findPlugin(block['type'])
@@ -201,7 +200,7 @@ class NWGenerator:
 
         self.saveExecInfo()
 
-        self.printExecutionSuccess(self.context.pageCounter.pageCount)
+        self.printExecutionSuccess(self.doc.pageCounter.pageCount)
 
     def processFolder(self, path):
         for item in sorted(os.listdir(path)):
@@ -245,6 +244,6 @@ class NWGenerator:
         exec_info["timestamp"] = datetime.datetime.now().strftime("%d/%m/%Y %H:%M:%S")
         exec_info["outputfilename"] = self.context.docInfo["outputFileTemplate"]
         exec_info["outputfolder"] = self.context.outputPath
-        exec_info["generatedPages"] = self.context.pageCounter.pageCount
+        exec_info["generatedPages"] = self.doc.pageCounter.pageCount
 
         cmn_utils_fs.saveJson(outputMetaFile,exec_info)

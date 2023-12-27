@@ -37,9 +37,15 @@ class ResourceBlock(PluginInterface):
         elif 'folder' in block:
             folder = os.path.join( block['_path'], block['folder'])
             recursive = self.getElemValue(block, 'recursive', False)
+            filekey = self.getElemValue(block, 'filekey', '')
+
             files = []
-            for type in file_types:
-                files.extend(glob.glob(os.path.join(folder, type),recursive=recursive))
+            if not filekey:
+                for type in file_types:
+                    files.extend(glob.glob(os.path.join(folder, type),recursive=recursive))
+            else:
+                files = glob.glob(os.path.join(folder, filekey),recursive=recursive)
+            
             data=[]
             for file in files:
                 data.append( cmn_utils_fs.deserialize(file))

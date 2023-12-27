@@ -33,10 +33,11 @@ class TextBlock(PluginInterface):
         content = block['content']
 
         style = context.styleSheet[styleName]
-        text = context.paragraph(content, style)
+        text = cmn_utils_rp.resolveAllTokens( context, content, style)
 
         if "vertical" in block:
             if block["vertical"] == "true":
-                text = cmn_utils_rp.VerticalText(context.paragraph(content, style))
+                text = cmn_utils_rp.VerticalText(
+                    cmn_utils_rp.resolveAllTokens( context, content, style))
         
         return [text] 
