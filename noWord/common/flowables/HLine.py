@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 
 from reportlab.platypus import Flowable
-from reportlab.lib import utils, colors
+from reportlab.lib import colors
 
 
 
