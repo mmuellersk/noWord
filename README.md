@@ -78,6 +78,7 @@ Back to [Top](#top)
 * [Anchor block](noWord/plugins/AnchorBlock/manual.md#manual)
 * [Decoration block](noWord/plugins/DecorationBlock/manual.md#manual)
 * [StickToBottom block](noWord/plugins/StickToBottomBlock/manual.md#manual)
+* [Measure block](noWord/plugins/MeasureBlock/manual.md#manual)
 
 ### <a name="block_data"></a> External data processing
 * [Resource block](noWord/plugins/ResourceBlock/manual.md#manual)
