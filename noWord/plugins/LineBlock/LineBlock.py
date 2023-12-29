@@ -7,7 +7,7 @@ sys.path.insert(0, '...')
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
-import noWord.common.utils_rp as cmn_utils_rp
+from noWord.common.flowables.HLine import HLine
 
 from noWord.common.PluginInterface import PluginInterface
 
@@ -39,14 +39,7 @@ class LineBlock(PluginInterface):
             cm if "width" in block else context.doc.currentWidth()
 
         # color element, default black
-        color = colors.black
-        if "color" in block :
-            if block["color"] in context.styleSheet :
-                color = context.styleSheet[block["color"]]
-            else :
-                color = colors.HexColor(block["color"])
-
-
+        color = self.resolveColor(block, context, "color", colors.black)
 
         # thickness element, default 0.5
         thickness = self.getElemValue(block, 'thickness', 0.5)
@@ -54,10 +47,7 @@ class LineBlock(PluginInterface):
         # rounded element, default False
         rounded = self.getElemValue(block, 'rounded', False)
 
-        # rounded element, default False
-        valign = self.getElemValue(block, 'valign', "MIDDLE")
-
-        line = cmn_utils_rp.Hline(width, color, thickness, rounded, dashes, valign)
+        line = HLine(width, color, thickness, rounded, dashes)
 
         content = []
         content.append(line)

@@ -5,7 +5,7 @@ import copy
 from noWord.common.DefaultStyles import styles
 
 import noWord.common.utils_di as cmn_utils_di
-import noWord.common.utils_rp as cmn_utils_rp
+from noWord.common.flowables.Metadata import Metadata
 
 
 class NWProcContext:
@@ -112,7 +112,7 @@ class NWProcContext:
                 self.docInfo[templateKey] = ""
 
         # Define metadata, not mandatory but cleaner
-        metadata = cmn_utils_rp.Metadata(
+        metadata = Metadata(
             *[self.docInfo[template] for template in
                 ["documentMetaTitleTemplate",
                  "documentMetaAuthorTemplate",

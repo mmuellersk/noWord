@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+from reportlab.lib import colors
+
 
 class PluginInterface:
     def __init__(self):
@@ -38,3 +40,16 @@ class PluginInterface:
                 elem = block[aKey][aSubKey]
 
         return elem
+    
+    # resolves color value: 
+    # - checks sting in style sheet
+    # - uses hax value
+    def resolveColor(self, block, context, colorKey, defaultColor):
+        color = defaultColor
+        if colorKey in block :
+            if block[colorKey] in context.styleSheet :
+                color = context.styleSheet[block[colorKey]]
+            else :
+                color = colors.HexColor(block[colorKey])
+        
+        return color

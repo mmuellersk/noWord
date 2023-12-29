@@ -7,7 +7,7 @@ sys.path.insert(0, '...')
 from reportlab.lib import colors
 from reportlab.lib.units import cm
 
-import noWord.common.utils_rp as cmn_utils_rp
+from noWord.common.flowables.ProgressBar import ProgressBar
 
 from noWord.common.PluginInterface import PluginInterface
 
@@ -51,7 +51,7 @@ class ProgressBarBlock(PluginInterface):
                 color = colors.red
 
 
-        progressbar = cmn_utils_rp.ProgressBar(width, height*cm, ratio, color, thickness)
+        progressbar = ProgressBar(width, height*cm, ratio, color, thickness)
 
         content = []
         content.append(progressbar)

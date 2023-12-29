@@ -101,7 +101,7 @@ def makeTable(context, path, headers, lines, widths=[],
                       context.processTextCmds(item["color"])))
 
     if len(customStyle) > 0:
-        style = customStyle
+        style = context.styleSheet[customStyle]
 
     for line in lines:
         lineData = []
@@ -152,19 +152,6 @@ def getImage(filename, width, dummy=False):
 
     return DummyFlowable(Spacer(width, height), img, dummy)
 
-
-def optimalWidth(par, maxWidth, maxHeight):
-    w, minHeight = par.wrap(maxWidth, maxHeight)
-    totalMM = int(w / mm)
-
-    while totalMM > 0:
-        totalMM -= 1
-        w, h = par.wrap(totalMM * mm, maxHeight)
-        if h > minHeight:
-            totalMM += 1
-            break
-
-    return totalMM * mm
 
 # This class provides a proxy that forwards all reportlab calls to a temporary or a final
 # embedded flowable, depending on its state. This allows to insert a temporary object and
@@ -376,44 +363,6 @@ class DocTemplateWithToc(BaseDocTemplate):
                 self._firstPageTemplateIndex = idx
                 return
 
-# This class is a trick to define ALL pdf metadata. Some are settable from the docTemplate
-# like author, subject etc, but creator and producer would always be set to the default
-# "ReportLab PDF Library - www.reportlab.com" string.
-
-
-class Metadata(Flowable):
-    def __init__(self, title="", author="", subject="", keywords="", creator="", producer=""):
-        Flowable.__init__(self)
-        self.title = title
-        self.author = author
-        self.subject = subject
-        self.keywords = keywords
-        self.creator = creator
-        self.producer = producer
-
-    def draw(self):
-        infos = self.canv._doc.info
-        infos.title = self.title
-        infos.author = self.author
-        infos.subject = self.subject
-        infos.keywords = self.keywords
-        infos.creator = self.creator
-        infos.producer = self.producer
-        return
-
-    def __str__(self):
-        return self.__repr__(self)
-
-    def __repr__(self):
-        str = 'noWord.%s (\n' % 'Metadata'
-        str += 'title: %s,\n' % self.title
-        str += 'author: %s,\n' % self.author
-        str += 'subject: %s,\n' % self.subject
-        str += 'keywords: %s,\n' % self.keywords
-        str += 'creator: %s,\n' % self.creator
-        str += 'producer: %s\n' % self.producer
-        str += ') noWord.#%s ' % 'Metadata'
-        return str
 
 # This empty flowable inserts a bookmark in the canvas at its position, it is intended to
 # be used in conjunction with a KeepTogether flowable to ensure that the bookmark will be
@@ -480,144 +429,7 @@ class PageCountBlocker(Flowable):
 
         return str
 
-# This class is a workaround to be able to draw vertical text. It will directly draw on
-# the canvas, getting its content and style from the provided paragraph, so the width and
-# height it will use is NOT dynamic, ensure you have enough space when you use it.
 
-
-class VerticalText(Flowable):
-    def __init__(self, paragraph, xoffset=0, yoffset=0):
-        Flowable.__init__(self)
-        self.paragraph = paragraph
-        self.w = 0
-        self.xoffset = xoffset
-        self.yoffset = yoffset
-
-    def wrap(self, w, h):
-        w, h = self.paragraph.wrap(h, w)
-        self.w = h
-        self.h = optimalWidth(self.paragraph, 20*cm, 20*cm)
-        return self.w, self.h
-
-    def draw(self):
-        self.paragraph.wrap(self.h, self.w)
-        self.canv.saveState()
-        self.canv.translate(self.xoffset + self.w, self.yoffset)
-        self.canv.rotate(90)
-        self.paragraph.drawOn(self.canv, 0, 0)
-        self.canv.restoreState()
-
-# Draw a text inside a colored circle, the hoffset can be used to fix the vertical
-# alignment of the text inside the circle, as paragraph object seems so report wrong
-# height when it uses custom fonts.
-
-
-class Sticker(Flowable):
-    def __init__(self, paragraph, backColor, padding=0.1*cm, hoffset=0):
-        self.paragraph = paragraph
-        self.backColor = backColor
-        self.padding = padding
-        self.hoffset = hoffset
-
-    def wrap(self, availWidth, availHeight):
-        maxWidth = min(availWidth, availHeight)
-        w, h = self.paragraph.wrap(maxWidth, maxWidth)
-        w = self.paragraph.minWidth()
-        self.pw, self.ph = self.paragraph.wrap(w, h)
-        self.radius = max(self.pw, self.ph) / 2 + self.padding
-        return 2 * [2 * self.radius]
-
-    def draw(self):
-        self.canv.saveState()
-        self.canv.setFillColor(self.backColor)
-        self.canv.circle(self.radius, self.radius,
-                         self.radius, stroke=0, fill=1)
-        self.paragraph.drawOn(
-            self.canv, self.radius - self.pw / 2, self.radius - self.ph / 2 + self.hoffset)
-        self.canv.restoreState()
-
-
-
-# Draw a horizontal line
-class Hline(Flowable):
-    def __init__(self, width, color=colors.black, thickness=0.5, rounded=True, dashes=[1, 0], valign="MIDDLE"):
-        self.width = width
-        self.color = color
-        self.thickness = thickness
-        self.cap = 1 if rounded else 2
-        self.dashes = dashes
-        self.hpos = 0
-        self.valign = valign
-
-    def wrap(self, availWidth, availHeight):
-        if self.valign == "TOP":
-            self.hpos = 0
-        if self.valign == "MIDDLE":
-            self.hpos = availHeight/2
-        if self.valign == "BOTTOM":
-            self.hpos = availHeight
-        return (self.width, self.thickness)
-
-    def draw(self):
-        self.canv.saveState()
-        self.canv.setLineWidth(self.thickness)
-        self.canv.setStrokeColor(self.color)
-        self.canv.setLineCap(self.cap)
-        self.canv.setDash(*self.dashes)
-        self.canv.line(-self.hpos, -self.hpos, self.width, -self.hpos)
-        self.canv.restoreState()
-
-    def __str__(self):
-        return self.__repr__(self)
-
-    def __repr__(self):
-        str = 'noWord.%s (\n' % 'Hline'
-        str += 'width: %s,\n' % self.width
-        str += 'color: %s,\n' % self.color
-        str += 'thickness: %s,\n' % self.thickness
-        str += 'cap: %s,\n' % self.cap
-        str += 'dashes: %s,\n' % self.dashes
-        str += 'valign: %s,\n' % self.valign
-        str += ') noWord.#%s ' % 'Hline'
-
-        return str
-
-
-
-# Draw a progress bar
-class ProgressBar(Flowable):
-    def __init__(self, width, height, ratio, color=colors.blue, thickness=0.5):
-        self.width  = width
-        self.height = height
-        self.ratio  = ratio
-        self.color  = color
-        self.thickness = thickness
-
-    def wrap(self, *args):
-        return (self.width, self.height)
-
-    def draw(self):
-        self.canv.saveState()
-        self.canv.setLineWidth(self.thickness)
-        self.canv.setStrokeColor(self.color)
-        self.canv.setFillColor(self.color)
-        self.canv.rect(0, 0, self.width, self.height)
-        self.canv.rect(0, 0, self.width*self.ratio, self.height, fill=1)
-        self.canv.restoreState()
-
-    def __str__(self):
-        return self.__repr__(self)
-
-    def __repr__(self):
-        str = 'noWord.%s (\n' % 'ProgressBar'
-        str += 'width: %s,\n' % self.width
-        str += 'height: %s,\n' % self.height
-        str += 'ratio: %s,\n' % self.ratio
-        str += 'color: %s,\n' % self.color
-        str += 'thickness: %s,\n' % self.thickness
-        str += ') noWord.#%s ' % 'Hline'
-
-        return str
 
 
 class Layout(Flowable):
