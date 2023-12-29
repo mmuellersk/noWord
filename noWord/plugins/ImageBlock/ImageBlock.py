@@ -61,11 +61,11 @@ class ImageBlock(PluginInterface):
             width = 16 * cm
 
         if len(caption) > 0:
-            caption = str(context.currentImage) + ". " + caption
-        context.currentImage = context.currentImage + 1
+            caption = str(context.doc.currentImage) + ". " + caption
+        context.currentImage = context.doc.currentImage + 1
 
         image = cmn_utils_rp.getImage(path, width, dummy=True)
-        context.dummies.append(image)
+        context.doc.dummies.append(image)
         imgData = [[image], [cmn_utils_rp.resolveAllTokens( context, 
             caption, context.styleSheet["ImageCaption"])]]
         imgTable = Table(imgData)
