@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 import re
 import copy
+import os
 
 from noWord.common.DefaultStyles import styles
 
@@ -31,6 +32,16 @@ class NWProcContext:
 
         self.anchors = {}
         self.incs = {}
+        
+        self.readEnvironment()
+    
+    def readEnvironment(self):
+        env = {}
+        
+        for name, value in os.environ.items() :
+            env[name] = value
+        
+        self.resources = {"env": env}
 
     def addResource(self, key, value):
         self.resources[key] = value
