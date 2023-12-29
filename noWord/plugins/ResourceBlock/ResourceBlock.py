@@ -35,7 +35,9 @@ class ResourceBlock(PluginInterface):
             filename = context.processTextCmds(block['filename']).strip()
             data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
         elif 'folder' in block:
-            folder = os.path.join( block['_path'], block['folder'])
+            folder = context.processTextCmds(block['folder']).strip()
+            if (os.path.isdir(folder) == False):
+                folder = os.path.join( block['_path'], block['folder'])
             recursive = self.getElemValue(block, 'recursive', False)
             filekey = self.getElemValue(block, 'filekey', '')
 
