@@ -24,6 +24,8 @@ class NWDocument:
         
         self.paragraphs = []
         
+        self.currentImage = 0
+        
 
         if "pageOrientation" in self.docInfo:
             self.orientation = self.docInfo["pageOrientation"]
