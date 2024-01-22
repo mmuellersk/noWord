@@ -41,7 +41,7 @@ class NWProcContext:
         for name, value in os.environ.items() :
             env[name] = value
         
-        self.resources = {"env": env}
+        self.resources["env"] = env
 
     def addResource(self, key, value):
         self.resources[key] = value
