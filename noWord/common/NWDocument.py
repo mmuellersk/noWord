@@ -64,7 +64,7 @@ class NWDocument:
                                                   bottomPadding=self.style["marginB"],
                                                   rightPadding=self.style["marginR"],
                                                   topPadding=self.style["marginT"]),
-                                     onPageEnd=self.drawDecoration,
+                                     onPage=self.drawDecoration,
                                      pagesize=self.pageRect)
         self.doc.addPageTemplates(portraitTempl)
 
@@ -74,7 +74,7 @@ class NWDocument:
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
                                                    topPadding=self.style["marginT"]),
-                                      onPageEnd=self.drawDecoration,
+                                      onPage=self.drawDecoration,
                                       pagesize=self.pageRect)
         self.doc.addPageTemplates(landscapeTempl)
 
@@ -99,7 +99,7 @@ class NWDocument:
                                                   bottomPadding=self.style["marginB"],
                                                   rightPadding=self.style["marginR"],
                                                   topPadding=self.style["marginT"]),
-                                     onPageEnd=self.drawDecoration,
+                                     onPage=self.drawDecoration,
                                      pagesize=self.pageRect)
         self.doc.addPageTemplates(portraitTempl)
 
@@ -109,7 +109,7 @@ class NWDocument:
                                                    bottomPadding=self.style["marginB"],
                                                    rightPadding=self.style["marginR"],
                                                    topPadding=self.style["marginT"]),
-                                      onPageEnd=self.drawDecoration,
+                                      onPage=self.drawDecoration,
                                       pagesize=self.pageRect)
         self.doc.addPageTemplates(landscapeTempl)
 
