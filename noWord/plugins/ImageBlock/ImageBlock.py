@@ -66,9 +66,12 @@ class ImageBlock(PluginInterface):
 
         image = cmn_utils_rp.getImage(path, width, dummy=True)
         context.doc.dummies.append(image)
-        imgData = [[image], [cmn_utils_rp.resolveAllTokens( context, 
-            caption, context.styleSheet["ImageCaption"])]]
-        imgTable = Table(imgData)
+        imgData = [[image]]
+        if caption :
+            imgData.append(cmn_utils_rp.resolveAllTokens( context, 
+                                                         caption, context.styleSheet["ImageCaption"]))
+        widths = [width]
+        imgTable = Table(data=imgData,colWidths=widths)
         imgTable.setStyle(TableStyle([('ALIGN', (0, 0), (-1, -1), align),
                                       ('VALIGN', (0, 0), (-1, -1), align),
                                       ('LEFTPADDING', (0, 0), (-1, -1), padding),
