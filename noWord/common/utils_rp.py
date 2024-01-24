@@ -13,6 +13,8 @@ from pdfrw.buildxobj import pagexobj
 from pdfrw.toreportlab import makerl
 
 import noWord.common as cmn
+from noWord.common.flowables.PDFImage import PDFImage
+
 
 allowedImages = [
     "image/jpeg",
@@ -149,7 +151,7 @@ def getImage(filename, width, dummy=False):
     # Allow to insert a PDF page as an image, just like LaTeX does, this allows to insert
     # vector graphics.
     elif imageType == "application/pdf":
-        img = PDFSinglePage(filename, width=width, index=0)
+        img = PDFImage(filename, width)
         height = img.height
 
     else:
