@@ -3,9 +3,8 @@
 import sys
 sys.path.insert(0, '...')
 
-from reportlab.platypus import Paragraph, KeepTogether, Spacer
 from reportlab.lib.styles import ParagraphStyle
-from reportlab.platypus import CondPageBreak
+
 from reportlab.lib.units import cm
 from reportlab.lib.enums import TA_JUSTIFY, TA_LEFT, TA_RIGHT, TA_CENTER
 
@@ -96,42 +95,5 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
-        return self.makeChapter(context, title, level, toc,
+        return cmn_utils_rp.makeChapter(context, title, level, toc,
                                 numbered, self.sepChar, style, label)
-
-    def makeChapter(self, context, text, level, toc, numbered, sepChar, style, label=None):
-        content = []
-
-        finalText = context.processTextCmds(text)
-
-        numberLabel = ''
-
-        if numbered:
-            numberLabel = context.toc.renderChapterCounter(level, sepChar)
-            finalText = numberLabel + sepChar + ' ' + finalText
-
-        tocEntry = context.toc.createTOCEntry(finalText, level)
-
-        chapter = cmn_utils_rp.resolveAllTokens( context, "<a name=\"%s\"/>%s" %
-                                    (tocEntry._link, finalText), style)
-        context.doc.paragraphs.append(tocEntry)
-        context.doc.paragraphs.append(chapter)
-
-        result = [CondPageBreak(2 * cm)]
-        if toc:
-            result.append(tocEntry)
-
-        result.append(chapter)
-        result.append(Spacer(1, 12 if level == 0 else 6))
-        content.append(KeepTogether(result))
-
-        if label and numbered:
-            anchor = {}
-            anchor['_name'] = tocEntry._link
-            anchor['_label'] = numberLabel
-            anchor['_text'] = text
-            if anchor['_name'] in context.anchors:
-                print("Warning: overwriting bookmark " + anchor['_name'])
-            context.anchors[label] = anchor
-
-        return content
