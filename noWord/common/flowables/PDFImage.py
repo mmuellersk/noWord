@@ -16,8 +16,6 @@ class PDFImage(Flowable):
 
         self.width = width
         self.height = width / (self.page.BBox[2] / self.page.BBox[3])
-        
-        print(self.page.BBox)
 
     def wrap(self, availWidth, availHeight):
         return (self.width, self.height)
