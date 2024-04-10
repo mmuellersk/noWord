@@ -26,7 +26,7 @@ class ForeachBlock(PluginInterface):
     def process(self, block, context):
 
         # resource element
-        resource = block['resource']
+        resource = context.processTextCmds(block['resource']).strip()
 
         # content element
         content = block['content']

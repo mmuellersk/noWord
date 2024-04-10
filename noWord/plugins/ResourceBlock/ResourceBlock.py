@@ -36,8 +36,9 @@ class ResourceBlock(PluginInterface):
             data = cmn_utils_fs.deserialize(os.path.join(block['_path'], filename))
         elif 'folder' in block:
             folder = context.processTextCmds(block['folder']).strip()
+            
             if (os.path.isdir(folder) == False):
-                folder = os.path.join( block['_path'], block['folder'])
+                folder = os.path.join( block['_path'], folder)
             recursive = self.getElemValue(block, 'recursive', False)
             filekey = self.getElemValue(block, 'filekey', '')
 
@@ -51,6 +52,7 @@ class ResourceBlock(PluginInterface):
             data=[]
             for file in files:
                 data.append( cmn_utils_fs.deserialize(file))
+   
         elif 'fileselector' in block:
             fileselector = os.path.join( block['_path'], block['fileselector'])
             files = []
@@ -91,7 +93,7 @@ class ResourceBlock(PluginInterface):
 
 
         # alias element
-        alias = block['alias']
+        alias = context.processTextCmds(block['alias']).strip()
 
         # level element, default 1
         setGlobal = self.getElemValue(block, 'global', False)
