@@ -246,4 +246,6 @@ class NWGenerator:
         exec_info["outputfolder"] = self.context.outputPath
         exec_info["generatedPages"] = self.doc.pageCounter.pageCount
 
+        exec_info["meta"] = self.context.docInfo
+
         cmn_utils_fs.saveJson(outputMetaFile,exec_info)
