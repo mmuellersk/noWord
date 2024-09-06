@@ -99,6 +99,7 @@ class ChartBlock(PluginInterface):
         yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
         yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
         yValueGrid = block["yValueGrid"] if "yValueGrid" in block else None
+        yValueGridColor = block["yValueGridColor"] if "yValueGridColor" in block else None
 
         if mode == 'linechart':
             return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
@@ -107,7 +108,8 @@ class ChartBlock(PluginInterface):
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
         if mode == 'plotchart':
-            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, lineLabelFormat, yValueGrid)
+            return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, 
+                                        lineLabelFormat, yValueGrid, yValueGridColor, backgroundColor, borderColor, lineWidths)
         if mode == 'piechart':
             return self.makePieChart(context, width, height, data, backgroundColor)
 
@@ -233,7 +235,8 @@ class ChartBlock(PluginInterface):
 
         return content
 
-    def makePlotChart(self, context, width, height, data, xvalues, linecolors, lineLabelFormat, yValueGrid):
+    def makePlotChart(self, context, width, height, data, xvalues, lineColors, lineLabelFormat, yValueGrid, yValueGridColor,
+            backgroundColor, borderColor, lineWidths):
         content = []
 
         drawing = Drawing(width, height)
@@ -246,16 +249,28 @@ class ChartBlock(PluginInterface):
         plot.data = data
         plot.joinedLines = 1
 
+        if backgroundColor:
+            plot.fillColor = colors.HexColor(backgroundColor)
+
+        if borderColor:
+            plot.strokeColor = colors.HexColor(borderColor)
+
         if yValueGrid is not None:
             if yValueGrid == True :
                 plot.yValueAxis.visibleGrid=1
+                plot.yValueAxis.gridStrokeColor  = colors.HexColor(yValueGridColor)
 
         if lineLabelFormat is not None :
             plot.lineLabelFormat = lineLabelFormat
 
         i = 0
-        for color in linecolors :
+        for color in lineColors :
             plot.lines[i].strokeColor = colors.HexColor(color)
+            i+=1
+
+        i = 0
+        for width in lineWidths :
+            plot.lines[i].strokeWidth = width
             i+=1
 
         if xvalues :
