@@ -109,7 +109,7 @@ class ChartBlock(PluginInterface):
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
         if mode == 'plotchart':
             return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, 
-                                        lineLabelFormat, yValueGrid, yValueGridColor, backgroundColor, borderColor, lineWidths)
+                                        lineLabelFormat, yValueGrid, yValueGridColor, backgroundColor, borderColor, lineWidths, yAxisMin, yAxisMax)
         if mode == 'piechart':
             return self.makePieChart(context, width, height, data, backgroundColor)
 
@@ -236,7 +236,7 @@ class ChartBlock(PluginInterface):
         return content
 
     def makePlotChart(self, context, width, height, data, xvalues, lineColors, lineLabelFormat, yValueGrid, yValueGridColor,
-            backgroundColor, borderColor, lineWidths):
+            backgroundColor, borderColor, lineWidths, yAxisMin, yAxisMax):
         content = []
 
         drawing = Drawing(width, height)
@@ -254,6 +254,13 @@ class ChartBlock(PluginInterface):
 
         if borderColor:
             plot.strokeColor = colors.HexColor(borderColor)
+        
+
+        if yAxisMin is not None:
+            plot.yValueAxis.valueMin = yAxisMin
+
+        if yAxisMax is not None:
+            plot.yValueAxis.valueMax = yAxisMax
 
         if yValueGrid is not None:
             if yValueGrid == True :
