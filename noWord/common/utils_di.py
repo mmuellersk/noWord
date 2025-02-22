@@ -30,7 +30,7 @@ def flattenDicts(dictList, keys=[]):
     return [[d[k] if (k in d) else ' ' for k in keys] for d in dictList]
 
 def selectSubset( resource, query):
-    tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
+    tableRegex = re.compile(r'^([^\[\]]+)\[(\d+)\]$')
     path = query.split("/")
 
     for child in path:
