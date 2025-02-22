@@ -47,7 +47,7 @@ class NWProcContext:
         self.resources[key] = value
 
     def getResource(self, source, ref):
-        tableRegex = re.compile("^([^\[\]]+)\[(\d+)\]$")
+        tableRegex = re.compile(r'^([^\[\]]+)\[(\d+)\]$')
         parts = ref.split("/")
         alias = parts[0]
         path = parts[1:]
@@ -83,7 +83,7 @@ class NWProcContext:
 
     def processTextCmds(self, txt):
         txt = str(txt)
-        regex = re.compile("{{(.[a-z]*):(.[-a-zA-Z0-9._\/\[\]]*)?}}")
+        regex = re.compile(r'{{(.[a-z]*):(.[-a-zA-Z0-9._\/\[\]]*)?}}')
 
         while True:
             cmds = regex.findall(txt)
