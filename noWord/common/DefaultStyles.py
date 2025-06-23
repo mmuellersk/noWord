@@ -137,3 +137,12 @@ styles['Code'] = ParagraphStyle(name="Code",
                                 spaceBefore=6,
                                 spaceAfter=6,
                                 borderPadding=3)
+
+styles['Pre'] = ParagraphStyle(name="Pre",
+                                parent=styles['default'],
+                                fontName='Courier',
+                                fontSize=10,
+                                textColor=colors.black,
+                                spaceBefore=6,
+                                spaceAfter=6,
+                                borderPadding=3)

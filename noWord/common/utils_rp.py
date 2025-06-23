@@ -2,10 +2,12 @@ import os
 import re
 import mimetypes as mime
 from hashlib import sha1
+import sys
 
 from reportlab.platypus import Paragraph, Flowable, BaseDocTemplate
 from reportlab.platypus import KeepTogether, Image, Spacer
 from reportlab.platypus import CondPageBreak
+from reportlab.platypus import Preformatted
 from reportlab.platypus import ListFlowable, Table, TableStyle
 from reportlab.lib import utils, colors
 from reportlab.lib.units import cm, mm
@@ -31,6 +33,12 @@ def resolveAllTokens(context, text, style=None):
     p = Paragraph(context.processTextCmds(text), style)
     context.doc.paragraphs.append(p)
     return p
+
+def resolveAllTokensForPre(context, text):
+    style = context.styleSheet["Pre"]
+    p = Preformatted(context.processTextCmds(text), style)
+    return p
+
 
 def makeList(context, items, numbered=False, start=1, itemSpace=6):
     kwargs = {"bulletDedent": 15,
