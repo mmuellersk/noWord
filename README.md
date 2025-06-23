@@ -68,6 +68,7 @@ Back to [Top](#top)
 * [List block](noWord/plugins/ListBlock/manual.md#manual)
 * [Table block](noWord/plugins/TableBlock/manual.md#manual)
 * [Line block](noWord/plugins/LineBlock/manual.md#manual)
+* [Pre block](noWord/plugins/PreBlock/manual.md#manual)
 
 ### <a name="block_external"></a> External assets
 * [Image block](noWord/plugins/ImageBlock/manual.md#manual)

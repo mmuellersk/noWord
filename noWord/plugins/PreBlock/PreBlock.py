@@ -23,11 +23,12 @@ class PreBlock(PluginInterface):
 
     def process(self, block, context):
 
-        sys.stderr.write("PreBlock: process\n")
-
         # content element
         content = block['content']
 
-        text = cmn_utils_rp.resolveAllTokensForPre( context, content)
+        pretext = cmn_utils_rp.resolveAllTokensForPre( context, content)
         
-        return [text] 
+        content = []
+        content.append(pretext)
+
+        return content
