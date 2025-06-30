@@ -1,0 +1,23 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = meta.__name__
+version = meta.__version__
+authors = [
+  { name="Matthias Mueller", email="mmuellersk@gmail.com" },
+]
+description = meta.__description__
+readme = "README.md"
+requires-python = ">=3.9"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Operating System :: OS Independent",
+]
+license = "GNU"
+license-files = ["LICEN[CS]E*"]
+
+[project.urls]
+Homepage = "https://github.com/mmuellersk/noWord"
+Issues = "https://github.com/mmuellersk/noWord/issues"
