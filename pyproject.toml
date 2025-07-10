@@ -3,12 +3,18 @@ requires = ["hatchling >= 1.26"]
 build-backend = "hatchling.build"
 
 [project]
-name = meta.__name__
-version = meta.__version__
+name = "noWord"
+dynamic = ["version", "description"]
 authors = [
   { name="Matthias Mueller", email="mmuellersk@gmail.com" },
 ]
-description = meta.__description__
+
+[tool.hatch.version]
+path = "noWord/__init__.py"
+
+[tool.hatch.metadata]
+description = { path = "noWord/__init__.py", key = "__description__" }
+
 readme = "README.md"
 requires-python = ">=3.9"
 classifiers = [
