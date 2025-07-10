@@ -12,7 +12,7 @@ __author__ = 'Matthias Müller'
 
 __author_email__ = 'mmueller.sk@gmail.com'
 
-__license__ = 'GPL'
+__license__ = '	GPL-3.0-only'
 
 __platforms__ = 'Any'
 

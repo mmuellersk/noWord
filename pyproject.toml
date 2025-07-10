@@ -4,26 +4,39 @@ build-backend = "hatchling.build"
 
 [project]
 name = "noWord"
-dynamic = ["version", "description"]
-authors = [
-  { name="Matthias Mueller", email="mmuellersk@gmail.com" },
+dynamic = [
+  "version", 
+  "description", 
+  "readme", 
+  "requires-python", 
+  "license", 
+  "license-files", 
+  "authors", 
+  "classifiers", 
+  "urls", 
+  "scripts",
+  "dependencies"
+  ]
+
+[tool.hatch.metadata.hooks.custom]
+
+[tool.hatch.build]
+sources = ["noWord"]
+
+[tool.hatch.build.targets.sdist]
+include = [
+  "noWord/**",
+  "noWord/__init__.py",
+  "hatch_build.py",
+  "README.md",
+  "requirements.txt",
+  "LICENSE"
 ]
 
-[tool.hatch.version]
-path = "noWord/__init__.py"
-
-[tool.hatch.metadata]
-description = { path = "noWord/__init__.py", key = "__description__" }
-
-readme = "README.md"
-requires-python = ">=3.9"
-classifiers = [
-    "Programming Language :: Python :: 3",
-    "Operating System :: OS Independent",
+[tool.hatch.build.targets.wheel]
+include = [
+  "noWord/**"
 ]
-license = "GNU"
-license-files = ["LICEN[CS]E*"]
 
-[project.urls]
-Homepage = "https://github.com/mmuellersk/noWord"
-Issues = "https://github.com/mmuellersk/noWord/issues"
+[tool.hatch.build.targets.wheel.force-include]
+"noWord/__init__.py" = "noWord/__init__.py"
