@@ -20,23 +20,5 @@ dynamic = [
 
 [tool.hatch.metadata.hooks.custom]
 
-[tool.hatch.build]
-sources = ["noWord"]
-
 [tool.hatch.build.targets.sdist]
-include = [
-  "noWord/**",
-  "noWord/__init__.py",
-  "hatch_build.py",
-  "README.md",
-  "requirements.txt",
-  "LICENSE"
-]
-
-[tool.hatch.build.targets.wheel]
-include = [
-  "noWord/**"
-]
-
-[tool.hatch.build.targets.wheel.force-include]
-"noWord/__init__.py" = "noWord/__init__.py"
+include = ["noWord/**", "README.md", "LICENSE", "requirements.txt"]
