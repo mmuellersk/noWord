@@ -1,0 +1,24 @@
+[build-system]
+requires = ["hatchling >= 1.26"]
+build-backend = "hatchling.build"
+
+[project]
+name = "noWord"
+dynamic = [
+  "version", 
+  "description", 
+  "readme", 
+  "requires-python", 
+  "license", 
+  "license-files", 
+  "authors", 
+  "classifiers", 
+  "urls", 
+  "scripts",
+  "dependencies"
+  ]
+
+[tool.hatch.metadata.hooks.custom]
+
+[tool.hatch.build.targets.sdist]
+include = ["noWord/**", "README.md", "LICENSE", "requirements.txt"]
