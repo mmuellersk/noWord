@@ -19,6 +19,8 @@ from pdfrw.toreportlab import makerl
 import noWord.common as cmn
 from noWord.common.flowables.PDFImage import PDFImage
 
+from PIL import Image as PILImage, ExifTags
+
 
 allowedImages = [
     "image/jpeg",
@@ -181,8 +183,36 @@ def makeChapter(context, text, level, toc, numbered, sepChar, style, label=None)
     return content
 
 
+def orient_image(path, inplace=False):
+    with PILImage.open(path) as img:
+        try:
+            for orientation in ExifTags.TAGS.keys():
+                if ExifTags.TAGS[orientation] == 'Orientation':
+                    break
+            exif = img._getexif()
+            if exif and orientation in exif:
+                if exif[orientation] == 3:
+                    img = img.rotate(180, expand=True)
+                elif exif[orientation] == 6:
+                    img = img.rotate(270, expand=True)
+                elif exif[orientation] == 8:
+                    img = img.rotate(90, expand=True)
+        except (AttributeError, KeyError, IndexError):
+            # No EXIF data or Orientation tag
+            pass
+
+        # Save to the original image or a new one
+        if not inplace:
+            path = path.replace('.jpg', '_oriented.jpg')
+
+        img.save(path)
+        return path
+
+
 def getImage(filename, width, dummy=False):
     filename = os.path.normpath(filename)
+
+    filename = orient_image(filename, inplace=True)
 
     # The module only uses the file extension, it would be better to use python-magic but
     # this requires to install yet another module with pip. So this is sufficient for now.
