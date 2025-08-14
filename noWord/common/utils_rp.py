@@ -212,13 +212,12 @@ def orient_image(path, inplace=False):
 def getImage(filename, width, dummy=False):
     filename = os.path.normpath(filename)
 
-    filename = orient_image(filename, inplace=True)
-
     # The module only uses the file extension, it would be better to use python-magic but
     # this requires to install yet another module with pip. So this is sufficient for now.
     imageType = mime.guess_type(filename)[0]
 
     if imageType in allowedImages:
+        filename = orient_image(filename, inplace=True)
         orig = utils.ImageReader(filename)
         iw, ih = orig.getSize()
         aspect = ih / float(iw)
