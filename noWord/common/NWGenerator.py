@@ -105,7 +105,8 @@ class NWGenerator:
         if 'decorations' in self.context.docInfo:
             decorations = self.context.docInfo['decorations']
             for decoration in decorations:
-                self.doc.addDecoration(getattr(obj, decoration))
+                if hasattr(obj,decoration) :
+                    self.doc.addDecoration(getattr(obj, decoration))
 
     def prepareBlocks(self, blocks, context, path):
         for block in blocks:
