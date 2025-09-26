@@ -68,6 +68,7 @@ def makeList(context, items, numbered=False, start=1, itemSpace=6):
     content.append(ListFlowable([[item, Spacer(1, itemSpace)]
                                  for item in items[:-1]] + [items[-1]], **kwargs))
 
+    content.append(Spacer(1, 3))
     return content
 
 
