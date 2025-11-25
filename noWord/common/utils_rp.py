@@ -146,6 +146,27 @@ def makeTable(context, path, headers, lines, widths=[],
     content.append(table)
     return content
 
+
+def createAnchor(context, text, level, numbered, sepChar, label=None) :
+
+    finalText = context.processTextCmds(text)
+
+    numberLabel = ''
+
+    if numbered:
+        numberLabel = context.toc.renderChapterCounter(level, sepChar)
+        finalText = numberLabel + sepChar + ' ' + finalText
+    
+    if label:
+        anchor = {}
+        anchor['_name'] = label
+        anchor['_label'] = numberLabel
+        anchor['_text'] = finalText
+        if anchor['_name'] in context.anchors:
+            print("Warning: overwriting bookmark " + anchor['_name'])
+        context.anchors[label] = anchor
+
+
 def makeChapter(context, text, level, toc, numbered, sepChar, style, label=None):
     content = []
 
@@ -170,19 +191,14 @@ def makeChapter(context, text, level, toc, numbered, sepChar, style, label=None)
 
     result.append(chapter)
     result.append(Spacer(1, 12 if level == 0 else 6))
+
+    if label :
+        bookmark = Bookmark(label)
+        result.append(bookmark)
+        
     content.append(KeepTogether(result))
 
-    if label and numbered:
-        anchor = {}
-        anchor['_name'] = tocEntry._link
-        anchor['_label'] = numberLabel
-        anchor['_text'] = text
-        if anchor['_name'] in context.anchors:
-            print("Warning: overwriting bookmark " + anchor['_name'])
-        context.anchors[label] = anchor
-
     return content
-
 
 def orient_image(path, inplace=False):
     with PILImage.open(path) as img:

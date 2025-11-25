@@ -2,10 +2,8 @@
 import sys
 
 from reportlab.platypus import PageTemplate
-from reportlab.platypus import Flowable, Table, TableStyle, Spacer, Frame
-from reportlab.lib import utils
+from reportlab.platypus import Paragraph, Frame
 from reportlab.lib.units import cm, mm
-from reportlab.lib import colors
 from reportlab.lib.pagesizes import A3, A4, A5, A6, portrait, landscape
 
 
@@ -84,6 +82,13 @@ class NWDocument:
         self.availableDecorations = []
 
         self.availableTransformations = {}
+    
+    def paragraph(self, context, text, style=None):
+        if style is None:
+            style = self.styleSheet["BodyText"]
+        p = Paragraph(context.processTextCmds(text), style)
+        self.paragraphs.append(p)
+        return p
 
     def setStyleSheet(self, aStyleSheet):
         self.style = aStyleSheet
