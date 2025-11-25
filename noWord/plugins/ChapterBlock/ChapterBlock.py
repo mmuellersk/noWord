@@ -77,6 +77,9 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
+        cmn_utils_rp.createAnchor(context, title, level,
+                                numbered, self.sepChar, label)
+
     def process(self, block, context):
 
         # level element, default 1
