@@ -26,6 +26,10 @@ class ChapterBlock(PluginInterface):
             raise Exception(
                 'Chapter plugin failed during init: toc has already been initialized in context by another plugin')
 
+        # this TOC is used for the construction during prepare
+        # phase
+        context.tocPrepare = TOCBuilder()
+
         # this TOC is used for the final construction during processing
         # phase
         context.toc = TOCBuilder()
@@ -77,8 +81,7 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
-        cmn_utils_rp.createAnchor(context, title, level,
-                                numbered, self.sepChar, label)
+        cmn_utils_rp.createAnchor(context, title, numbered, level, self.sepChar, label)
 
     def process(self, block, context):
 
@@ -98,5 +101,4 @@ class ChapterBlock(PluginInterface):
         # label element, default None
         label = self.getElemValue(block, 'label', None)
 
-        return cmn_utils_rp.makeChapter(context, title, level, toc,
-                                numbered, self.sepChar, style, label)
+        return cmn_utils_rp.makeChapter(context, title, numbered, level, toc, self.sepChar, style, label)
