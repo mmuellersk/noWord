@@ -149,14 +149,12 @@ def makeTable(context, path, headers, lines, widths=[],
 
 def createAnchor(context, title, numbered, level, sepChar, label=None) :
 
-    finalText = context.processTextCmds(title)
+    finalText = title
     numberLabel = ''
 
     if numbered:
         numberLabel = context.tocPrepare.renderChapterCounter(level, sepChar)
         finalText = numberLabel + sepChar + ' ' + finalText
-    
-    print("prepare: " + finalText)
     
     if label:
         anchor = {}
@@ -177,8 +175,6 @@ def makeChapter(context, title, numbered, level, toc, sepChar, style, label=None
     if numbered:
         numberLabel = context.toc.renderChapterCounter(level, sepChar)
         finalText = numberLabel + sepChar + ' ' + finalText
-
-    print("process: " + finalText)
 
     tocEntry = context.toc.createTOCEntry(finalText, level)
 
