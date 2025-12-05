@@ -85,7 +85,7 @@ class NWDocument:
     
     def paragraph(self, context, text, style=None):
         if style is None:
-            style = self.styleSheet["BodyText"]
+            style = context.styleSheet["BodyText"]
         p = Paragraph(context.processTextCmds(text), style)
         self.paragraphs.append(p)
         return p
