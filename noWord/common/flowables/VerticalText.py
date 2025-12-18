@@ -1,4 +1,5 @@
 from reportlab.platypus import Flowable
+from reportlab.lib.units import cm, mm
 
 
 # This class is a workaround to be able to draw vertical text. It will directly draw on
