@@ -45,7 +45,7 @@ class ListBlock(PluginInterface):
                                       context.styleSheet["itemsInterSpace"])
 
         # style element, default 'BodyText'
-        styleName = self.getElemValue(block, 'style', 'ListText')
+        styleName = self.getElemValue(block, 'style', 'BodyText')
         style = context.styleSheet[styleName]
 
         items = []
