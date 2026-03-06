@@ -4,7 +4,7 @@
 
 __name__ = 'noWord'
 
-__version__ = '1.2.0'
+__version__ = '1.2.1'
 
 __description__ = 'non-WYSIWYG document generator'
 
