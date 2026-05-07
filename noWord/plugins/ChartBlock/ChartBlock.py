@@ -3,11 +3,11 @@ import os
 import sys
 sys.path.insert(0, '...')
 
+import reportlab
 
 from reportlab.platypus import Paragraph, Table, TableStyle, PageBreak
 from reportlab.graphics.shapes import Drawing
-from reportlab.graphics.charts.linecharts import HorizontalLineChart
-from reportlab.graphics.charts.barcharts import VerticalBarChart
+from reportlab.graphics.charts.linecharts import HorizontalLineChart, VerticalLineChart
 from reportlab.graphics.charts.lineplots import LinePlot
 from reportlab.graphics.charts.piecharts import Pie
 from reportlab.graphics.widgets.markers import makeMarker
@@ -98,6 +98,7 @@ class ChartBlock(PluginInterface):
         yAxisMin = block["yAxisMin"] if "yAxisMin" in block else None
         yAxisMax = block["yAxisMax"] if "yAxisMax" in block else None
         yAxisStep = block["yAxisStep"] if "yAxisStep" in block else None
+        yLabelFormat = block["yLabelFormat"] if "yLabelFormat" in block else None
         yValueGrid = block["yValueGrid"] if "yValueGrid" in block else None
         yValueGridColor = block["yValueGridColor"] if "yValueGridColor" in block else None
 
@@ -105,8 +106,15 @@ class ChartBlock(PluginInterface):
             return self.makeLineChart(context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
                                       labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
                                       yAxisMax, yAxisStep)
+
+        if mode == 'categorylinechart':
+            return self.makeCategoryLineChart(context, width, height, plotdata, xvalues, backgroundColor, borderColor, labelAngles,
+                                      labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
+                                      yAxisMax, yAxisStep, yLabelFormat)
+
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
+        
         if mode == 'plotchart':
             return self.makePlotChart(context, width, height, plotdata, xvalues, linecolors, 
                                         lineLabelFormat, yValueGrid, yValueGridColor, backgroundColor, borderColor, lineWidths, yAxisMin, yAxisMax)
@@ -192,6 +200,70 @@ class ChartBlock(PluginInterface):
         content.append( drawing )
 
         return content
+
+    def makeCategoryLineChart(self, context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
+                      labelXOffsets, labelYOffsets, lineColors, lineWidths, lineLabelFormat, yAxisMin, yAxisMax,
+                      yAxisStep, yLabelFormat):
+
+        content = []
+
+        drawing = Drawing(width, height)
+
+        print(reportlab.Version)
+
+        chart = HorizontalLineChart()
+        chart.x = 0
+        chart.y = 0
+        chart.height = height
+        chart.width = width
+        chart.data = data
+        chart.joinedLines = 1
+
+        if backgroundColor:
+            chart.fillColor = colors.HexColor(backgroundColor)
+
+        if borderColor:
+            chart.strokeColor = colors.HexColor(borderColor)
+
+        if yAxisMin is not None:
+            chart.valueAxis.valueMin = yAxisMin
+
+        if yAxisMax is not None:
+            chart.valueAxis.valueMax = yAxisMax
+
+        if yAxisStep:
+            chart.valueAxis.valueStep = yAxisStep
+        
+        if xvalues:
+            chart.categoryAxis.categoryNames = xvalues
+
+        if labelAngles is not None:
+            self.handleSingleOrList(chart.categoryAxis.labels, labelAngles, 'angle', len(data[0]))
+
+        if labelXOffsets is not None:
+            self.handleSingleOrList(chart.categoryAxis.labels, labelXOffsets, 'dx', len(data[0]))
+
+        if labelYOffsets is not None:
+            self.handleSingleOrList(chart.categoryAxis.labels, labelYOffsets, 'dy', len(data[0]))
+
+        if lineLabelFormat:
+            chart.lineLabelFormat = lineLabelFormat
+
+        if yLabelFormat :
+            chart.valueAxis.labelTextFormat = yLabelFormat
+
+        if lineColors:
+            self.handleSingleOrList(chart.lines, lineColors, 'strokeColor', len(data), colors.HexColor)
+
+        if lineWidths:
+            self.handleSingleOrList(chart.lines, lineWidths, 'strokeWidth', len(data))
+
+        drawing.add(chart)
+
+        content.append( drawing )
+
+        return content
+
 
     def makeBarChart(self, context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax):
         content = []
