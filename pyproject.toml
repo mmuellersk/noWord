@@ -1,11 +1,11 @@
 [build-system]
-requires = ["hatchling >= 1.26"]
+requires = ["hatchling >= 1.27"]
 build-backend = "hatchling.build"
 
 [project]
 name = "noWord"
+version = "1.2.1"
 dynamic = [
-  "version", 
   "description", 
   "readme", 
   "requires-python", 
