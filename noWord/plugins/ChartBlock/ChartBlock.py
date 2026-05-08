@@ -110,7 +110,7 @@ class ChartBlock(PluginInterface):
         if mode == 'categorylinechart':
             return self.makeCategoryLineChart(context, width, height, plotdata, xvalues, backgroundColor, borderColor, labelAngles,
                                       labelXOffsets, labelYOffsets, linecolors, lineWidths, lineLabelFormat, yAxisMin,
-                                      yAxisMax, yAxisStep, yLabelFormat)
+                                      yAxisMax, yAxisStep, yLabelFormat, yValueGrid, yValueGridColor)
 
         if mode == 'barchart':
             return self.makeBarChart(context, width, height, data, xvalues, barColors, strokeWidth, displayBarLabels, labelAngles, yAxisMin, yAxisMax)
@@ -203,7 +203,7 @@ class ChartBlock(PluginInterface):
 
     def makeCategoryLineChart(self, context, width, height, data, xvalues, backgroundColor, borderColor, labelAngles,
                       labelXOffsets, labelYOffsets, lineColors, lineWidths, lineLabelFormat, yAxisMin, yAxisMax,
-                      yAxisStep, yLabelFormat):
+                      yAxisStep, yLabelFormat, yValueGrid, yValueGridColor):
 
         content = []
 
@@ -257,6 +257,12 @@ class ChartBlock(PluginInterface):
 
         if lineWidths:
             self.handleSingleOrList(chart.lines, lineWidths, 'strokeWidth', len(data))
+        
+    
+        if yValueGrid is not None:
+            if yValueGrid == True :
+                chart.valueAxis.visibleGrid=1
+                chart.valueAxis.gridStrokeColor  = colors.HexColor(yValueGridColor)
 
         drawing.add(chart)
 
